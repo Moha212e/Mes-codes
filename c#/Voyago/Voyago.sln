@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voyago", "Voyago\Voyago.csproj", "{4D3FA028-90AA-4914-8C8C-866F6AA20762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShapeLibrary", "MyShapeLibrary\MyShapeLibrary.csproj", "{B52BDF9E-2D01-4A3B-9C62-F2187F50EE36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DaTa", "DaTa", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Voyago\Data\users.json = Voyago\Data\users.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackGround", "BackGround", "{8E97E523-0C7E-4496-9BFC-AD180D95ADC3}"
+	ProjectSection(SolutionItems) = preProject
+		Voyago\BackGround\airplane.png = Voyago\BackGround\airplane.png
+		Voyago\BackGround\beautiful-shot-silhouette-plane-flying-sky-sunrise.jpg = Voyago\BackGround\beautiful-shot-silhouette-plane-flying-sky-sunrise.jpg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImageTrip", "ImageTrip", "{BB0C7BEC-4793-4A41-8BC1-5271294E4AD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4D3FA028-90AA-4914-8C8C-866F6AA20762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3FA028-90AA-4914-8C8C-866F6AA20762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3FA028-90AA-4914-8C8C-866F6AA20762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3FA028-90AA-4914-8C8C-866F6AA20762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B52BDF9E-2D01-4A3B-9C62-F2187F50EE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B52BDF9E-2D01-4A3B-9C62-F2187F50EE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B52BDF9E-2D01-4A3B-9C62-F2187F50EE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B52BDF9E-2D01-4A3B-9C62-F2187F50EE36}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0B15BF75-F36D-4D00-B1D7-CB02D9BF395A}
+	EndGlobalSection
+EndGlobal

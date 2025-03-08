@@ -1,0 +1,90 @@
+<Window x:Class="Voyago.DashBoard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tableau de bord" WindowStartupLocation="CenterScreen"
+        Height="889" Width="1067" WindowState="Maximized" WindowStyle="None">
+
+    <Grid>
+        <!-- Image de fond -->
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\pro\Documents\c#\code\C\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <!-- Effet de flou -->
+        <Rectangle Opacity="0.3" Fill="#AAFFFFFF">
+            <Rectangle.Effect>
+                <BlurEffect Radius="25"/>
+            </Rectangle.Effect>
+        </Rectangle>
+
+        <DockPanel LastChildFill="True" Cursor="Hand" Margin="0,84,0,-84">
+            <Grid VerticalAlignment="Top">
+                <Border Background="#F9FAFB" BorderBrush="#5E81F0" BorderThickness="2" CornerRadius="20" Height="650" Margin="170,66,197,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="900">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Recherche de voyage" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,40,0,20" Foreground="#FF5E81F0"/>
+
+                        <TextBlock x:Name="UserNameTextBlock" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,20" Foreground="#5E81F0"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                            <StackPanel Margin="10">
+                                <Label Content="Destination" HorizontalAlignment="Left" FontSize="14"/>
+                                <TextBox x:Name="DestinationBox" Width="200" Height="35" BorderBrush="#5E81F0" BorderThickness="2"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="10">
+                                <Label Content="Prix Min" HorizontalAlignment="Left" FontSize="14"/>
+                                <TextBox x:Name="PriceMinBox" Width="100" Height="35" BorderBrush="#5E81F0" BorderThickness="2"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="10">
+                                <Label Content="Prix Max" HorizontalAlignment="Left" FontSize="14"/>
+                                <TextBox x:Name="PriceMaxBox" Width="100" Height="35" BorderBrush="#5E81F0" BorderThickness="2"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="10">
+                                <Label Content="Date" HorizontalAlignment="Left" FontSize="14"/>
+                                <DatePicker x:Name="DatePicker" Width="200" Height="35" BorderBrush="#5E81F0"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Bouton de recherche -->
+                        <Button Width="400" Height="60" Background="#5E81F0" Foreground="White" Content="Rechercher" HorizontalAlignment="Center" Margin="0,30,0,0" Click="SearchButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#5E81F0" CornerRadius="15" Padding="10" Opacity="0.9">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+
+                        <ListBox x:Name="ResultsListBox" Width="800" Height="250" Margin="20,30,20,20" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFFFFF" BorderBrush="#5E81F0" BorderThickness="2" SelectionChanged="ResultsListBox_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="10">
+                                        <Image Source="{Binding ImageUrl}" Width="100" Height="100" Margin="0,0,20,0"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="18" Foreground="#333333"/>
+                                            <TextBlock Text="{Binding Description}" FontSize="14" Foreground="#555555"/>
+                                            <TextBlock Text="{Binding Price}" FontSize="14" Foreground="#5E81F0"/>
+                                            <TextBlock Text="{Binding Date, StringFormat=dd/MM/yyyy}" FontSize="14" Foreground="#5E81F0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+
+
+        <Rectangle HorizontalAlignment="Center" Height="70" VerticalAlignment="Top" Fill="#5E81F0" Width="2000"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="Voyago" VerticalAlignment="Top" Height="70" Width="300" FontSize="52" Foreground="White" FontFamily="Segoe UI" FontWeight="Bold"/>
+        <TextBlock x:Name="UserNameTextBlock2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,20" Foreground="#5E81F0"/>
+        <MenuItem Header="Accueil" Click="HomeMenuItem_Click" VerticalAlignment="Top" Margin="0,0,0,20" Foreground="white"  HorizontalAlignment="Right"/>
+        <MenuItem Header="Deconnexio" Click="Deconnect" VerticalAlignment="Top" Margin="0,0,98,0" Foreground="white"  HorizontalAlignment="Right"/>
+
+    </Grid>
+</Window>

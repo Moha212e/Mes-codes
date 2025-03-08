@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c#\\code\\c\\c#\\c_sharps_labo\\myshapelibrary\\carre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\carre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4D85372C-3D33-4AF6-BC89-86DCF1290642}|Labo1\\Labo1.csproj|c:\\users\\pro\\documents\\c#\\code\\c\\c#\\c_sharps_labo\\labo1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4D85372C-3D33-4AF6-BC89-86DCF1290642}|Labo1\\Labo1.csproj|solutionrelative:labo1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c#\\code\\c\\c#\\c_sharps_labo\\myshapelibrary\\iestdans.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\iestdans.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c#\\code\\c\\c#\\c_sharps_labo\\myshapelibrary\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6FE450BF-FD64-4994-95FF-4A1A426CA5F1}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\rectangle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Carre.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\Carre.cs",
+              "RelativeDocumentMoniker": "MyShapeLibrary\\Carre.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\Carre.cs",
+              "RelativeToolTip": "MyShapeLibrary\\Carre.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T11:13:32.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IEstDans.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\IEstDans.cs",
+              "RelativeDocumentMoniker": "MyShapeLibrary\\IEstDans.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\IEstDans.cs",
+              "RelativeToolTip": "MyShapeLibrary\\IEstDans.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T11:04:53.963Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Rectangle.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\Rectangle.cs",
+              "RelativeDocumentMoniker": "MyShapeLibrary\\Rectangle.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\MyShapeLibrary\\Rectangle.cs",
+              "RelativeToolTip": "MyShapeLibrary\\Rectangle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T11:04:19.257Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\Labo1\\Program.cs",
+              "RelativeDocumentMoniker": "Labo1\\Program.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\c_sharps_labo\\Labo1\\Program.cs",
+              "RelativeToolTip": "Labo1\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T11:02:46.892Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
