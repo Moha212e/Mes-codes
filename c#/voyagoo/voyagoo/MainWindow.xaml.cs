@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -12,8 +6,6 @@ namespace Voyago
 {
     public partial class MainWindow : Window
     {
-        private const string UsersFilePath = @"Data\user.json";
-
         public MainWindow()
         {
             InitializeComponent();
@@ -30,20 +22,12 @@ namespace Voyago
         {
         }
 
-        private bool UserExists(string email, string password)
-        {
-            List<User> users = LoadUsers();
-            string hashedPassword = HashPassword(password);
-            return users.Exists(u => u.Email == email && u.Password == hashedPassword);
-        }
-
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
             string email = EmailBox.Text;
             string password = PasswordBox.Password;
 
-            List<User> users = LoadUsers();
-            User user = users.FirstOrDefault(u => u.Email == email && u.Password == HashPassword(password));
+            User user = User.GetUserByEmailAndPassword(email, password);
 
             if (user != null)
             {
@@ -66,27 +50,5 @@ namespace Voyago
                 MessageBox.Show("Email ou mot de passe incorrect.");
             }
         }
-
-        private List<User> LoadUsers()
-        {
-            if (!File.Exists(UsersFilePath))
-            {
-                return new List<User>();
-            }
-
-            string json = File.ReadAllText(UsersFilePath);
-            return JsonSerializer.Deserialize<List<User>>(json);
-        }
-
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(password);
-                byte[] hash = sha256.ComputeHash(bytes);
-                return BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
-        }
     }
-
 }

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShapeLibrary", "MyShapeLi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registry", "Registry\Registry.csproj", "{73B9565A-AD72-4C52-9BD4-68B1C4D47DF5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,10 +23,6 @@ Global
 		{6E048B4A-9862-468C-8F90-27C81B259325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E048B4A-9862-468C-8F90-27C81B259325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E048B4A-9862-468C-8F90-27C81B259325}.Release|Any CPU.Build.0 = Release|Any CPU
-		{73B9565A-AD72-4C52-9BD4-68B1C4D47DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{73B9565A-AD72-4C52-9BD4-68B1C4D47DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{73B9565A-AD72-4C52-9BD4-68B1C4D47DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{73B9565A-AD72-4C52-9BD4-68B1C4D47DF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

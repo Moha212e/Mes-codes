@@ -10,8 +10,6 @@ namespace Voyago
 {
     public partial class AddUserWindow : Window
     {
-        private const string UsersFilePath = "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\Voyago\\Voyago\\Data\\users.json";
-
         public AddUserWindow()
         {
             InitializeComponent();
@@ -32,65 +30,31 @@ namespace Voyago
                 return;
             }
 
-            List<User> users = LoadUsers();
-
-            if (users.Exists(u => u.Email == email))
-            {
-                MessageBox.Show("Un utilisateur avec cet email existe déjà.");
-                return;
-            }
-
-            // Hacher le mot de passe
-            string hashedPassword = HashPassword(password);
-
-            // Générer un id_user unique
-            string id_user = Guid.NewGuid().ToString();
-
-            users.Add(new User { id_user = id_user, Email = email, Password = hashedPassword, FirstName = firstName, LastName = lastName, IsAdmin = isAdmin });
-            if (SaveUsers(users))
-            {
-                MessageBox.Show("Utilisateur ajouté avec succès.");
-                DashBoardAdmin dashBoardAdmin = new DashBoardAdmin();
-                dashBoardAdmin.Show();
-                this.Close();
-            }
-        }
-
-        private List<User> LoadUsers()
-        {
-            if (!File.Exists(UsersFilePath))
-            {
-                return new List<User>();
-            }
-
-            string json = File.ReadAllText(UsersFilePath);
-            return JsonSerializer.Deserialize<List<User>>(json);
-        }
-
-        private bool SaveUsers(List<User> users)
-        {
             try
             {
-                string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(UsersFilePath, json);
-                return true;
+                User.Register(email, password, firstName, lastName , isAdmin);
+                MessageBox.Show("Inscription réussie !");
+                DashBoardAdmin dashboardAdmin = new DashBoardAdmin();
+                dashboardAdmin.Show();
+                this.Close();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show($"Erreur d'accès : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Erreur d'entrée/sortie : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erreur lors de l'enregistrement des utilisateurs : {ex.Message}");
-                return false;
+                MessageBox.Show($"Une erreur est survenue : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(password);
-                byte[] hash = sha256.ComputeHash(bytes);
-                return BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
-        }
+
+
+
 
         private void HomeMenuItem_Click(object sender, RoutedEventArgs e)
         {

@@ -7,7 +7,7 @@
     <Grid>
         <!-- Image de fond -->
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\pro\Documents\c#\code\C\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
         <!-- Effet de flou -->
@@ -58,7 +58,6 @@
                             </Button.Template>
                         </Button>
 
-
                         <ListBox x:Name="ResultsListBox" Width="800" Height="250" Margin="20,30,20,20" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFFFFF" BorderBrush="#5E81F0" BorderThickness="2" SelectionChanged="ResultsListBox_SelectionChanged">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -79,12 +78,10 @@
             </Grid>
         </DockPanel>
 
-
         <Rectangle HorizontalAlignment="Center" Height="70" VerticalAlignment="Top" Fill="#5E81F0" Width="2000"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,5,0,0" TextWrapping="Wrap" Text="Voyago" VerticalAlignment="Top" Height="70" Width="300" FontSize="52" Foreground="White" FontFamily="Segoe UI" FontWeight="Bold"/>
         <TextBlock x:Name="UserNameTextBlock2" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,20" Foreground="#5E81F0"/>
         <MenuItem Header="Accueil" Click="HomeMenuItem_Click" VerticalAlignment="Top" Margin="0,0,0,20" Foreground="white"  HorizontalAlignment="Right"/>
-        <MenuItem Header="Deconnexio" Click="Deconnect" VerticalAlignment="Top" Margin="0,0,98,0" Foreground="white"  HorizontalAlignment="Right"/>
-
+        <MenuItem Header="Deconnexion" Click="Deconnect" VerticalAlignment="Top" Margin="0,0,98,0" Foreground="white"  HorizontalAlignment="Right"/>
     </Grid>
 </Window>

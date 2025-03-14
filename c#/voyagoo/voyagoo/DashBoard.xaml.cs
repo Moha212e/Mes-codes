@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Microsoft.Win32;
+using MyShapeLibrary;
 
 namespace Voyago
 {
@@ -17,18 +17,16 @@ namespace Voyago
             InitializeComponent();
             this.lastName = lastName;
             paramManager = new MyAppParamManager();
-
             LoadUserSettings();
-            LoadUsers();
             DisplayUserName();
-            trips = LoadTrips();
+            trips = Trip.LoadTrips();
         }
 
         private void LoadUserSettings()
         {
             try
             {
-                paramManager.LoadRegistryParameters();
+                User.LoadUserSettings(paramManager);
                 DestinationBox.Text = paramManager.Destination ?? "";
                 PriceMinBox.Text = paramManager.PriceMin.ToString();
                 PriceMaxBox.Text = paramManager.PriceMax.ToString();
@@ -44,13 +42,7 @@ namespace Voyago
         {
             try
             {
-                // Ne pas enregistrer le lastName ici
-                paramManager.Destination = DestinationBox.Text ?? "";
-                paramManager.PriceMin = double.TryParse(PriceMinBox.Text, out double priceMin) ? priceMin : 0;
-                paramManager.PriceMax = double.TryParse(PriceMaxBox.Text, out double priceMax) ? priceMax : 0;
-                paramManager.TravelDate = DatePicker.SelectedDate ?? DateTime.Now;
-
-                paramManager.SaveRegistryParameters();
+                User.SaveUserSettings(paramManager, DestinationBox.Text, PriceMinBox.Text, PriceMaxBox.Text, DatePicker.SelectedDate);
             }
             catch (Exception ex)
             {
@@ -58,17 +50,6 @@ namespace Voyago
             }
         }
 
-        private List<Trip>? LoadTrips()
-        {
-            const string TripsFilePath = "Data/trips.json";
-            if (!System.IO.File.Exists(TripsFilePath))
-            {
-                return new List<Trip>();
-            }
-
-            string json = System.IO.File.ReadAllText(TripsFilePath);
-            return System.Text.Json.JsonSerializer.Deserialize<List<Trip>>(json);
-        }
 
 
         private void Deconnect(object sender, RoutedEventArgs e)
@@ -82,18 +63,6 @@ namespace Voyago
         private void DisplayUserName()
         {
             UserNameTextBlock.Text = $"Bienvenue, {lastName}";  // Juste l'afficher, ne pas le sauvegarder
-        }
-
-        private List<User> LoadUsers()
-        {
-            const string UsersFilePath = "Data/users.json";
-            if (!System.IO.File.Exists(UsersFilePath))
-            {
-                return new List<User>();
-            }
-
-            string json = System.IO.File.ReadAllText(UsersFilePath);
-            return System.Text.Json.JsonSerializer.Deserialize<List<User>>(json);
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -128,14 +97,12 @@ namespace Voyago
             SaveUserSettings();
             base.OnClosing(e);
         }
-    }
 
-    public class Trip
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public int Price { get; set; }
-        public DateTime Date { get; set; }
-        public string ImageUrl { get; set; }
+        private void HomeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DashBoard dashBoard = new DashBoard(lastName);
+            dashBoard.Show();
+            this.Close();
+        }
     }
 }

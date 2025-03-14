@@ -8,7 +8,7 @@
     <Grid>
         <!-- Image de fond -->
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\pro\Documents\c#\code\C\c#\Voyago\Voyago\BackGround\beautiful-shot-silhouette-plane-flying-sky-sunrise.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
         <!-- Effet de flou -->

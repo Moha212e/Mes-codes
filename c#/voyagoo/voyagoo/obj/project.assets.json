@@ -11,16 +11,6 @@
         "runtime": {
           "bin/placeholder/MyShapeLibrary.dll": {}
         }
-      },
-      "Registry/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "compile": {
-          "bin/placeholder/Registry.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Registry.dll": {}
-        }
       }
     }
   },
@@ -29,17 +19,11 @@
       "type": "project",
       "path": "../MyShapeLibrary/MyShapeLibrary.csproj",
       "msbuildProject": "../MyShapeLibrary/MyShapeLibrary.csproj"
-    },
-    "Registry/1.0.0": {
-      "type": "project",
-      "path": "../Registry/Registry.csproj",
-      "msbuildProject": "../Registry/Registry.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
-      "MyShapeLibrary >= 1.0.0",
-      "Registry >= 1.0.0"
+      "MyShapeLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -49,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\voyagoo\\voyagoo.csproj",
+      "projectUniqueName": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\voyagoo.csproj",
       "projectName": "voyagoo",
-      "projectPath": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\voyagoo\\voyagoo.csproj",
+      "projectPath": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\voyagoo.csproj",
       "packagesPath": "C:\\Users\\pro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\voyagoo\\obj\\",
+      "outputPath": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -74,11 +58,8 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\MyShapeLibrary\\MyShapeLibrary.csproj": {
-              "projectPath": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\MyShapeLibrary\\MyShapeLibrary.csproj"
-            },
-            "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\Registry\\Registry.csproj": {
-              "projectPath": "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\voyagoo\\Registry\\Registry.csproj"
+            "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\MyShapeLibrary.csproj": {
+              "projectPath": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\MyShapeLibrary.csproj"
             }
           }
         }

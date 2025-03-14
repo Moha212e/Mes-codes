@@ -1,0 +1,12 @@
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\bin\Debug\net8.0\Registry.deps.json
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\bin\Debug\net8.0\Registry.dll
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\bin\Debug\net8.0\Registry.pdb
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.AssemblyInfoInputs.cache
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.AssemblyInfo.cs
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.csproj.CoreCompileInputs.cache
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.sourcelink.json
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.dll
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\refint\Registry.dll
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\Registry.pdb
+C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\Registry\obj\Debug\net8.0\ref\Registry.dll

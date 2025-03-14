@@ -7,7 +7,7 @@
     <Grid>
         <!-- Image de fond -->
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\pro\Documents\c#\code\C\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
         <Rectangle Opacity="0.5" Fill="#AAFFFFFF">

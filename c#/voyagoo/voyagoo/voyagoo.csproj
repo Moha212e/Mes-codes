@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyShapeLibrary\MyShapeLibrary.csproj" />
-    <ProjectReference Include="..\Registry\Registry.csproj" />
   </ItemGroup>
 
 </Project>

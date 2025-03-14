@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
+using MyShapeLibrary;
 
 namespace Voyago
 {
     public partial class AllUserWindow : Window
     {
-        private const string UsersFilePath = "C:\\Users\\pro\\Documents\\c#\\code\\C\\c#\\Voyago\\Voyago\\Data\\users.json";
         private List<User> users;
 
         public AllUserWindow()
@@ -19,13 +19,13 @@ namespace Voyago
 
         private void LoadUsers()
         {
-            if (!File.Exists(UsersFilePath))
+            if (!File.Exists(User.UsersFilePath))
             {
                 MessageBox.Show("Le fichier des utilisateurs n'existe pas.");
                 return;
             }
 
-            string json = File.ReadAllText(UsersFilePath);
+            string json = File.ReadAllText(User.UsersFilePath);
             if (string.IsNullOrWhiteSpace(json))
             {
                 MessageBox.Show("Le fichier des utilisateurs est vide.");
@@ -45,7 +45,7 @@ namespace Voyago
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(UsersFilePath, json);
+            File.WriteAllText(User.UsersFilePath, json);
             MessageBox.Show("Modifications enregistrées avec succès.");
         }
         private void HomeMenuItem_Click(object sender, RoutedEventArgs e)

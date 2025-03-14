@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -11,11 +8,10 @@ namespace Voyago
 {
     public partial class RegisterWindow : Window
     {
-        private const string UsersFilePath = @"Data\user.json";
         public RegisterWindow()
         {
             InitializeComponent();
-            EnsureDataDirectoryExists();
+            User.EnsureDataDirectoryExists();
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -25,33 +21,47 @@ namespace Voyago
             string confirmPassword = ConfirmPasswordBox.Password;
             string firstName = FirstNameBox.Text;
             string lastName = LastNameBox.Text;
+            bool isAdmin = false;
 
-            if (password != confirmPassword)
+            if (password != confirmPassword )
             {
                 MessageBox.Show("Les mots de passe ne correspondent pas.");
                 return;
             }
 
-            List<User> users = LoadUsers();
-
-            if (users.Exists(u => u.Email == email))
+            if (!User.IsValidEmail(email))
             {
-                MessageBox.Show("Un utilisateur avec cet email existe déjà.");
+                MessageBox.Show("Email invalide.");
                 return;
             }
 
-            // Hacher le mot de passe
-            string hashedPassword = HashPassword(password);
+            if (!User.IsValidPassword(password))
+            {
+                MessageBox.Show("❌ Mot de passe invalide.\n\n🔒 Règles :\n- Minimum 8 caractères\n- Au moins une majuscule\n- Au moins un chiffre", "Erreur de validation");
+                return;
+            }
+            
 
-            // Générer un id_user unique
-            string id_user = Guid.NewGuid().ToString();
-
-            users.Add(new User { id_user = id_user, Email = email, Password = hashedPassword, FirstName = firstName, LastName = lastName, IsAdmin = false });
-            SaveUsers(users);
-
-            DashBoard dashboard = new DashBoard(lastName);
-            dashboard.Show();
-            this.Close();
+            try
+            {
+                User.Register(email, password, firstName, lastName,isAdmin);
+                MessageBox.Show("Inscription réussie !");
+                DashBoard dashboard = new DashBoard(lastName);
+                dashboard.Show();
+                this.Close();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show($"Erreur d'accès : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Erreur d'entrée/sortie : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Une erreur est survenue : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void NavigateToLogin(object sender, MouseButtonEventArgs e)
@@ -61,40 +71,5 @@ namespace Voyago
             this.Close();
         }
 
-        private List<User> LoadUsers()
-        {
-            if (!File.Exists(UsersFilePath))
-            {
-                return new List<User>();
-            }
-
-            string json = File.ReadAllText(UsersFilePath);
-            return JsonSerializer.Deserialize<List<User>>(json);
-        }
-
-        private void SaveUsers(List<User> users)
-        {
-            string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(UsersFilePath, json);
-        }
-
-        private void EnsureDataDirectoryExists()
-        {
-            string directory = Path.GetDirectoryName(UsersFilePath);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-        }
-
-        private string HashPassword(string password)
-        {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(password);
-                byte[] hash = sha256.ComputeHash(bytes);
-                return BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
-        }
     }
 }

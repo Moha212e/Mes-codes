@@ -1,0 +1,74 @@
+<Window x:Class="Voyago.AddTripWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter un voyage" WindowStartupLocation="CenterScreen"
+        Height="889" Width="1067"  WindowStyle="None">
+
+    <Grid>
+        <!-- Image de fond -->
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\pro\Documents\C\Mes-codes\c#\voyagoo\voyagoo\ImagesFond\images.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <!-- Effet de flou -->
+        <Rectangle Opacity="0.5" Fill="#AAFFFFFF">
+            <Rectangle.Effect>
+                <BlurEffect Radius="15"/>
+            </Rectangle.Effect>
+        </Rectangle>
+
+        <!-- Barre de navigation -->
+        <DockPanel LastChildFill="True" Margin="0,84,0,-84">
+
+            <Grid VerticalAlignment="Top">
+                <Border Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="10" Height="580" Margin="170,66,197,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <!-- Titre -->
+                        <TextBlock Text="Ajouter un voyage" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,30,0,20"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" RenderTransformOrigin="0.505,0.649" VerticalAlignment="Center">
+                            <StackPanel Margin="10">
+                                <Label Content="Nom du voyage" HorizontalAlignment="Left" FontSize="14"/>
+                                <TextBox x:Name="NameBox" Width="180" Height="35" BorderBrush="Gray" BorderThickness="1"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="10">
+                                <Label Content="Description" HorizontalAlignment="Left" FontSize="14"/>
+                                <TextBox x:Name="DescriptionBox" Width="180" Height="35" BorderBrush="Gray" BorderThickness="1"/>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Champs Prix -->
+                        <Label Content="Prix" HorizontalAlignment="Center"/>
+                        <TextBox x:Name="PriceBox" Width="350" Height="37" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                        <!-- Champs Date -->
+                        <Label Content="Date" HorizontalAlignment="Center"/>
+                        <DatePicker x:Name="DatePicker" Width="350" Height="37" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                        <Label Content="glissez deposez une image ici" HorizontalAlignment="Center"/>
+                        <Border x:Name="ImageDropArea" BorderBrush="Gray" BorderThickness="2" Padding="10" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="60">
+                            <TextBlock Text="glissez deposez une image ici" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <Button Width="350" Height="52" Background="#FF5E81F0" Content="Ajouter" HorizontalAlignment="Center" Margin="0,20,0,0" Click="AddTripButton_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#FF5E81F0" CornerRadius="10" Padding="10">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+
+        <Rectangle HorizontalAlignment="Center" Height="60" VerticalAlignment="Top" Fill="#FF5E81F0" Width="2000" Cursor=""/>
+        <TextBlock HorizontalAlignment="Left" Margin="1,-5,0,0" TextWrapping="Wrap" Text="Voyago" VerticalAlignment="Top" Height="57" Width="204" FontSize="48" Foreground="White" FontFamily="Times New Roman"/>
+
+        <MenuItem Header="Accueil" Click="HomeMenuItem_Click" VerticalAlignment="Top" Margin="0,0,0,20" Foreground="white" HorizontalAlignment="Right"/>
+        <MenuItem Header="Deconnexion" Click="Deconnect" VerticalAlignment="Top" Margin="0,0,98,0" Foreground="white" HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

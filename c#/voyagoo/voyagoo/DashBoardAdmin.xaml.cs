@@ -11,46 +11,69 @@ namespace Voyago
     {
         public object NameTextBox { get; private set; }
 
+        #region Constructeur
         public DashBoardAdmin()
         {
             InitializeComponent();
         }
-        public class Trip
-        {
-            public string Name { get; set; } = string.Empty;
-            public string Description { get; set; } = string.Empty;
-            public decimal Price { get; set; }
-            public string ImageUrl { get; set; } = string.Empty;
-            public string Date { get; set; } = string.Empty;
-        }
-        // fait la fonction AddButton_Click
+        #endregion
+
+        #region Gestionnaires d'événements
+
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Ajouter.
+        /// </summary>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            // Code pour AddButton_Click
             
         }
+
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Modifier Utilisateur.
+        /// Ouvre la fenêtre AllUserWindow et ferme la fenêtre actuelle.
+        /// </summary>
         private void EditUser_Click(object sender, RoutedEventArgs e)
         {
-            // fait la fonction EditUser_Click
             AllUserWindow allUserWindow = new AllUserWindow();
             allUserWindow.Show();
             this.Close();
         }
+
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Ajouter Utilisateur.
+        /// Ouvre la fenêtre AddUserWindow et ferme la fenêtre actuelle.
+        /// </summary>
         private void AddUser_Click(object sender, RoutedEventArgs e)
         {
-            // fait la fonction DeleteUser_Click
             AddUserWindow addUserWindow = new AddUserWindow();
             addUserWindow.Show();
             this.Close();
         }
 
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Modifier Voyage.
+        /// </summary>
         private void EditTrip_Click(object sender, RoutedEventArgs e)
         {
-
+            // Code pour EditTrip_Click
         }
+
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Ajouter Voyage.
+        /// </summary>
         private void AddTrip_Click(object sender, RoutedEventArgs e)
         {
-            // fait la fonction AddTrip_Click
+            // Code pour AddTrip_Click
+            AddTripWindow addTripWindow = new AddTripWindow();
+            addTripWindow.Show();
+            this.Close();
         }
+
+        /// <summary>
+        /// Gère l'événement de clic sur l'élément de menu Accueil.
+        /// Ouvre une nouvelle instance de DashBoardAdmin et ferme la fenêtre actuelle.
+        /// </summary>
         private void HomeMenuItem_Click(object sender, RoutedEventArgs e)
         {
             DashBoardAdmin dashBoardAdmin = new DashBoardAdmin();
@@ -58,6 +81,10 @@ namespace Voyago
             this.Close();
         }
 
+        /// <summary>
+        /// Gère l'événement de clic sur le bouton Déconnexion.
+        /// Réinitialise la session et navigue vers la fenêtre MainWindow.
+        /// </summary>
         private void Deconnect(object sender, RoutedEventArgs e)
         {
             // Réinitialiser les informations de session
@@ -68,8 +95,7 @@ namespace Voyago
             mainWindow.Show();
             this.Close();
         }
+
+        #endregion
     }
-
-
-
 }

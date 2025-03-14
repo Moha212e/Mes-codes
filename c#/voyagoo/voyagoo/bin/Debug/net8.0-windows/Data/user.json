@@ -1,10 +1,26 @@
 [
   {
-    "id_user": "a77641a5-11bd-4cc3-898a-8dc2a378d10f",
-    "Email": "MohammedElaouali@gmail.com",
-    "Password": "3100486406b39efc3f3d3565bc97cc3b9e2d7b6e3427b194f4442ef4beb05b41",
+    "id_user": "90f27453-de6c-46ee-9d0d-eb43eecd4cb3",
+    "Email": "Mohammedelaouali1@gmail.com",
+    "Password": "5a2e34247136fc4368a8aa0c0d6c368b5ee1602b8cd317db75a31277531fba6a",
     "LastName": "Elaouali",
     "FirstName": "Mohammed",
-    "IsAdmin": false
+    "IsAdmin": true
+  },
+  {
+    "id_user": "c94316a4-c8a1-45ff-ac72-553813f407d2",
+    "Email": "zaf@gmail.com",
+    "Password": "212f74f8dd5f5702a6f593a14c76dfba70b943dc40b9b1d0a0ed7c9c23fd1632",
+    "LastName": "zaf",
+    "FirstName": "zaf",
+    "IsAdmin": true
+  },
+  {
+    "id_user": "c4f26ea4-ffcd-45e5-9a56-dcf645705b3a",
+    "Email": "D@gmail.com",
+    "Password": "e95e8a891cb8646b6625b4e69079f5998ec1609f33549d8b6860e3192ab4fb67",
+    "LastName": "Donika ",
+    "FirstName": "Donika",
+    "IsAdmin": true
   }
 ]
