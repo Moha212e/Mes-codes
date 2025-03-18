@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("voyagoo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9da58f9cbd9576af424bd3adc42475bcd23728d1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ce376ac01a560f643d1cf674e86cd7fb086a9f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("voyagoo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("voyagoo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
