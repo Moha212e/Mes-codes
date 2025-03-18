@@ -22,5 +22,21 @@
     "LastName": "Donika ",
     "FirstName": "Donika",
     "IsAdmin": true
+  },
+  {
+    "id_user": "e3df9adf-736d-49f4-8f7d-df39a213b8c8",
+    "Email": "sara@gmail.com",
+    "Password": "32d8b6085325e5d9985cb847d1ba2617495a6731cafbe1d6c0a0bf76bec40766",
+    "LastName": "saea",
+    "FirstName": "sara",
+    "IsAdmin": true
+  },
+  {
+    "id_user": "e9b4ab75-3a9c-4d60-8454-2f458b3f703a",
+    "Email": "abdo@gmail.com",
+    "Password": "5a2e34247136fc4368a8aa0c0d6c368b5ee1602b8cd317db75a31277531fba6a",
+    "LastName": "abdo",
+    "FirstName": "abdo",
+    "IsAdmin": false
   }
 ]

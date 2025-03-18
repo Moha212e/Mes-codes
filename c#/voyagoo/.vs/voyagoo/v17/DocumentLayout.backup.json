@@ -3,32 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\dashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\dashboard.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\alluserwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\alluserwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\dashboard.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\alluserwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\alluserwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\adduserwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\adduserwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\addtripwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\addtripwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\voyagoo\\registerwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{83A81208-FBD6-4C54-B5A4-74D8A84F68C0}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\registerwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\myshapelibrary\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\myshapelibrary\\panier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\panier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\myshapelibrary\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\myshapelibrary\\sessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\sessionmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|c:\\users\\pro\\documents\\c\\mes-codes\\c#\\voyagoo\\myshapelibrary\\myappparammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6E048B4A-9862-468C-8F90-27C81B259325}|MyShapeLibrary\\MyShapeLibrary.csproj|solutionrelative:myshapelibrary\\myappparammanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,75 +42,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 309,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DashBoard.xaml",
-              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\DashBoard.xaml",
-              "RelativeDocumentMoniker": "voyagoo\\DashBoard.xaml",
-              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\DashBoard.xaml",
-              "RelativeToolTip": "voyagoo\\DashBoard.xaml",
+              "Title": "AllUserWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AllUserWindow.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\AllUserWindow.xaml",
+              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AllUserWindow.xaml",
+              "RelativeToolTip": "voyagoo\\AllUserWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-12T15:39:24.7Z"
+              "WhenOpened": "2025-03-14T09:37:06.026Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "DashBoard.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\DashBoard.xaml.cs",
-              "RelativeDocumentMoniker": "voyagoo\\DashBoard.xaml.cs",
-              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\DashBoard.xaml.cs",
-              "RelativeToolTip": "voyagoo\\DashBoard.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAlAAAAAAAAAA==",
+              "Title": "AllUserWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AllUserWindow.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\AllUserWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AllUserWindow.xaml.cs",
+              "RelativeToolTip": "voyagoo\\AllUserWindow.xaml.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAmwDIAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T15:39:04.707Z",
+              "WhenOpened": "2025-03-14T09:36:56.007Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RegisterWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\RegisterWindow.xaml.cs",
-              "RelativeDocumentMoniker": "voyagoo\\RegisterWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\RegisterWindow.xaml.cs",
-              "RelativeToolTip": "voyagoo\\RegisterWindow.xaml.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAIwDMAAAANAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "AddUserWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AddUserWindow.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\AddUserWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AddUserWindow.xaml.cs",
+              "RelativeToolTip": "voyagoo\\AddUserWindow.xaml.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAABYAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T15:13:43.775Z"
+              "WhenOpened": "2025-03-12T19:42:39.514Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "AddTripWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AddTripWindow.xaml.cs",
               "RelativeDocumentMoniker": "voyagoo\\AddTripWindow.xaml.cs",
               "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\voyagoo\\AddTripWindow.xaml.cs",
               "RelativeToolTip": "voyagoo\\AddTripWindow.xaml.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAowE4AAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAmwDwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T15:11:51.127Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Panier.cs",
-              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\Panier.cs",
-              "RelativeDocumentMoniker": "MyShapeLibrary\\Panier.cs",
-              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\Panier.cs",
-              "RelativeToolTip": "MyShapeLibrary\\Panier.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T15:11:41.852Z"
+              "WhenOpened": "2025-03-12T19:42:28.974Z"
             },
             {
               "$type": "Document",
@@ -116,21 +104,45 @@
               "RelativeDocumentMoniker": "MyShapeLibrary\\User.cs",
               "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\User.cs",
               "RelativeToolTip": "MyShapeLibrary\\User.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAQwHYAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAswAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T13:24:31.159Z"
+              "WhenOpened": "2025-03-12T19:42:24.305Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "Trip.cs",
               "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\Trip.cs",
               "RelativeDocumentMoniker": "MyShapeLibrary\\Trip.cs",
               "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\Trip.cs",
               "RelativeToolTip": "MyShapeLibrary\\Trip.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAkwCIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T13:22:17.745Z"
+              "WhenOpened": "2025-03-12T19:42:00.831Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SessionManager.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\SessionManager.cs",
+              "RelativeDocumentMoniker": "MyShapeLibrary\\SessionManager.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\SessionManager.cs",
+              "RelativeToolTip": "MyShapeLibrary\\SessionManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-12T19:41:53.586Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MyAppParamManager.cs",
+              "DocumentMoniker": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\MyAppParamManager.cs",
+              "RelativeDocumentMoniker": "MyShapeLibrary\\MyAppParamManager.cs",
+              "ToolTip": "C:\\Users\\pro\\Documents\\C\\Mes-codes\\c#\\voyagoo\\MyShapeLibrary\\MyAppParamManager.cs",
+              "RelativeToolTip": "MyShapeLibrary\\MyAppParamManager.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAcwFAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-12T19:41:33.768Z"
             }
           ]
         }

@@ -57,7 +57,7 @@ namespace Voyago
 
         private void Deconnect(object sender, RoutedEventArgs e)
         {
-            // Réinitialiser les informations de session
+            // Réinitialiser les informations de session 
             SessionManager.ClearSession();
 
             // Naviguer vers la fenêtre de connexion

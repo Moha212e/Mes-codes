@@ -1,0 +1,28 @@
+﻿<Window x:Class="WPFApplicationLabo3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestion des Carrés" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- DataGrid pour afficher la liste des carrés -->
+        <DataGrid Grid.Row="0" ItemsSource="{Binding ListeCarres}" SelectedItem="{Binding CurrentCarre, Mode=TwoWay}" AutoGenerateColumns="True" Margin="10"/>
+
+        <!-- Détails du carré sélectionné -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Longueur du côté:"/>
+            <TextBox Text="{Binding CurrentCarre.Cote, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10"/>
+            <Slider Minimum="1" Maximum="100" Value="{Binding CurrentCarre.Cote, Mode=TwoWay}" Margin="0,5,0,10"/>
+        </StackPanel>
+
+        <!-- Bouton pour ajouter un carré -->
+        <Button Grid.Row="2" Content="Ajouter Carré" Click="AjouterCarre_Click" Margin="10" HorizontalAlignment="Left"/>
+
+        <!-- Label pour afficher le nombre de carrés -->
+        <Label Grid.Row="2" Content="{Binding ListeCarres.Count}" FontSize="50" HorizontalAlignment="Right" Margin="10"/>
+    </Grid>
+</Window>
