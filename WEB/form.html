@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice Formulaire</title>
+    <style>
+        body {
+            width: 50%;
+            min-width: 400px;
+            margin: 25px auto;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+
+        input, textarea, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #feedbackMessage {
+            margin-top: 10px;
+            font-size: 1.2em;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const feedbackMessage = document.getElementById('feedbackMessage');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                let isValid = true;
+                let messageContent = '';
+
+                if (name.length < 3) {
+                    isValid = false;
+                    messageContent += 'Le nom doit contenir au moins 3 caractères. ';
+                }
+
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    isValid = false;
+                    messageContent += 'L\'email doit être valide. ';
+                }
+
+                if (message === '') {
+                    isValid = false;
+                    messageContent += 'Le message ne doit pas être vide. ';
+                }
+
+                if (isValid) {
+                    feedbackMessage.textContent = 'Formulaire envoyé avec succès !';
+                    feedbackMessage.className = 'success';
+                    form.reset();
+                    setTimeout(() => {
+                        feedbackMessage.textContent = '';
+                    }, 5000);
+                } else {
+                    feedbackMessage.textContent = messageContent;
+                    feedbackMessage.className = 'error';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Exercice Formulaire</h1>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Nom" />
+        <input type="text" id="email" placeholder="Email" />
+        <textarea id="message" placeholder="Message"></textarea>
+        <button type="submit">Envoyer</button>
+    </form>
+    <p id="feedbackMessage"></p>
+</body>
+</html>
