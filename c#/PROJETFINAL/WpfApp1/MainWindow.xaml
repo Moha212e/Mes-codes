@@ -5,37 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">    
+        Title="MainWindow" Height="450" Width="800"
+        SizeToContent="Manual" WindowStartupLocation="CenterScreen">
     <Grid>
         <!-- Image de fond -->
-        <Image Source="C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\Images\Designer.jpeg" Stretch="Fill" Panel.ZIndex="-1"/>
+        <Image Source="C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\Images\Designer.jpeg" 
+               Stretch="Fill"
+               Panel.ZIndex="-1"/>
 
-        <!-- Carte de connexion -->
-        <Border CornerRadius="20" Background="White"
-                HorizontalAlignment="Center" VerticalAlignment="Center"
-                Width="Auto" Height="Auto"
-                Padding="20">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
+        <!-- Viewbox pour rendre le contenu responsive -->
+        <Viewbox Stretch="Uniform">
+            <Grid Width="800" Height="450">
+                <!-- Carte de connexion -->
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="50">
+                    <Border CornerRadius="20" Background="White"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Padding="20" MinWidth="300" MinHeight="200">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
 
-                <!-- Logo -->
-                <Border CornerRadius="60" Width="220" HorizontalAlignment="Center"  ClipToBounds="True">
+                            <!-- Logo -->
+                            <Border CornerRadius="60" HorizontalAlignment="Center" ClipToBounds="True">
+                                <Image Source="C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\Images\logo.jpeg"
+                                       HorizontalAlignment="Center"
+                                       Stretch="Uniform"/>
+                            </Border>
 
-                    <Image Source="C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\Images\Logo.jpeg"    Width="360"   HorizontalAlignment="Left" Margin="-58,-5,0,0" Stretch="Fill" Height="258" VerticalAlignment="Top"/>
-                </Border>
-                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
-                    <TextBlock Text="Connexion" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Email" Margin="5,10,0,0"/>
-                    <TextBox Width="180" Height="25"/>
-                    <TextBlock Text="Mot de passe" Margin="5,10,0,0"/>
-                    <PasswordBox Width="180" Height="25"/>
-                    <Button Content="Se connecter" Width="180" Height="30" Background="DodgerBlue" Foreground="White" Margin="10,10,0,0"/>
-                    <TextBlock Text="Pas de compte ?" FontSize="12" HorizontalAlignment="Center" Margin="5"/>
-                </StackPanel>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
+                                <TextBlock Text="Connexion" FontSize="22" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                                <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
+                                <TextBox Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <TextBlock Text="Mot de passe" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
+                                <PasswordBox Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <Button Content="Se connecter" Height="35" Background="DodgerBlue" Foreground="White" FontSize="14" FontWeight="Bold" Margin="10,10,0,0"
+                                        HorizontalAlignment="Stretch" FontFamily="Segoe UI"/>
+                                <Button Content="Pas de compte ?" Height="30" Background="Transparent" Foreground="DodgerBlue" FontSize="12" FontWeight="Medium" BorderThickness="0" Cursor="Hand"
+                                        HorizontalAlignment="Center" FontFamily="Segoe UI" Click="Button_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
             </Grid>
-        </Border>
+        </Viewbox>
     </Grid>
 </Window>

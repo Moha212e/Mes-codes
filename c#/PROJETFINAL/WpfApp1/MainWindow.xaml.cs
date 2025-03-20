@@ -20,4 +20,13 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        // lien pour inscription pour la page register.xaml
+        Register register = new Register();
+        register.Show();
+        this.Close();
+
+    }
 }
