@@ -32,17 +32,17 @@
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
                                 <TextBlock Text="Inscription" FontSize="22" FontWeight="Bold" Foreground="Black" HorizontalAlignment="Center" FontFamily="Segoe UI"/>
                                 <TextBlock Text="Email" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
-                                <TextBox Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <TextBox x:Name="Email" Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
                                 <TextBlock Text="Mot de passe" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
-                                <PasswordBox Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <PasswordBox x:Name="Password" Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
                                 <TextBlock Text="Confirmez le mot de passe" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
-                                <PasswordBox Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <PasswordBox x:Name="PasswordCo" Height="30" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
                                 <TextBlock Text="Date de naissance" FontSize="14" FontWeight="SemiBold" Foreground="Gray" Margin="5,10,0,0" FontFamily="Segoe UI"/>
-                                <DatePicker HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
+                                <DatePicker x:Name="DateNaissance" HorizontalAlignment="Stretch" FontSize="14" FontFamily="Segoe UI"/>
                                 <Button Content="S'inscrire" Height="35" Background="DodgerBlue" Foreground="White" FontSize="14" FontWeight="Bold" Margin="10,10,0,0"
-                                        HorizontalAlignment="Stretch" FontFamily="Segoe UI"/>
+                                        HorizontalAlignment="Stretch" FontFamily="Segoe UI" Click="register_User"/>
                                 <Button Content="Deja un compte ?" Height="30" Background="Transparent" Foreground="DodgerBlue" FontSize="12" FontWeight="Medium" BorderThickness="0" Cursor="Hand"
-                                        HorizontalAlignment="Center" FontFamily="Segoe UI"/>
+                                        HorizontalAlignment="Center" FontFamily="Segoe UI" Click="have_Account"/>
                             </StackPanel>
                         </Grid>
                     </Border>

@@ -1,0 +1,65 @@
+<Window x:Class="WpfApp1.Bagage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestion des Bagages" Height="500" Width="800">
+
+    <Grid>
+        <!-- Image de fond -->
+        <Image Source="Images/Designer.jpeg" Stretch="Fill" Panel.ZIndex="-1"/>
+
+        <!-- Logo rond avec texte -->
+        <Grid>
+            <Label Content="Voyagevoo" HorizontalAlignment="Left" Margin="26,10,0,0" VerticalAlignment="Top"
+                   FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+        </Grid>
+
+        <!-- Carte pour la selection des bagages -->
+        <Border CornerRadius="10" Background="White" Opacity="0.9" Margin="82,120,82,120" Padding="10">
+            <Grid>
+                <StackPanel>
+                    <TextBlock FontSize="18" FontWeight="Bold" TextAlignment="Center" Margin="0,5,0,10">
+                        Selectionnez vos bagages
+                    </TextBlock>
+
+                    <UniformGrid Columns="3" Margin="10">
+                        <!-- Bagage Cabine -->
+                        <Border CornerRadius="10" Background="#F5F5F5" Padding="10" Margin="5">
+                            <StackPanel HorizontalAlignment="Center">
+                                <Image Source="\Images/bagage_cabine.png" Width="100" Height="100"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" TextAlignment="Center">Bagage Cabine</TextBlock>
+                                <TextBlock FontSize="12" TextWrapping="Wrap" TextAlignment="Center">Petit format, max 10kg.</TextBlock>
+                                <RadioButton GroupName="Bagage" Content="Selectionner" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Bagage Soute -->
+                        <Border CornerRadius="10" Background="#F5F5F5" Padding="10" Margin="5">
+                            <StackPanel HorizontalAlignment="Center">
+                                <Image Source="\Images/bagage_soute.png" Width="100" Height="100"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" TextAlignment="Center">Bagage Soute</TextBlock>
+                                <TextBlock FontSize="12" TextWrapping="Wrap" TextAlignment="Center">Jusqu'a 23kg.</TextBlock>
+                                <RadioButton GroupName="Bagage" Content="Selectionner" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Aucun Bagage -->
+                        <Border CornerRadius="10" Background="#F5F5F5" Padding="10" Margin="5">
+                            <StackPanel HorizontalAlignment="Center">
+                                <Image Source="\Images/sans_bagage.png" Width="100" Height="100"/>
+                                <TextBlock FontSize="14" FontWeight="Bold" TextAlignment="Center">Sans Bagage</TextBlock>
+                                <TextBlock FontSize="12" TextWrapping="Wrap" TextAlignment="Center">Voyager leger !</TextBlock>
+                                <RadioButton GroupName="Bagage" Content="Selectionner" Margin="0,5,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Bouton Reserver -->
+        <Button Content="Reserver" Width="100" Height="35" FontSize="14" FontWeight="Bold"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,20"
+                Background="#007ACC" Foreground="White" BorderThickness="0"
+                Cursor="Hand" Click="Reserver_Click"/>
+    </Grid>
+</Window>
