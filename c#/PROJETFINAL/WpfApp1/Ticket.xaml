@@ -1,0 +1,81 @@
+<Window x:Class="WpfApp1.Recapitulatif"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Recapitulatif de la Reservation" Height="500" Width="800">
+
+    <Grid>
+        <!-- Image de fond -->
+        <Image Source="Images/Designer.jpeg" Stretch="Fill" Panel.ZIndex="-1"/>
+
+        <!-- Logo rond avec texte -->
+        <Grid>
+            <Label Content="Voyagevoo" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"
+                   FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+        </Grid>
+
+        <!-- Titre -->
+
+        <!-- Carte d'embarquement principale -->
+        <Border CornerRadius="10" Background="White" Opacity="0.9" Margin="135,60,30,242" Padding="10">
+            <StackPanel>
+                <TextBlock FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,5,0,10">
+                    Carte d'embarquement
+                </TextBlock>
+
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Infos passager -->
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <TextBlock FontSize="14" FontWeight="Bold">Passager :</TextBlock>
+                        <TextBlock FontSize="12">Nom : <Run Text="Dupont"/></TextBlock>
+                        <TextBlock FontSize="12">Prenom : <Run Text="Jean"/></TextBlock>
+                        <TextBlock FontSize="12" TextWrapping="Wrap" MaxWidth="200" HorizontalAlignment="Left">
+                         Accompagnants : Marie Dupont, Paul Martin
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Infos voyage -->
+                    <StackPanel Grid.Column="1" Margin="10">
+                        <TextBlock FontSize="14" FontWeight="Bold">Details du voyage :</TextBlock>
+                        <TextBlock FontSize="12">Destination : <Run Text="Amsterdam"/></TextBlock>
+                        <TextBlock FontSize="12">Date de depart : <Run Text="15 Avril 2025"/></TextBlock>
+                        <TextBlock FontSize="12">Bagage : <Run Text="Bagage Soute"/></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!-- Liste des passagers -->
+        <Border CornerRadius="10" Background="White" Opacity="0.9" Margin="135,250,28,80" Padding="10">
+            <StackPanel>
+                <TextBlock FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,5,0,10">
+                    Liste des passagers
+                </TextBlock>
+
+                <ScrollViewer Height="100" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Border CornerRadius="5" Background="#F5F5F5" Padding="10" Margin="5">
+                            <TextBlock FontSize="12">Jean Dupont - Destination : Amsterdam - Depart : 15 Avril</TextBlock>
+                        </Border>
+                        <Border CornerRadius="5" Background="#F5F5F5" Padding="10" Margin="5">
+                            <TextBlock FontSize="12">Marie Dupont - Destination : Amsterdam - Depart : 15 Avril</TextBlock>
+                        </Border>
+                        <Border CornerRadius="5" Background="#F5F5F5" Padding="10" Margin="5">
+                            <TextBlock FontSize="12">Paul Martin - Destination : Amsterdam - Depart : 15 Avril</TextBlock>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
+
+        <!-- Bouton Confirmer -->
+        <Button Content="Confirmer" Width="120" Height="35" FontSize="14" FontWeight="Bold"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,30,20"
+                Background="#007ACC" Foreground="White" BorderThickness="0"
+                Cursor="Hand" Click="Confirmer_Click"/>
+    </Grid>
+</Window>

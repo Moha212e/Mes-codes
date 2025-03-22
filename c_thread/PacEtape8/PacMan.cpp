@@ -12,7 +12,6 @@
 #define NB_LIGNE 21   // Nombre de lignes de la grille
 #define NB_COLONNE 17 // Nombre de colonnes de la grille
 
-
 // Macros utilisées dans le tableau tab
 #define VIDE 0        // Case vide
 #define MUR 1         // Mur
@@ -56,6 +55,7 @@ pthread_t tidPacGom;                                         // Thread pour les 
 pthread_t tidScore;                                          // Thread pour le score
 pthread_t tidCompteurFantomes;                               // Thread pour le compteur de fantômes
 pthread_t tidVies;                                           // Thread pour les vies
+pthread_t tidTimeOut;                                        // Thread pour le time-out
 int L = LENTREE;                                             // Ligne initiale de Pac-Man
 int C = CENTREE;                                             // Colonne initiale de Pac-Man
 int dir = GAUCHE;                                            // Direction initiale de Pac-Man
@@ -66,9 +66,11 @@ int niveau = 1;                                              // Niveau actuel
 bool MAJScore = false;                                       // Indicateur de mise à jour du score
 int nbRouge = 0;                                             // Nombre de fantômes rouges
 int nbVert = 0;                                              // Nombre de fantômes verts
-int nbMauve = 0;                                             // Nombre de fantômes mauves
+int nbMauve = 0;                                             // Nombre de fantômes mauves9
 int nbOrange = 0;                                            // Nombre de fantômes oranges
-bool JeuFini = true;                                        // Indicateur de fin de jeu
+int mode = 1;                                                // 1 = Fantômes normaux, 2 = Fantômes comestibles
+int temps_restant = 0;                                       // Temps restant pour le mode Fantômes comestibles
+bool JeuFini = true;                                         // Indicateur de fin de jeu
 pthread_mutex_t mutexVies = PTHREAD_MUTEX_INITIALIZER;       // Mutex pour les vies
 pthread_mutex_t mutexNbFantomes = PTHREAD_MUTEX_INITIALIZER; // Mutex pour le nombre de fantômes
 pthread_cond_t condNbFantomes = PTHREAD_COND_INITIALIZER;    // Condition pour le nombre de fantômes
@@ -77,9 +79,9 @@ pthread_mutex_t mutexNbPacGom = PTHREAD_MUTEX_INITIALIZER;   // Mutex pour le no
 pthread_mutex_t mutexScore = PTHREAD_MUTEX_INITIALIZER;      // Mutex pour le score
 pthread_cond_t condNbPacGom = PTHREAD_COND_INITIALIZER;      // Condition pour le nombre de pac-goms
 pthread_cond_t condScore = PTHREAD_COND_INITIALIZER;         // Condition pour le score
-pthread_mutex_t mutexJeuFini = PTHREAD_MUTEX_INITIALIZER;   // Mutex pour la fin de jeu
-pthread_key_t fantome_key;                                   // Clé spécifique pour les fantômes
-
+pthread_mutex_t mutexJeuFini = PTHREAD_MUTEX_INITIALIZER;    // Mutex pour la fin de jeu
+pthread_mutex_t mutexMode = PTHREAD_MUTEX_INITIALIZER;       // Mutex pour le mode
+pthread_key_t fantome_key;                                   // Clé pour les données spécifiques au thread
 /////////////////////
 // Fonctions à coder
 /////////////////////
@@ -98,7 +100,8 @@ void handler_SIGINT(int sig);                                      // Gestionnai
 void handler_SIGHUP(int sig);                                      // Gestionnaire pour le signal SIGHUP
 void handler_SIGUSR1(int sig);                                     // Gestionnaire pour le signal SIGUSR1
 void handler_SIGUSR2(int sig);                                     // Gestionnaire pour le signal SIGUSR2
-
+void handler_SIGALRM(int sig);                                     // Gestionnaire pour le signal SIGUSR2
+void *threadTimeOut(void *arg);                                    // Déclaration anticipée de la fonction
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char *argv[])
 {
@@ -166,7 +169,6 @@ int main(int argc, char *argv[])
 
   exit(0);
 }
-
 //*********************************************************************************************
 void Attente(int milli)
 {
@@ -175,14 +177,12 @@ void Attente(int milli)
   del.tv_nsec = (milli % 1000) * 1000000; // Calcule les nanosecondes à partir des millisecondes restantes
   nanosleep(&del, NULL);                  // Attend le délai spécifié
 }
-
 //*********************************************************************************************
 void setTab(int l, int c, int presence, pthread_t tid)
 {
   tab[l][c].presence = presence; // Met à jour la présence dans la case spécifiée
   tab[l][c].tid = tid;           // Met à jour l'identifiant du thread dans la case spécifiée
 }
-
 //*********************************************************************************************
 void DessineGrilleBase()
 {
@@ -223,7 +223,27 @@ void DessineGrilleBase()
       }
     }
 }
+//*********************************************************************************************
+void *threadTimeOut(void *arg)
+{
+  int temps = *(int *)arg;
+  free(arg);
 
+  // Définir le gestionnaire pour SIGALRM
+  struct sigaction sa;
+  sa.sa_handler = handler_SIGALRM;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = 0;
+  sigaction(SIGALRM, &sa, NULL);
+
+  // Définir l'alarme
+  alarm(temps);
+
+  // Attendre que l'alarme se déclenche
+  pause();
+
+  pthread_exit(NULL);
+}
 //*********************************************************************************************
 void *PacMan(void *arg)
 {
@@ -234,113 +254,132 @@ void *PacMan(void *arg)
   while (JeuFini) // Boucle infinie pour déplacer Pac-Man
   {
     printf("[DEBUG] Pac-Man en mouvement - Position: (%d, %d)\n", L, C);
-    // Bloquer les signaux pendant l'attente
-    sigemptyset(&mask);                          // Initialise le masque de signaux
-    sigaddset(&mask, SIGINT);                    // Ajoute SIGINT au masque
-    sigaddset(&mask, SIGHUP);                    // Ajoute SIGHUP au masque
-    sigaddset(&mask, SIGUSR1);                   // Ajoute SIGUSR1 au masque
-    sigaddset(&mask, SIGUSR2);                   // Ajoute SIGUSR2 au masque
-    pthread_sigmask(SIG_BLOCK, &mask, &oldmask); // Bloque les signaux spécifiés
+    sigemptyset(&mask);
+    sigaddset(&mask, SIGINT);
+    sigaddset(&mask, SIGHUP);
+    sigaddset(&mask, SIGUSR1);
+    sigaddset(&mask, SIGUSR2);
+    pthread_sigmask(SIG_BLOCK, &mask, &oldmask);
 
-    // Attente de 0,3 secondes
-    pthread_mutex_lock(&mutexTab);   // Verrouille le mutex pour accéder au tableau
-    int localDelai = delai;          // Copie le délai localement
-    pthread_mutex_unlock(&mutexTab); // Déverrouille le mutex
-    Attente(localDelai);             // Attend le délai spécifié
+    pthread_mutex_lock(&mutexTab);
+    int localDelai = delai;
+    pthread_mutex_unlock(&mutexTab);
+    Attente(localDelai);
 
-    // Débloquer les signaux et vérifier s'il y a des signaux en attente
-    pthread_sigmask(SIG_SETMASK, &oldmask, NULL); // Restaure le masque de signaux précédent
+    pthread_sigmask(SIG_SETMASK, &oldmask, NULL);
 
-    pthread_mutex_lock(&mutexTab); // Verrouille le mutex pour accéder au tableau
-
-    // Vérifie si Pac-Man peut se déplacer dans la direction actuelle
-    int newL = L; // Initialise la nouvelle ligne de Pac-Man
-    int newC = C; // Initialise la nouvelle colonne de Pac-Man
-    switch (dir)  // Détermine la nouvelle position en fonction de la direction
+    pthread_mutex_lock(&mutexTab);
+    int newL = L, newC = C;
+    switch (dir)
     {
     case GAUCHE:
-      if (tab[L][C - 1].presence != MUR) // Vérifie si la case à gauche n'est pas un mur
-        newC--;                          // Déplace Pac-Man vers la gauche
+      if (tab[L][C - 1].presence != MUR)
+        newC--;
       break;
     case DROITE:
-      if (tab[L][C + 1].presence != MUR) // Vérifie si la case à droite n'est pas un mur
-        newC++;                          // Déplace Pac-Man vers la droite
+      if (tab[L][C + 1].presence != MUR)
+        newC++;
       break;
     case HAUT:
-      if (tab[L - 1][C].presence != MUR) // Vérifie si la case en haut n'est pas un mur
-        newL--;                          // Déplace Pac-Man vers le haut
+      if (tab[L - 1][C].presence != MUR)
+        newL--;
       break;
     case BAS:
-      if (tab[L + 1][C].presence != MUR) // Vérifie si la case en bas n'est pas un mur
-        newL++;                          // Déplace Pac-Man vers le bas
+      if (tab[L + 1][C].presence != MUR)
+        newL++;
       break;
     }
 
-    // Efface l'ancienne position de Pac-Man
-    EffaceCarre(L, C);  // Efface le carré à la position actuelle de Pac-Man
-    setTab(L, C, VIDE); // Met à jour la case pour indiquer qu'elle est vide
+    EffaceCarre(L, C);
+    setTab(L, C, VIDE);
 
-    // Met à jour la position de Pac-Man si elle a changé
-    if (newL != L || newC != C) // Si la position a changé
+    if (newL != L || newC != C)
     {
-      L = newL; // Met à jour la ligne de Pac-Man
-      C = newC; // Met à jour la colonne de Pac-Man
+      L = newL;
+      C = newC;
     }
 
-    // Vérifie si Pac-Man mange un pac-gom, un super pac-gom ou un bonus
-    if (tab[L][C].presence == PACGOM) // Si Pac-Man mange un pac-gom
+    if (tab[L][C].presence == PACGOM)
     {
-      pthread_mutex_lock(&mutexScore);    // Verrouille le mutex pour accéder au score
-      score += 1;                         // Incrémente le score
-      nbPacGom--;                         // Décrémente le nombre de pac-goms
-      MAJScore = true;                    // Indique que le score doit être mis à jour
-      pthread_cond_signal(&condScore);    // Signale la condition de mise à jour du score
-      pthread_mutex_unlock(&mutexScore);  // Déverrouille le mutex
-      pthread_cond_signal(&condNbPacGom); // Signale la condition de changement du nombre de pac-goms
+      pthread_mutex_lock(&mutexScore);
+      score += 1;
+      nbPacGom--;
+      MAJScore = true;
+      pthread_cond_signal(&condScore);
+      pthread_mutex_unlock(&mutexScore);
+      pthread_cond_signal(&condNbPacGom);
     }
-    else if (tab[L][C].presence == SUPERPACGOM) // Si Pac-Man mange un super pac-gom
+    else if (tab[L][C].presence == SUPERPACGOM)
     {
-      pthread_mutex_lock(&mutexScore);    // Verrouille le mutex pour accéder au score
-      score += 5;                         // Incrémente le score
-      nbPacGom--;                         // Décrémente le nombre de pac-goms
-      MAJScore = true;                    // Indique que le score doit être mis à jour
-      pthread_cond_signal(&condScore);    // Signale la condition de mise à jour du score
-      pthread_mutex_unlock(&mutexScore);  // Déverrouille le mutex
-      pthread_cond_signal(&condNbPacGom); // Signale la condition de changement du nombre de pac-goms
+      pthread_mutex_lock(&mutexScore);
+      score += 5;
+      nbPacGom--;
+      MAJScore = true;
+      pthread_cond_signal(&condScore);
+      pthread_mutex_unlock(&mutexScore);
+      pthread_cond_signal(&condNbPacGom);
+
+      pthread_mutex_lock(&mutexMode);
+      mode = 2;
+      printf("[INFO] Mode Fantômes comestibles activé !\n");
+      pthread_mutex_unlock(&mutexMode);
+
+      int *duree = (int *)malloc(sizeof(int));
+      *duree = 8 + rand() % 8;
+      if (temps_restant > 0)
+      {
+        *duree += temps_restant;
+        pthread_cancel(tidTimeOut);
+      }
+      temps_restant = *duree;
+      pthread_create(&tidTimeOut, NULL, threadTimeOut, duree);
     }
-    else if (tab[L][C].presence == BONUS) // Si Pac-Man mange un bonus
+    else if (tab[L][C].presence == BONUS)
     {
-      pthread_mutex_lock(&mutexScore);   // Verrouille le mutex pour accéder au score
-      score += 30;                       // Incrémente le score
-      MAJScore = true;                   // Indique que le score doit être mis à jour
-      pthread_cond_signal(&condScore);   // Signale la condition de mise à jour du score
-      pthread_mutex_unlock(&mutexScore); // Déverrouille le mutex
-    }
-    if (tab[newL][newC].presence == FANTOME)
-    {                                                   // Si Pac-Man rencontre un fantôme
-      printf("Pac-Man a été mangé par un fantôme !\n"); // Affiche un message
-      setTab(L, C, VIDE, 0);                            // Met à jour la case pour indiquer qu'elle est vide
-      EffaceCarre(L, C);                                // Efface le carré à cette position
-      pthread_mutex_unlock(&mutexTab);                  // Déverrouille le mutex
-      pthread_exit(NULL);                               // Termine le thread
+      pthread_mutex_lock(&mutexScore);
+      score += 30;
+      MAJScore = true;
+      pthread_cond_signal(&condScore);
+      pthread_mutex_unlock(&mutexScore);
     }
 
-    // Dessine Pac-Man à la nouvelle position
-    DessinePacMan(L, C, dir); // Dessine Pac-Man à la nouvelle position
-    setTab(L, C, PACMAN);     // Met à jour la case pour indiquer la présence de Pac-Man
+    else if (tab[L][C].presence == FANTOME && mode == 1)
+    {
+      printf("Pac-Man a été mangé par un fantôme !\n");
+      setTab(L, C, VIDE, 0);
+      EffaceCarre(L, C);
+      pthread_mutex_unlock(&mutexTab);
+      pthread_exit(NULL);
+    }
+    else if (tab[L][C].presence == FANTOME && mode == 2)
+    {
+      printf("Pac-Man a mangé un fantôme !\n");
+      // Effacer le fantôme
+      EffaceCarre(L, C);
+      setTab(L, C, VIDE, 0);
+      // Réduire le nombre de fantômes
+      pthread_mutex_lock(&mutexNbFantomes);
 
-    pthread_mutex_unlock(&mutexTab); // Déverrouille le mutex
+      score += 50;
+      MAJScore = true;
+      pthread_cond_signal(&condScore);
+      pthread_mutex_unlock(&mutexNbFantomes);
+      pthread_cond_signal(&condNbFantomes);
+    }
+    DessinePacMan(L, C, dir);
 
-    // Vérifie si le jeu est terminé
+    DessinePacMan(L, C, dir);
+    setTab(L, C, PACMAN);
+
+    pthread_mutex_unlock(&mutexTab);
+
     if (!JeuFini)
     {
-      pthread_exit(NULL); // Termine le thread si le jeu est terminé
+      pthread_exit(NULL);
     }
   }
-
-  return NULL; // Retourne NULL à la fin de la fonction
+  return NULL;
 }
-
 //*********************************************************************************************
 void *Event(void *arg)
 {
@@ -352,9 +391,9 @@ void *Event(void *arg)
     event = ReadEvent();     // Lire un événement de la grille SDL
     if (event.type == CROIX) // Si l'événement est de type CROIX (fermeture de la fenêtre)
     {
-      ok = 1;                              // Mettre à jour la variable de contrôle pour sortir de la boucle
+      ok = 1; // Mettre à jour la variable de contrôle pour sortir de la boucle
       JeuFini = false;
-      pthread_exit(NULL);                  // Terminer le thread Event
+      pthread_exit(NULL); // Terminer le thread Event
     }
     if (event.type == CLAVIER) // Si l'événement est de type CLAVIER (appui sur une touche)
     {
@@ -386,31 +425,34 @@ void *Event(void *arg)
 
   return NULL; // Retourner NULL à la fin de la fonction
 }
-
 //*********************************************************************************************
 void handler_SIGINT(int sig)
 {
   dir = GAUCHE; // Change la direction de Pac-Man vers la gauche
 }
-
+//*********************************************************************************************
 void handler_SIGHUP(int sig)
 {
   dir = DROITE; // Change la direction de Pac-Man vers la droite
 }
-
+//*********************************************************************************************
 void handler_SIGUSR1(int sig)
 {
   dir = HAUT; // Change la direction de Pac-Man vers le haut
 }
-
+//*********************************************************************************************
 void handler_SIGUSR2(int sig)
 {
   dir = BAS; // Change la direction de Pac-Man vers le bas
 }
-
-//*********************************************************************************************
-
-
+void handler_SIGALRM(int sig)
+{
+  pthread_mutex_lock(&mutexMode);
+  mode = 1;
+  temps_restant = 0;
+  printf("[INFO] Mode normal réactivé (Fantômes normaux)\n");
+  pthread_mutex_unlock(&mutexMode);
+}
 //*********************************************************************************************
 void *PacGom(void *arg)
 {
@@ -434,11 +476,10 @@ void *PacGom(void *arg)
           setTab(l, c, PACGOM); // Met à jour la case pour indiquer la présence d'un pac-gom
           DessinePacGom(l, c);  // Dessine un pac-gom à cette position
           nbPacGom++;           // Incrémente le nombre de pac-goms
-          
         }
       }
     }
-    
+
     // Placer les super pac-goms
     setTab(2, 1, SUPERPACGOM);   // Place un super pac-gom à la position (2, 1)
     DessineSuperPacGom(2, 1);    // Dessine un super pac-gom à cette position
@@ -454,7 +495,7 @@ void *PacGom(void *arg)
 
     // Attendre que tous les pac-goms soient mangés
     pthread_mutex_lock(&mutexNbPacGom); // Verrouille le mutex pour accéder au nombre de pac-goms
-    while (nbPacGom != 0)                // Boucle tant qu'il reste des pac-goms
+    while (nbPacGom != 0)               // Boucle tant qu'il reste des pac-goms
     {
 
       pthread_cond_wait(&condNbPacGom, &mutexNbPacGom); // Attend la condition de changement du nombre de pac-goms
@@ -476,7 +517,6 @@ void *PacGom(void *arg)
 
   return NULL; // Retourne NULL à la fin de la fonction
 }
-
 //*********************************************************************************************
 void *Score(void *arg)
 {
@@ -500,7 +540,6 @@ void *Score(void *arg)
 
   return NULL; // Retourne NULL à la fin de la fonction
 }
-
 //*********************************************************************************************
 void *Bonus(void *arg)
 {
@@ -544,144 +583,265 @@ void *Bonus(void *arg)
 
   return NULL; // Retourne NULL à la fin de la fonction
 }
-void *Fantome(void *arg) {
-  if (!arg) {
-      fprintf(stderr, "Erreur : pointeur fantôme NULL\n");
-      pthread_exit(NULL);
-  }
 
+//*********************************************************************************************
+void *Fantome(void *arg)
+{
   S_FANTOME *fantome = (S_FANTOME *)arg;
-  printf("[DEBUG] Démarrage du fantôme - Position: (%d, %d)\n", fantome->L, fantome->C);
-  int dir = HAUT; // Initialise la direction du fantôme à HAUT
-
-  // Vérifier si les coordonnées du fantôme sont valides
-  if (fantome->L < 0 || fantome->L >= NB_LIGNE || fantome->C < 0 || fantome->C >= NB_COLONNE) {
-      fprintf(stderr, "Erreur : position initiale du fantôme invalide (%d, %d)\n", fantome->L, fantome->C);
-      free(fantome); // Libérez la mémoire avant de quitter
-      pthread_exit(NULL);
+  if (!fantome)
+  {
+    fprintf(stderr, "Erreur : pointeur fantôme NULL\n");
+    pthread_exit(NULL);
   }
+
+  printf("[DEBUG] Démarrage du fantôme - Position: (%d, %d)\n", fantome->L, fantome->C);
+  int dir = HAUT;
 
   pthread_mutex_lock(&mutexTab);
-  fantome->cache = tab[fantome->L][fantome->C].presence; // Sauvegarde l'état de la case
-  setTab(fantome->L, fantome->C, FANTOME, pthread_self()); // Met à jour la case avec la présence du fantôme
-  DessineFantome(fantome->L, fantome->C, fantome->couleur, dir); // Dessine le fantôme sur la grille
+  fantome->cache = tab[fantome->L][fantome->C].presence;
+  setTab(fantome->L, fantome->C, FANTOME, pthread_self());
+  DessineFantome(fantome->L, fantome->C, fantome->couleur, dir);
   pthread_mutex_unlock(&mutexTab);
 
-  while (JeuFini) {
-      int newL = fantome->L, newC = fantome->C; // Initialise les nouvelles coordonnées du fantôme
-      switch (dir) {
-          case HAUT: newL--; break;
-          case BAS: newL++; break;
-          case GAUCHE: newC--; break;
-          case DROITE: newC++; break;
+  while (JeuFini)
+  {
+    pthread_mutex_lock(&mutexMode);
+    int currentMode = mode;
+    pthread_mutex_unlock(&mutexMode);
+
+    int newL = fantome->L, newC = fantome->C;
+    int directions[4] = {HAUT, BAS, GAUCHE, DROITE};
+    int validDirections[4];
+    int count = 0;
+
+    for (int i = 0; i < 4; i++)
+    {
+      int testL = fantome->L, testC = fantome->C;
+      switch (directions[i])
+      {
+      case HAUT:
+        testL--;
+        break;
+      case BAS:
+        testL++;
+        break;
+      case GAUCHE:
+        testC--;
+        break;
+      case DROITE:
+        testC++;
+        break;
       }
-
-      pthread_mutex_lock(&mutexTab);
-      if (newL >= 0 && newL < NB_LIGNE && newC >= 0 && newC < NB_COLONNE && 
-          tab[newL][newC].presence != MUR && tab[newL][newC].presence != FANTOME) {
-          if (tab[newL][newC].presence == PACMAN) {
-              printf("Fantôme a attrapé Pac-Man!\n");
-              pthread_cancel(tidPacMan); // Annule le thread Pac-Man
-              setTab(newL, newC, VIDE, 0); // Met à jour la case avec la présence vide
-              EffaceCarre(newL, newC); // Efface la case
-          }
-
-          setTab(fantome->L, fantome->C, fantome->cache, 0); // Met à jour l'ancienne case avec l'état sauvegardé
-          EffaceCarre(fantome->L, fantome->C); // Efface l'ancienne position du fantôme
-
-          // Redessine l'élément précédent (pac-gom, bonus, etc.)
-          if (fantome->cache == PACGOM) {
-              DessinePacGom(fantome->L, fantome->C);
-          } else if (fantome->cache == BONUS) {
-              DessineBonus(fantome->L, fantome->C);
-          } else if (fantome->cache == SUPERPACGOM) {
-              DessineSuperPacGom(fantome->L, fantome->C);
-          }
-
-          fantome->cache = tab[newL][newC].presence; // Sauvegarde l'état de la nouvelle case
-          fantome->L = newL; // Met à jour la ligne du fantôme
-          fantome->C = newC; // Met à jour la colonne du fantôme
-
-          setTab(fantome->L, fantome->C, FANTOME, pthread_self()); // Met à jour la nouvelle case avec la présence du fantôme
-          DessineFantome(fantome->L, fantome->C, fantome->couleur, dir); // Dessine le fantôme à la nouvelle position
-      } else {
-          // Si la nouvelle position n'est pas valide, choisir une nouvelle direction
-          int directions[4] = {HAUT, BAS, GAUCHE, DROITE};
-          int possible_directions[4];
-          int count = 0;
-
-          for (int i = 0; i < 4; i++) {
-              int testL = fantome->L, testC = fantome->C;
-              switch (directions[i]) {
-                  case HAUT: testL--; break;
-                  case BAS: testL++; break;
-                  case GAUCHE: testC--; break;
-                  case DROITE: testC++; break;
-              }
-              if (testL >= 0 && testL < NB_LIGNE && testC >= 0 && testC < NB_COLONNE && 
-                  tab[testL][testC].presence != MUR && tab[testL][testC].presence != FANTOME) {
-                  possible_directions[count++] = directions[i];
-              }
-          }
-          if (count > 0) {
-              dir = possible_directions[rand() % count]; // Choisit une direction aléatoire valide
-          } else {
-              dir = (dir + 2) % 4; // Inverse la direction si aucune direction valide n'est trouvée
-          }
+      if (testL >= 0 && testL < NB_LIGNE && testC >= 0 && testC < NB_COLONNE && tab[testL][testC].presence != MUR)
+      {
+        validDirections[count++] = directions[i];
       }
-      pthread_mutex_unlock(&mutexTab);
+    }
 
-      Attente((5 * delai) / 3); // Attend un certain temps avant de déplacer le fantôme à nouveau
-  }
+    if (count > 0)
+    {
+      dir = validDirections[rand() % count];
+    }
 
-  free(fantome); // Libérez la mémoire à la fin du thread
-  return NULL;
-}
+    switch (dir)
+    {
+    case HAUT:
+      newL--;
+      break;
+    case BAS:
+      newL++;
+      break;
+    case GAUCHE:
+      newC--;
+      break;
+    case DROITE:
+      newC++;
+      break;
+    }
 
-void *CompteurFantome(void *arg) {
-  while (JeuFini) {
-      pthread_mutex_lock(&mutexNbFantomes);
-      while (nbRouge == 2 && nbVert == 2 && nbMauve == 2 && nbOrange == 2) {
-          pthread_cond_wait(&condNbFantomes, &mutexNbFantomes);
-      }
+    pthread_mutex_lock(&mutexTab);
+    if (newL >= 0 && newL < NB_LIGNE && newC >= 0 && newC < NB_COLONNE && tab[newL][newC].presence != MUR)
+    {
+      if (tab[newL][newC].presence == PACMAN)
+      {
+        if (currentMode == 1)
+        {
+          printf("Pac-Man a été mangé par un fantôme !\n");
 
-      S_FANTOME* fantome = (S_FANTOME*)malloc(sizeof(S_FANTOME));
-      if (!fantome) {
-          fprintf(stderr, "Erreur d'allocation mémoire\n");
-          pthread_mutex_unlock(&mutexNbFantomes);
-          free(fantome);
+          pthread_mutex_lock(&mutexVies);
+          pthread_cancel(tidPacMan); // Annule Pac-Man UNIQUEMENT si nécessaire
+          pthread_mutex_unlock(&mutexVies);
+
+          // Libération de la mutex avant de quitter proprement
+          pthread_mutex_unlock(&mutexTab);
+
+          // Quitter proprement le thread du fantôme
           pthread_exit(NULL);
+        }
+        else
+        {
+          printf("Pac-Man a mangé un fantôme !\n");
+
+          // Effacer le fantôme immédiatement
+          EffaceCarre(fantome->L, fantome->C);
+          setTab(fantome->L, fantome->C, VIDE, 0);
+
+          // Lancer un thread pour le faire réapparaître après 3 secondes
+          pthread_t tidRespawn;
+          S_FANTOME *newFantome = (S_FANTOME *)malloc(sizeof(S_FANTOME));
+          if (!newFantome)
+          {
+            fprintf(stderr, "Erreur d'allocation mémoire pour le fantôme réapparaissant\n");
+            pthread_mutex_unlock(&mutexTab);
+            pthread_exit(NULL); // Quitter proprement en cas d'erreur d'allocation
+          }
+
+          newFantome->L = 9;                      // Position de réapparition
+          newFantome->C = 8;                      // Position de réapparition
+          newFantome->couleur = fantome->couleur; // Conserver la même couleur
+
+          // Créer le thread pour réapparaître le fantôme
+          if (pthread_create(&tidRespawn, NULL, Fantome, newFantome) != 0)
+          {
+            fprintf(stderr, "Erreur lors de la création du thread pour réapparaître le fantôme\n");
+            free(newFantome); // Libérer la mémoire si la création échoue
+            pthread_mutex_unlock(&mutexTab);
+            pthread_exit(NULL); // Quitter proprement si échec
+          }
+
+          // Libérer la mémoire du fantôme mangé
+          free(fantome);
+
+          // Libération de la mutex avant de quitter
+          pthread_mutex_unlock(&mutexTab);
+
+          // Quitter proprement le thread du fantôme
+          pthread_exit(NULL);
+        }
       }
 
-      fantome->L = 9;
-      fantome->C = 8;
-      fantome->cache = VIDE;
+      setTab(fantome->L, fantome->C, fantome->cache, 0);
+      EffaceCarre(fantome->L, fantome->C);
+      fantome->cache = tab[newL][newC].presence;
+      fantome->L = newL;
+      fantome->C = newC;
+      setTab(fantome->L, fantome->C, FANTOME, pthread_self());
 
-      if (nbRouge < 2) {
-          fantome->couleur = ROUGE;
-          nbRouge++;
-      } else if (nbVert < 2) {
-          fantome->couleur = VERT;
-          nbVert++;
-      } else if (nbMauve < 2) {
-          fantome->couleur = MAUVE;
-          nbMauve++;
-      } else if (nbOrange < 2) {
-          fantome->couleur = ORANGE;
-          nbOrange++;
+      // Affichage correct selon le mode
+      if (currentMode == 2)
+      {
+        DessineFantomeComestible(fantome->L, fantome->C);
       }
-
-      pthread_t tid;
-      if (pthread_create(&tid, NULL, Fantome, fantome) != 0) {
-          fprintf(stderr, "Erreur lors de la création du thread fantôme\n");
-          free(fantome); // Libérez la mémoire en cas d'échec
+      else
+      {
+        DessineFantome(fantome->L, fantome->C, fantome->couleur, dir);
       }
+    }
+    pthread_mutex_unlock(&mutexTab);
 
-      pthread_mutex_unlock(&mutexNbFantomes);
+    Attente((5 * delai) / 3);
   }
-  
+
+  free(fantome);
   return NULL;
 }
+//*********************************************************************************************
+void *CompteurFantome(void *arg)
+{
+  while (JeuFini)
+  {
+    pthread_mutex_lock(&mutexNbFantomes);
+
+    // Attente si le mode est 2 (empêche la création de nouveaux fantômes)
+    while (mode == 2 || nbRouge == 2 && nbVert == 2 && nbMauve == 2 && nbOrange == 2)
+    {
+      pthread_cond_wait(&condNbFantomes, &mutexNbFantomes);
+    }
+
+    // Allocation mémoire pour le nouveau fantôme
+    S_FANTOME *fantome = (S_FANTOME *)malloc(sizeof(S_FANTOME));
+    if (!fantome)
+    {
+      fprintf(stderr, "Erreur d'allocation mémoire\n");
+      pthread_mutex_unlock(&mutexNbFantomes);
+      pthread_exit(NULL); // Si l'allocation échoue, on quitte le thread
+    }
+
+    // Initialisation des coordonnées et de la couleur du fantôme
+    fantome->L = 9;
+    fantome->C = 8;
+    fantome->cache = VIDE;
+
+    // Sélection de la couleur du fantôme et mise à jour des compteurs
+    if (nbRouge < 2)
+    {
+      fantome->couleur = ROUGE;
+      nbRouge++;
+    }
+    else if (nbVert < 2)
+    {
+      fantome->couleur = VERT;
+      nbVert++;
+    }
+    else if (nbMauve < 2)
+    {
+      fantome->couleur = MAUVE;
+      nbMauve++;
+    }
+    else if (nbOrange < 2)
+    {
+      fantome->couleur = ORANGE;
+      nbOrange++;
+    }
+
+    // Affichage du nombre de fantômes après l'ajout du nouveau
+    printf("Nombre de fantômes - ROUGE: %d, VERT: %d, MAUVE: %d, ORANGE: %d\n", nbRouge, nbVert, nbMauve, nbOrange);
+    if (mode == 2)
+    {
+      pthread_mutex_lock(&mutexNbFantomes);
+      // Mise à jour de l'état de la case dans le tableau `tab` en fonction des coordonnées du fantôme
+      switch (fantome->couleur)
+      {
+      case ROUGE:
+        nbRouge--;
+        break;
+      case VERT:
+        nbVert--;
+        break;
+      case MAUVE:
+        nbMauve--;
+        break;
+      case ORANGE:
+        nbOrange--;
+        break;
+      }
+
+      // Effacer le fantôme du tableau de jeu
+      EffaceCarre(fantome->L, fantome->C);
+      setTab(fantome->L, fantome->C, VIDE, 0); // Mise à jour de la case à VIDE
+      printf("Après traitement - ROUGE: %d, VERT: %d, MAUVE: %d, ORANGE: %d\n", nbRouge, nbVert, nbMauve, nbOrange);
+    }
+    // Création du thread pour le fantôme
+    pthread_t tid;
+    if (pthread_create(&tid, NULL, Fantome, fantome) != 0)
+    {
+      fprintf(stderr, "Erreur lors de la création du thread fantôme\n");
+      free(fantome); // Libérer la mémoire en cas d'échec
+      pthread_mutex_unlock(&mutexNbFantomes);
+      pthread_exit(NULL); // Quitter proprement en cas d'échec
+    }
+
+    // Simuler la suppression d'un fantôme dans le cas où le mode est 2
+
+    // Affichage du nombre de fantômes après suppression ou ajout
+
+    // Déverrouillage de la mutex avant de quitter
+    pthread_mutex_unlock(&mutexNbFantomes);
+  }
+
+  return NULL;
+}
+//*********************************************************************************************
 void *Vies(void *arg)
 {
   int vies = 3;
@@ -689,27 +849,28 @@ void *Vies(void *arg)
   DessineChiffre(18, 22, vies);
   while (vies > 0)
   {
-    
-    printf("[DEBUG] Nouvelle vie, vies restantes : %d\n", vies);
+    if (mode == 1)
+    {
+      printf("[DEBUG] Nouvelle vie, vies restantes : %d\n", vies);
 
-    pthread_create(&tidPacMan, NULL, PacMan, NULL);
-    pthread_join(tidPacMan, NULL);
+      pthread_create(&tidPacMan, NULL, PacMan, NULL);
+      pthread_join(tidPacMan, NULL);
 
-    pthread_mutex_lock(&mutexVies);
-    vies--;
-    DessineChiffre(18, 22, vies);
-    printf("[DEBUG] Vie perdue, vies restantes : %d\n", vies);
-    pthread_mutex_unlock(&mutexVies);
+      pthread_mutex_lock(&mutexVies);
+      vies--;
+      DessineChiffre(18, 22, vies);
+      printf("[DEBUG] Vie perdue, vies restantes : %d\n", vies);
+      pthread_mutex_unlock(&mutexVies);
 
-    pthread_mutex_lock(&mutexTab);
-    EffaceCarre(L, C);
-    setTab(L, C, VIDE);
-    L = LENTREE;
-    C = CENTREE;
-    DessinePacMan(L, C, dir);
-    setTab(L, C, PACMAN);
-    pthread_mutex_unlock(&mutexTab);
-
+      pthread_mutex_lock(&mutexTab);
+      EffaceCarre(L, C);
+      setTab(L, C, VIDE);
+      L = LENTREE;
+      C = CENTREE;
+      DessinePacMan(L, C, dir);
+      setTab(L, C, PACMAN);
+      pthread_mutex_unlock(&mutexTab);
+    }
   }
 
   printf("[DEBUG] Plus de vies, fin du jeu - Annulation des threads...\n");

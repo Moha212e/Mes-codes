@@ -3,32 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\bagage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\bagage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\register.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\register.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\bagage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\bagage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\register.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\register.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\ticket.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\ticket.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\ticket.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\ticket.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\ticket.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\ticket.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{38A78D9A-B7F0-4EE4-B3DA-08110311B34F}|ClassLibrary1\\ClassLibrary1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\classlibrary1\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{38A78D9A-B7F0-4EE4-B3DA-08110311B34F}|ClassLibrary1\\ClassLibrary1.csproj|solutionrelative:classlibrary1\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinal\\wpfapp1\\register.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{20249999-910B-44DB-A0BF-A988EF4F65D0}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\register.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,46 +34,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 309,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Register.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml.cs",
-              "RelativeDocumentMoniker": "WpfApp1\\Register.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml.cs",
-              "RelativeToolTip": "WpfApp1\\Register.xaml.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwBcAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T16:56:36.038Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Register.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml",
-              "RelativeDocumentMoniker": "WpfApp1\\Register.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml",
-              "RelativeToolTip": "WpfApp1\\Register.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-20T16:55:28.607Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\MainWindow.xaml",
-              "RelativeToolTip": "WpfApp1\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-17T00:01:19.4Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
             },
             {
               "$type": "Document",
@@ -87,56 +52,80 @@
               "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\MainWindow.xaml.cs",
               "RelativeToolTip": "WpfApp1\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-17T00:01:10.028Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 309,
-          "SelectedChildIndex": 1,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "bagage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\bagage.xaml.cs",
-              "RelativeDocumentMoniker": "WpfApp1\\bagage.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\bagage.xaml.cs",
-              "RelativeToolTip": "WpfApp1\\bagage.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-21T09:42:04.686Z",
+              "WhenOpened": "2025-03-21T12:44:00.164Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "bagage.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\bagage.xaml",
-              "RelativeDocumentMoniker": "WpfApp1\\bagage.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\bagage.xaml",
-              "RelativeToolTip": "WpfApp1\\bagage.xaml",
+              "DocumentIndex": 1,
+              "Title": "Ticket.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml",
+              "RelativeDocumentMoniker": "WpfApp1\\Ticket.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml",
+              "RelativeToolTip": "WpfApp1\\Ticket.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-21T09:41:43.903Z",
+              "WhenOpened": "2025-03-21T12:42:41.004Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Ticket.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml",
+              "RelativeDocumentMoniker": "WpfApp1\\Ticket.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml",
+              "RelativeToolTip": "WpfApp1\\Ticket.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-21T12:42:32.065Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Ticket.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml.cs",
+              "RelativeDocumentMoniker": "WpfApp1\\Ticket.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Ticket.xaml.cs*",
+              "RelativeToolTip": "WpfApp1\\Ticket.xaml.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-21T12:41:45.793Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "user.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\ClassLibrary1\\user.cs",
-              "RelativeDocumentMoniker": "ClassLibrary1\\user.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\ClassLibrary1\\user.cs",
-              "RelativeToolTip": "ClassLibrary1\\user.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwEsAAAAiAAAAAAAAAA==",
+              "Title": "Register.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml",
+              "RelativeDocumentMoniker": "WpfApp1\\Register.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml",
+              "RelativeToolTip": "WpfApp1\\Register.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-21T12:44:26.088Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 309,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Register.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml.cs",
+              "RelativeDocumentMoniker": "WpfApp1\\Register.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\PROJETFINAL\\WpfApp1\\Register.xaml.cs",
+              "RelativeToolTip": "WpfApp1\\Register.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T19:30:32.699Z"
+              "WhenOpened": "2025-03-21T12:44:27.837Z",
+              "EditorCaption": ""
             }
           ]
         }
