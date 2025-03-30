@@ -1,0 +1,41 @@
+﻿<Window x:Class="voyagoo.EditerUtilisateurs"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gestion des Utilisateurs" WindowState="Maximized"
+        Background="#F4F7FC" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <!-- Titre -->
+        <TextBlock Text="Gestion des Utilisateurs" FontSize="18" FontWeight="Bold"
+                   Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,10,0,0" />
+
+        <!-- Tableau des utilisateurs -->
+        <DataGrid x:Name="UsersDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
+                  Margin="20,50,20,60" Background="White">
+            <DataGrid.Columns>
+                <!-- Nom avec une largeur reduite -->
+                <DataGridTextColumn Header="Nom" Binding="{Binding _firstName}" Width="1.5*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Prenom" Binding="{Binding _lastName}" Width="1.5*" IsReadOnly="True" />
+                <!-- Email avec une largeur reduite -->
+                <DataGridTextColumn Header="Email" Binding="{Binding _email}" Width="1.5*" IsReadOnly="True" />
+                <DataGridTextColumn Header="Date naissance" Binding="{Binding _dateBirth}" Width="1.5*" IsReadOnly="True" />
+
+                <!-- Modification possible seulement sur isAdmin -->
+                <DataGridCheckBoxColumn Header="Administrateur" Binding="{Binding _isAdmin}" Width="Auto" />
+                <DataGridCheckBoxColumn Header="Bloque" Binding="{Binding _isDeleted}" Width="Auto" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bouton Enregistrer -->
+        <Button Content="Enregistrer" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                Width="120" Height="30" Margin="0,0,0,10"
+                Background="#007ACC" Foreground="White" FontWeight="Bold"
+                Click="Enregistrer_Click" />
+
+        <!-- Bouton Retour vers IndexAdmin -->
+        <Button Content="Retour" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Width="80" Height="30" Margin="20,0,0,10"
+                Background="#FF5C5C" Foreground="White" FontWeight="Bold"
+                Click="Retour_Click" />
+    </Grid>
+</Window>

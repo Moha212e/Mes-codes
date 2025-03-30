@@ -1,0 +1,209 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\tripdetails.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\tripdetails.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\reserver.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\reserver.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22AD1AFA-8A99-47C6-92A2-196ACE29ED12}|MyShapeClass\\MyShapeClass.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\myshapeclass\\traveler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22AD1AFA-8A99-47C6-92A2-196ACE29ED12}|MyShapeClass\\MyShapeClass.csproj|solutionrelative:myshapeclass\\traveler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\bagage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\bagage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\reserver.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\reserver.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\bagage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\bagage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22AD1AFA-8A99-47C6-92A2-196ACE29ED12}|MyShapeClass\\MyShapeClass.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\myshapeclass\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22AD1AFA-8A99-47C6-92A2-196ACE29ED12}|MyShapeClass\\MyShapeClass.csproj|solutionrelative:myshapeclass\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\ticket.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\ticket.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\bagage.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\bagage.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\projetfinalc#\\voyagoo\\ticket.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4B7F8CCC-B854-4B17-A54D-EB273D5B1E20}|voyagoo\\voyagoo.csproj|solutionrelative:voyagoo\\ticket.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 484,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Traveler.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\MyShapeClass\\Traveler.cs",
+              "RelativeDocumentMoniker": "MyShapeClass\\Traveler.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\MyShapeClass\\Traveler.cs",
+              "RelativeToolTip": "MyShapeClass\\Traveler.cs",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAmwEwAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:19:31.811Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Index.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\Index.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Index.xaml.cs",
+              "RelativeToolTip": "voyagoo\\Index.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAArwBIAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:17:55.132Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Bagage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\Bagage.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml.cs",
+              "RelativeToolTip": "voyagoo\\Bagage.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:23:42.182Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Reserver.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Reserver.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\Reserver.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Reserver.xaml.cs",
+              "RelativeToolTip": "voyagoo\\Reserver.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACYAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:18:39.992Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TripDetails.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\TripDetails.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\TripDetails.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\TripDetails.xaml.cs",
+              "RelativeToolTip": "voyagoo\\TripDetails.xaml.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:18:12.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Ticket.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Ticket.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\Ticket.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Ticket.xaml",
+              "RelativeToolTip": "voyagoo\\Ticket.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T00:30:57.532Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Bagage.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\Bagage.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml",
+              "RelativeToolTip": "voyagoo\\Bagage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T01:19:33.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Trip.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\MyShapeClass\\Trip.cs",
+              "RelativeDocumentMoniker": "MyShapeClass\\Trip.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\MyShapeClass\\Trip.cs",
+              "RelativeToolTip": "MyShapeClass\\Trip.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAABAAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:34:50.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Index.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\Index.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Index.xaml",
+              "RelativeToolTip": "voyagoo\\Index.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T00:32:32.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Reserver.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Reserver.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\Reserver.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Reserver.xaml",
+              "RelativeToolTip": "voyagoo\\Reserver.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T00:42:33.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Ticket.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Ticket.xaml.cs",
+              "RelativeDocumentMoniker": "voyagoo\\Ticket.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Ticket.xaml.cs",
+              "RelativeToolTip": "voyagoo\\Ticket.xaml.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowC4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-27T00:28:21.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Bagage.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml",
+              "RelativeDocumentMoniker": "voyagoo\\Bagage.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\Bagage.xaml",
+              "RelativeToolTip": "voyagoo\\Bagage.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAASwMQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-27T00:30:14.09Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

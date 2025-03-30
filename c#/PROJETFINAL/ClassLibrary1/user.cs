@@ -10,70 +10,43 @@ namespace ClassLibrary1
 {
     public class User
     {
-        private static string pathName = "user.json"; // Fichier de stockage
+        private static string pathName = "users.json"; // Fichier de stockage
 
-        private string id_user;
-        private string mail;
-        private DateTime birthDate;
-        private string passwordHash;
-        private int age;
+        // 🔹 Propriétés publiques pour permettre la sérialisation
+        public string IdUser { get; set; }
+        public string Mail { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string PasswordHash { get; set; }
+        public int Age { get; set; }
 
-        // Propriétés
-        public string IdUser => id_user;  // ID auto-généré, pas de set
-        public string Mail
-        {
-            get => mail;
-            set
-            {
-                if (IsValidEmail(value))
-                    mail = value;
-                else
-                    throw new ArgumentException("Email invalide !");
-            }
-        }
+        // 🔹 Constructeur sans paramètre pour la désérialisation JSON
+        public User() { }
 
-        public DateTime BirthDate
-        {
-            get => birthDate;
-            set
-            {
-                birthDate = value;
-                age = CalculateAge(birthDate);
-            }
-        }
-
-        public int Age => age;  // Âge auto-calculé
-
-        public string PasswordHash
-        {
-            get => passwordHash;
-            set => passwordHash = HashPassword(value);
-        }
-
-        // Constructeur
+        // 🔹 Constructeur principal
         public User(string mail, DateTime birthDate, string password)
         {
             List<User> users = LoadUsers();
-            this.id_user = GenerateUserId(users);
+            this.IdUser = GenerateUserId(users);
             this.Mail = mail;
             this.BirthDate = birthDate;
-            this.PasswordHash = password;
+            this.Age = CalculateAge(birthDate);
+            this.PasswordHash = HashPassword(password);
         }
 
-        // Vérifie le format de l'email
+        // 🔹 Vérifie le format de l'email
         private static bool IsValidEmail(string email)
         {
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern);
         }
 
-        // Génère un ID unique basé sur le nombre d'utilisateurs
+        // 🔹 Génère un ID unique basé sur le nombre d'utilisateurs
         private static string GenerateUserId(List<User> users)
         {
             return "U" + (users.Count + 1).ToString("D4"); // Format : U0001, U0002...
         }
 
-        // Calcule l'âge à partir de la date de naissance
+        // 🔹 Calcule l'âge à partir de la date de naissance
         public static int CalculateAge(DateTime birthDate)
         {
             int age = DateTime.Now.Year - birthDate.Year;
@@ -81,7 +54,7 @@ namespace ClassLibrary1
             return age;
         }
 
-        // Hachage du mot de passe en SHA256
+        // 🔹 Hachage du mot de passe en SHA256
         private static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -96,7 +69,7 @@ namespace ClassLibrary1
             }
         }
 
-        // Charge les utilisateurs depuis JSON
+        // 🔹 Charge les utilisateurs depuis JSON
         private static List<User> LoadUsers()
         {
             if (!File.Exists(pathName))
@@ -106,14 +79,14 @@ namespace ClassLibrary1
             return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
         }
 
-        // Sauvegarde les utilisateurs dans JSON
+        // 🔹 Sauvegarde les utilisateurs dans JSON
         private static void SaveUsers(List<User> users)
         {
             string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(pathName, json);
         }
 
-        // Inscription d'un nouvel utilisateur
+        // 🔹 Inscription d'un nouvel utilisateur
         public static bool Register(User newUser)
         {
             List<User> users = LoadUsers();
@@ -121,38 +94,27 @@ namespace ClassLibrary1
             // Vérifie si l'email est déjà utilisé
             if (users.Exists(u => u.Mail == newUser.Mail))
             {
-                Console.WriteLine("Cet email est déjà utilisé !");
                 return false;
             }
 
             users.Add(newUser);
             SaveUsers(users);
-            Console.WriteLine("Inscription réussie !");
             return true;
         }
 
-        // Vérification de l'utilisateur (Connexion)
+        // 🔹 Vérification de l'utilisateur (Connexion)
         public static bool Login(string email, string password)
         {
             List<User> users = LoadUsers();
             string hashedPassword = HashPassword(password);
 
-            if (users.Exists(u => u.Mail == email && u.PasswordHash == hashedPassword))
-            {
-                Console.WriteLine("Connexion réussie !");
-                return true;
-            }
-
-            Console.WriteLine("Email ou mot de passe incorrect !");
-            return false;
+            return users.Exists(u => u.Mail == email && u.PasswordHash == hashedPassword);
         }
+
+        // 🔹 Vérification si les mots de passe correspondent
         public static bool verifyPassword(string password, string password2)
         {
-            if (password != password2)
-            {
-                return false;
-            }
-            return true;
+            return password == password2;
         }
     }
 }

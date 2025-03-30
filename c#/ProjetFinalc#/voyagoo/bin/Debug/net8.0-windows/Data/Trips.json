@@ -1,0 +1,42 @@
+[
+    {
+        "IdTrip": 1,
+        "Destination": "Paris, France",
+        "Description": "Découvrez la ville lumière avec ses monuments emblématiques et sa cuisine raffinée.",
+        "Date": "2025-04-15",
+        "Price": 1200,
+        "Image": "Images/maroc.jpg"
+    },
+    {
+        "IdTrip": 2,
+        "Destination": "Tokyo, Japon",
+        "Description": "Explorez la culture unique et les technologies avancées de Tokyo.",
+        "Date": "2025-05-20",
+        "Price": 1500,
+        "Image": "Images/maroc.jpg"
+    },
+    {
+        "IdTrip": 3,
+        "Destination": "New York, USA",
+        "Description": "Visitez la ville qui ne dort jamais avec ses gratte-ciels et ses spectacles de Broadway.",
+        "Date": "2025-06-10",
+        "Price": 1300,
+        "Image": "Images/maroc.jpg"
+    },
+    {
+        "IdTrip": 4,
+        "Destination": "Sydney, Australie",
+        "Description": "Profitez des plages magnifiques et de l'opéra emblématique de Sydney.",
+        "Date": "2025-07-25",
+        "Price": 1700,
+        "Image": "Images/maroc.jpg"
+    },
+    {
+        "IdTrip": 5,
+        "Destination": "Le Caire, Égypte",
+        "Description": "Découvrez les pyramides anciennes et l'histoire fascinante de l'Égypte.",
+        "Date": "2025-08-15",
+        "Price": 1100,
+        "Image": "Images/Cairo.jpg"
+    }
+]

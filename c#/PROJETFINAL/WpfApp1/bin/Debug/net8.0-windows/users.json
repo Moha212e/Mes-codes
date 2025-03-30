@@ -1,0 +1,16 @@
+[
+  {
+    "IdUser": "U0001",
+    "Mail": "safina.ganiji@gmail.com",
+    "BirthDate": "2002-10-18T00:00:00",
+    "PasswordHash": "5a73fe8c0267a8e81455890f8829deeec796777802b4fc1e08430c4ea6922f89",
+    "Age": 22
+  },
+  {
+    "IdUser": "U0002",
+    "Mail": "donika@gmail.com",
+    "BirthDate": "2003-04-11T00:00:00",
+    "PasswordHash": "385c74f947aab0e58223ec6548a1ee0478fdc5b77bb65c9fdd7a458be09a950a",
+    "Age": 21
+  }
+]
