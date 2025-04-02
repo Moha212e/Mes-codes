@@ -52,7 +52,7 @@ namespace voyagoo {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/voyagoo;V1.0.0.0;component/indexadmin.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/voyagoo;component/indexadmin.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\IndexAdmin.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

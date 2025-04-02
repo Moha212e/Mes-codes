@@ -8,5 +8,8 @@
     <Compile Update="GererVoyages.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ListeTickets.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

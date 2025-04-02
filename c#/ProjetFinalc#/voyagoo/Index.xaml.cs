@@ -24,8 +24,14 @@ namespace voyagoo
             // Logique de recherche
             string lieu = txtLieu.Text;
             string date = datePicker.Text;
-            int prix = int.Parse(txtPrix.Text);
-
+            int prix = 0;
+            if (txtPrix.Text.Length > 0)
+            {
+                prix = int.Parse(txtPrix.Text);
+            }
+            else
+            {
+            }
             List<Trip> trips = Trip.SearchTrips(lieu, date, prix);
             tripsListBox.ItemsSource = trips;
         }

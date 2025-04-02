@@ -1,7 +1,7 @@
 ﻿<Window x:Class="voyagoo.AjouterVoyages"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gestion des Voyages" Height="500" Width="700"
+        Title="Gestion des Voyages" WindowState="Maximized"
         WindowStartupLocation="CenterScreen" Background="#F4F7FC">
 
     <Grid Margin="20">

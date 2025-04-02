@@ -18,3 +18,15 @@ C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows
 C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.genruntimeconfig.cache
 C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\ref\WpfApp1.dll
 C:\Users\pro\Documents\c#\code\C\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\WpfApp1_MarkupCompile.lref
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\WpfApp1.csproj.AssemblyReference.cache
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\Bagage.baml
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\index.baml
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\Ticket.baml
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\Bagage.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\index.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\Register.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\Ticket.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\WpfApp1_MarkupCompile.cache
+C:\Users\pasch\Documents\Mes-codes\c#\PROJETFINAL\WpfApp1\obj\Debug\net8.0-windows\WpfApp1_MarkupCompile.lref

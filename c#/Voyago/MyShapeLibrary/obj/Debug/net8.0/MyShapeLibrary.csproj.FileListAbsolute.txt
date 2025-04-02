@@ -10,3 +10,15 @@ C:\Users\pro\Documents\c#\code\C\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MySha
 C:\Users\pro\Documents\c#\code\C\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\refint\MyShapeLibrary.dll
 C:\Users\pro\Documents\c#\code\C\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.pdb
 C:\Users\pro\Documents\c#\code\C\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\ref\MyShapeLibrary.dll
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\bin\Debug\net8.0\MyShapeLibrary.deps.json
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\bin\Debug\net8.0\MyShapeLibrary.dll
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\bin\Debug\net8.0\MyShapeLibrary.pdb
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.AssemblyInfoInputs.cache
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.AssemblyInfo.cs
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.csproj.CoreCompileInputs.cache
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.sourcelink.json
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.dll
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\refint\MyShapeLibrary.dll
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\MyShapeLibrary.pdb
+C:\Users\pasch\Documents\Mes-codes\c#\Voyago\MyShapeLibrary\obj\Debug\net8.0\ref\MyShapeLibrary.dll

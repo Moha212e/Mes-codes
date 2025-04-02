@@ -111,7 +111,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <!-- Style pour DatePicker -->
+        <Style x:Key="ModernDatePicker" TargetType="DatePicker">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        </Style>
 
+        <!-- Style pour bouton de succès -->
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#FF4CAF50" />
+            <Setter Property="Foreground" Value="White" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF3E8E41" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style pour bouton d'erreur -->
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+            <Setter Property="Background" Value="#FFF44336" />
+            <Setter Property="Foreground" Value="White" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFD32F2F" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Style pour le texte dans les DataGrid -->
+        <Style x:Key="DataGridTextStyle" TargetType="TextBlock">
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <!-- Style pour les CheckBox dans les DataGrid -->
+        <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="IsEnabled" Value="True" />
+        </Style>
         <!-- Style des TextBox -->
         <Style x:Key="ModernTextBox" TargetType="TextBox">
             <Setter Property="Background" Value="White" />

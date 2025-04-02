@@ -19,11 +19,9 @@ namespace voyagoo
 
         private void ListerReservations_Click(object sender, RoutedEventArgs e)
         {
-            /*
             ListeTickets listeTickets = new ListeTickets();
             listeTickets.Show();
             this.Close();
-            */
         }
 
         private void AjouterVoyages_Click(object sender, RoutedEventArgs e)

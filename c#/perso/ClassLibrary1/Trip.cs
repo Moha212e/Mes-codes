@@ -76,72 +76,31 @@ namespace MyShapeClass
 
         #region Méthodes de Chargement
 
-        public static List<Trip> LoadTrips()
+        public static List<Trip> LoadTrips(bool includeDeleted = false)
         {
             try
             {
                 Debug.WriteLine($"Chemin du fichier JSON : {Path.GetFullPath(_filePath)}");
 
-                if (File.Exists(_filePath))
-                {
-                    Debug.WriteLine("Le fichier JSON existe. Lecture en cours...");
-
-                    // Lit le fichier JSON
-                    string json = File.ReadAllText(_filePath);
-
-                    Debug.WriteLine($"Contenu brut du fichier JSON : {json}");
-
-                    // Désérialise le JSON en une liste d'objets Trip
-                    List<Trip> trips = JsonSerializer.Deserialize<List<Trip>>(json);
-                    // trie les trips qui sont pas supprimer
-                    trips = trips.FindAll(t => !t._isDeleted);
-
-                    Debug.WriteLine($"Nombre de voyages chargés : {trips?.Count ?? 0}");
-
-                    return trips ?? new List<Trip>();
-                }
-                else
+                if (!File.Exists(_filePath))
                 {
                     Debug.WriteLine("⚠️ Le fichier JSON n'existe pas. Retour d'une liste vide.");
                     return new List<Trip>();
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"❌ Erreur lors du chargement des voyages : {ex.Message}");
-                return new List<Trip>();
-            }
-        }
 
-        public static List<Trip> LoadAllTrips()
-        {
-            try
-            {
-                Debug.WriteLine($"Chemin du fichier JSON : {Path.GetFullPath(_filePath)}");
+                Debug.WriteLine("Le fichier JSON existe. Lecture en cours...");
+                string json = File.ReadAllText(_filePath);
+                Debug.WriteLine($"Contenu brut du fichier JSON : {json}");
 
-                if (File.Exists(_filePath))
+                List<Trip> trips = JsonSerializer.Deserialize<List<Trip>>(json) ?? new List<Trip>();
+
+                if (!includeDeleted)
                 {
-                    Debug.WriteLine("Le fichier JSON existe. Lecture en cours...");
-
-                    // Lit le fichier JSON
-                    string json = File.ReadAllText(_filePath);
-
-                    Debug.WriteLine($"Contenu brut du fichier JSON : {json}");
-
-                    // Désérialise le JSON en une liste d'objets Trip
-                    List<Trip> trips = JsonSerializer.Deserialize<List<Trip>>(json);
-                    // trie les trips qui sont pas supprimer
                     trips = trips.FindAll(t => !t._isDeleted);
-
-                    Debug.WriteLine($"Nombre de voyages chargés : {trips?.Count ?? 0}");
-
-                    return trips ?? new List<Trip>();
                 }
-                else
-                {
-                    Debug.WriteLine("⚠️ Le fichier JSON n'existe pas. Retour d'une liste vide.");
-                    return new List<Trip>();
-                }
+
+                Debug.WriteLine($"Nombre de voyages chargés : {trips.Count}");
+                return trips;
             }
             catch (Exception ex)
             {
@@ -221,6 +180,22 @@ namespace MyShapeClass
             File.Copy(sourcePath, destinationPath, true);
 
             return fileName; // Retourne le nom du fichier
+        }
+
+        public static int SaveVoyages(List<Trip> trips)
+        {
+            try
+            {
+                string json = JsonSerializer.Serialize(trips, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_filePath, json);
+                Debug.WriteLine("Voyages sauvegardés avec succès");
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"❌ Erreur lors de la sauvegarde des voyages : {ex.Message}");
+                return 1;
+            }
         }
 
         #endregion Méthodes de Sauvegarde

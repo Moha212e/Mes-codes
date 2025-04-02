@@ -24,28 +24,21 @@ namespace voyagoo
 
         private void LoadTrips()
         {
-            trips = MyShapeClass.Trip.LoadAllTrips();
+            trips = MyShapeClass.Trip.LoadTrips(true);
             filteredTrips = trips;
             VoyagesDataGrid.ItemsSource = filteredTrips;
         }
 
-        private void SaveVoyages()
-        {
-            try
-            {
-                string json = JsonSerializer.Serialize(trips, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(filePath, json);
-                MessageBox.Show("Modifications enregistrées !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de l'enregistrement : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
         private void SaveVoyages_Click(object sender, RoutedEventArgs e)
         {
-            SaveVoyages();
+            if (MyShapeClass.Trip.SaveVoyages(trips) == 0)
+            {
+                MessageBox.Show("Les voyages ont été sauvegardés avec succès.", "Sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Erreur lors de la sauvegarde des voyages.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Retour_Click(object sender, RoutedEventArgs e)
@@ -53,21 +46,6 @@ namespace voyagoo
             IndexAdmin indexAdmin = new IndexAdmin();
             indexAdmin.Show();
             this.Close();
-        }
-
-        private void DeleteVoyage_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.DataContext is MyShapeClass.Trip trip)
-            {
-                var result = MessageBox.Show($"Confirmer la suppression de {trip._destination} ?", "Suppression",
-                                             MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.Yes)
-                {
-                    trips.Remove(trip);
-                    SaveVoyages();
-                    LoadTrips();
-                }
-            }
         }
 
         private void ImportImage_Click(object sender, RoutedEventArgs e)
@@ -82,40 +60,22 @@ namespace voyagoo
 
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    string fileName = SaveImageLocally(openFileDialog.FileName, trip._destination);
+                    string fileName = MyShapeClass.Trip.SaveImageLocally(openFileDialog.FileName, trip._destination);
 
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         trip._image = $"Data/Images/{fileName}";
-                        SaveVoyages();
-                        LoadTrips();
+                        if (MyShapeClass.Trip.SaveVoyages(trips) == 0)
+                        {
+                            MessageBox.Show("Image importée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de l'importation de l'image.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                            LoadTrips();
+                        }
                     }
                 }
-            }
-        }
-
-        private string SaveImageLocally(string sourcePath, string destination)
-        {
-            try
-            {
-                string imagesFolder = "Data/Images";
-
-                if (!Directory.Exists(imagesFolder))
-                {
-                    Directory.CreateDirectory(imagesFolder);
-                }
-
-                string extension = Path.GetExtension(sourcePath);
-                string fileName = $"{destination.Replace(" ", "_").Replace("/", "_").Replace("\\", "_")}{extension}";
-                string destinationPath = Path.Combine(imagesFolder, fileName);
-
-                File.Copy(sourcePath, destinationPath, true);
-                return fileName;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erreur lors de l'enregistrement de l'image : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
             }
         }
 
@@ -135,16 +95,12 @@ namespace voyagoo
             filteredTrips = trips.Where(trip => trip._destination.ToLower().Contains(recherche)).ToList();
             VoyagesDataGrid.ItemsSource = filteredTrips;
         }
-    }
 
-    public class Trip
-    {
-        internal object _image;
-
-        public string Destination { get; set; }
-        public double Price { get; set; }
-        public string Description { get; set; }
-        public string Date { get; set; }
-        public string ImagePath { get; set; }
+        private void AjouterVoyage_Click(object sender, RoutedEventArgs e)
+        {
+            AjouterVoyages ajouterVoyages = new AjouterVoyages();
+            ajouterVoyages.Show();
+            this.Close();
+        }
     }
 }
