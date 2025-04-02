@@ -1,0 +1,43 @@
+﻿<Window x:Class="voyagoo.ListeTickets"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Liste des Tickets" Height="400" Width="700"
+        Background="#F4F7FC" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <TextBlock Text="Liste des Tickets" FontSize="18" FontWeight="Bold"
+                   Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,20,0,0" />
+
+        <!-- DataGrid avec modification des donnees -->
+        <DataGrid Name="TicketsDataGrid" Margin="20,60,20,100" AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="True" IsReadOnly="False"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Voyage" Binding="{Binding IdTrip}" Width="200" IsReadOnly="True" />
+                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="150" IsReadOnly="True" />
+                <DataGridTextColumn Header="Prix" Binding="{Binding Prix}" Width="120" IsReadOnly="True" />
+                <!-- Afficher les voyageurs -->
+                <DataGridTemplateColumn Header="Voyageurs" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Travelers.Count, StringFormat={}{0} voyageurs}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Changement de titre de la colonne "Operations" -->
+                <DataGridTemplateColumn Header="Operations" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bouton retour pour revenir a IndexAdmin.xaml -->
+        <Button Content="Retour" Width="100" Height="30" HorizontalAlignment="Left"
+                VerticalAlignment="Bottom" Margin="20,0,0,20" Click="Retour_Click" />
+    </Grid>
+</Window>

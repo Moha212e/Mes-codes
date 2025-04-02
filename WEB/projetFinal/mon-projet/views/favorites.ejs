@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1>Mes Favoris</h1>
+  <div class="favorite-list">
+    <% favorites.forEach(function(recipe) { %>
+      <div class="recipe">
+        <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
+        <h3><%= recipe.title %></h3>
+        <a href="/recipes/<%= recipe._id %>">Voir la recette</a>
+        <a href="/api/favorites/<%= recipe._id %>" class="remove-favorite">Supprimer des favoris</a>
+      </div>
+    <% }); %>
+  </div>
+</main>
+
+<%- include('partials/footer') %>

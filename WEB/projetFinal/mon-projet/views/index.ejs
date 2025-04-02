@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+<main>
+  <h1>Recettes de Cuisine</h1>
+  <div class="recipe-list">
+    <% recipes.forEach(function(recipe) { %>
+      <div class="recipe">
+        <img src="<%= recipe.image %>" alt="<%= recipe.title %>" />
+        <h3><%= recipe.title %></h3>
+        <p>Temps de préparation: <%= recipe.readyInMinutes %> minutes</p>
+        <p>Calories: <%= recipe.nutrition.calories %> kcal</p>
+        <a href="/recipes/<%= recipe._id %>">Voir la recette</a>
+      </div>
+    <% }); %>
+  </div>
+</main>
+
+<%- include('partials/footer') %>
