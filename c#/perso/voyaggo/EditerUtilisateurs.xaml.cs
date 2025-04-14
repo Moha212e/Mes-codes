@@ -23,7 +23,14 @@ namespace voyagoo
         // Enregistre les modifications
         private void Enregistrer_Click(object sender, RoutedEventArgs e)
         {
-            User.saveUser(users);
+            if (User.saveUser(users) == 0)
+            {
+                MessageBox.Show("Les utilisateurs ont été sauvegardés avec succès.", "Sauvegarde", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Erreur lors de la sauvegarde des utilisateurs.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             MessageBox.Show("Modifications enregistrées !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

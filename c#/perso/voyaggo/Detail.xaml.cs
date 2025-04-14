@@ -10,6 +10,18 @@ namespace voyagoo
         {
             InitializeComponent();
             this.DataContext = selectedDetail; // Lie les données du voyage sélectionné
+
+            // Message plus propre et organisé pour afficher les détails
+            string message = $"Détails du voyage à {selectedDetail._destination}\n\n"
+                          + $"Description: {selectedDetail._description}\n"
+                          + $"Durée: {selectedDetail._duration}\n"
+                          + $"Date: {selectedDetail._date}\n"
+                          + $"Prix: {selectedDetail._price}";
+
+            MessageBox.Show(message,
+                          "Détails du voyage",
+                          MessageBoxButton.OK,
+                          MessageBoxImage.Information);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -19,17 +31,10 @@ namespace voyagoo
 
         private void BookButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            // Récupère les informations du voyage sélectionné
-            Detail Detail = (Detail)this.DataContext;
-
-            // Essaie de convertir le prix du voyage en entier
-
-            // Ouvre la fenêtre de réservation avec l'ID du voyage et le prix converti
-            Reserver reserver = new Reserver(Detail.IdDetail, Detail.Price);
+            // Crée et ouvre la fenêtre de réservation
+            Reserver reserver = new Reserver(this.DataContext as Trip);
             reserver.Show();
             this.Close(); // Ferme la fenêtre de détails
-            */
         }
     }
 }

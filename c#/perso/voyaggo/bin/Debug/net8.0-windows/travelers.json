@@ -1,0 +1,22 @@
+[
+  {
+    "_IdTravel": 1,
+    "_IdTrip": 1,
+    "_FirstName": "mohammed",
+    "_LastName": "elaouali",
+    "_DateOfBirth": "2000-02-12T00:00:00",
+    "_Nationality": "kfejfej",
+    "_PassportNumber": "12345678",
+    "_destinination": "Maroc",
+    "_Bagage": 10,
+    "idTraveler": 1,
+    "idTrip": 1,
+    "firstName": "mohammed",
+    "lastName": "elaouali",
+    "DateNaissance": "2000-02-12T00:00:00",
+    "Nationality": "kfejfej",
+    "PassportNumber": "12345678",
+    "destinination": "Maroc",
+    "bagage": 10
+  }
+]

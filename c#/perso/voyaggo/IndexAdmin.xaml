@@ -11,7 +11,7 @@
             <Grid Width="800" Height="500">
                 <!-- Message de Bienvenue -->
                 <TextBlock Text="Bienvenue, Administrateur" FontSize="20" FontWeight="Bold"
-                           Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,20,0,0" />
+                           Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,0,0,464" />
 
                 <!-- Conteneur principal -->
                 <UniformGrid Rows="2" Columns="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20">
@@ -19,21 +19,18 @@
                     <Button Content="Ajouter Voyages" Width="204" Height="143" FontSize="14" FontWeight="Bold"
                             Background="#FFFFFF" Foreground="#007ACC" BorderBrush="#007ACC" Cursor="Hand"
                             Click="AjouterVoyages_Click" HorizontalAlignment="Left" Margin="0,0,20,20" />
+                    <Button Content="Gerer Voyages" Width="204" Height="142" FontSize="14" FontWeight="Bold"
+                            Background="#FFFFFF" Foreground="#007ACC" BorderBrush="#007ACC" Cursor="Hand"
+                            Click="GererVoyages_Click" HorizontalAlignment="Right" VerticalAlignment="Top" />
                     <Button Content="Editer Utilisateur" Width="204" Height="142" FontSize="14" FontWeight="Bold"
                             Background="#FFFFFF" Foreground="#007ACC" BorderBrush="#007ACC" Cursor="Hand"
-                            Click="EditerUtilisateur_Click" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                            Click="EditerUtilisateur_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 
                     <!-- Editer Utilisateur -->
 
                     <!-- Lister les reservations -->
-                    <Button Content="Lister Reservations" Width="206" Height="146" FontSize="14" FontWeight="Bold"
-                            Background="#FFFFFF" Foreground="#007ACC" BorderBrush="#007ACC" Cursor="Hand"
-                            Click="ListerReservations_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 
                     <!-- Ajouter Voyages -->
-                    <Button Content="Gerer Voyages" Width="205" Height="142" FontSize="14" FontWeight="Bold"
-                            Background="#FFFFFF" Foreground="#007ACC" BorderBrush="#007ACC" Cursor="Hand"
-                            Click="GererVoyages_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
                 </UniformGrid>
             </Grid>
         </Viewbox>

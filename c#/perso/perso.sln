@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "voyagoo", "voyaggo\voyagoo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyShapeClass", "ClassLibrary1\MyShapeClass.csproj", "{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registre", "Registre\Registre.csproj", "{AA9A3031-342F-4A81-90E3-B6A1527BCC74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA9A3031-342F-4A81-90E3-B6A1527BCC74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA9A3031-342F-4A81-90E3-B6A1527BCC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA9A3031-342F-4A81-90E3-B6A1527BCC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA9A3031-342F-4A81-90E3-B6A1527BCC74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

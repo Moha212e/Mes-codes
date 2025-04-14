@@ -40,3 +40,11 @@ C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\ref
 C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\App.baml
 C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\ListeTickets.baml
 C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\ListeTickets.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Bagage.baml
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Reserver.baml
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Ticket.baml
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Bagage.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Reserver.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\obj\Debug\net8.0-windows\Ticket.g.cs
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\bin\Debug\net8.0-windows\Registre.dll
+C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\bin\Debug\net8.0-windows\Registre.pdb

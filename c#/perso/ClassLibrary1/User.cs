@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -196,10 +197,20 @@ namespace MyShapeClass
             }
         }
 
-        public static void saveUser(List<User> users)
+        public static int saveUser(List<User> users)
         {
-            string json = JsonSerializer.Serialize(users);
-            File.WriteAllText(_fileName, json);
+            try
+            {
+                string json = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(_fileName, json);
+                Debug.WriteLine("Voyages sauvegardés avec succès");
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"❌ Erreur lors de la sauvegarde des voyages : {ex.Message}");
+                return 1;
+            }
         }
 
         #endregion Méthodes privées

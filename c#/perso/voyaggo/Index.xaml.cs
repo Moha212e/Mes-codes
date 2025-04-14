@@ -11,9 +11,16 @@ namespace voyagoo
         {
             InitializeComponent();
             LoadTrips();
-
-            // Debug pour vérifier le chargement
+            LoadLastSearch();
             Debug.WriteLine("Initialisation terminée");
+        }
+
+        private void LoadLastSearch()
+        {
+            var (lieu, date, prix) = RegistryHelper.LoadLastSearch();
+            txtLieu.Text = lieu;
+            datePicker.Text = date;
+            txtPrix.Text = prix;
         }
 
         private void LoadTrips()
@@ -21,7 +28,6 @@ namespace voyagoo
             var trips = MyShapeClass.Trip.LoadTrips();
             tripsListBox.ItemsSource = trips;
 
-            // Debug
             foreach (var trip in trips)
             {
                 Debug.WriteLine($"Trip chargé: {trip._destination}, Image: {trip._image}");
@@ -32,18 +38,26 @@ namespace voyagoo
         {
             string lieu = txtLieu.Text;
             string date = datePicker.Text;
+            string prixText = txtPrix.Text;
 
-            if (!int.TryParse(txtPrix.Text, out int prix))
+            // Initialisation avec une valeur par défaut
+            int prix = 0;
+
+            // Vérification et conversion du prix
+            if (!string.IsNullOrEmpty(prixText) && !int.TryParse(prixText, out prix))
             {
                 MessageBox.Show("Veuillez entrer un prix valide.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            // Sauvegarde dans le registre
+            RegistryHelper.SaveLastSearch(lieu, date, prixText);
+
+            // Recherche avec le prix correctement initialisé
             var trips = MyShapeClass.Trip.SearchTrips(lieu, date, prix);
             tripsListBox.ItemsSource = trips;
         }
 
-        // Séparer les handlers
         private void OnListBoxSelectionChanged(object sender, RoutedEventArgs e)
         {
             // Logique de sélection si nécessaire

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\App.xaml
-9-1623988743
+12-1411844041
 
-15-348688407
-199173246422
-AjouterVoyages.xaml;Detail.xaml;EditerUtilisateurs.xaml;GererVoyages.xaml;Index.xaml;IndexAdmin.xaml;ListeTickets.xaml;MainWindow.xaml;Register.xaml;
+181213251656
+200351633884
+AjouterVoyages.xaml;Bagage.xaml;Detail.xaml;EditerUtilisateurs.xaml;GererVoyages.xaml;Index.xaml;IndexAdmin.xaml;ListeTickets.xaml;MainWindow.xaml;Register.xaml;Reserver.xaml;Ticket.xaml;
 
 False
 

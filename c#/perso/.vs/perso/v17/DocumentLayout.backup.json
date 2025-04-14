@@ -3,23 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\listetickets.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\listetickets.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\editerutilisateurs.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\editerutilisateurs.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\editerutilisateurs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\editerutilisateurs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\gerervoyages.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\gerervoyages.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\classlibrary1\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,100 +23,40 @@
       "RelativeMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|solutionrelative:classlibrary1\\trip.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\listetickets.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\listetickets.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\classlibrary1\\travelers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|solutionrelative:classlibrary1\\travelers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\indexadmin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\indexadmin.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\indexadmin.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\indexadmin.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\editerutilisateurs.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\editerutilisateurs.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\ajoutervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\ajoutervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\editerutilisateurs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\editerutilisateurs.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\editerutilisateurs.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\editerutilisateurs.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\indexadmin.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\indexadmin.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\gerervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\gerervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\mydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\mydata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\detail.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\detail.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\ajoutervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\ajoutervoyages.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\ajoutervoyages.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\ajoutervoyages.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\detail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\detail.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\index.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\classlibrary1\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2742E6C9-F852-4D09-BE3B-B2B4FEB69D60}|ClassLibrary1\\MyShapeClass.csproj|solutionrelative:classlibrary1\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\index.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\register.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\register.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\register.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\register.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\voyaggo\\index.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{AB024E43-0326-4B76-B772-3D429CBBCF92}|voyaggo\\voyagoo.csproj|solutionrelative:voyaggo\\index.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{AA9A3031-342F-4A81-90E3-B6A1527BCC74}|Registre\\Registre.csproj|c:\\users\\pasch\\documents\\mes-codes\\c#\\perso\\registre\\registryhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AA9A3031-342F-4A81-90E3-B6A1527BCC74}|Registre\\Registre.csproj|solutionrelative:registre\\registryhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -132,8 +65,39 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 758,
-          "SelectedChildIndex": 4,
+          "DockedWidth": 809,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\User.cs",
+              "RelativeDocumentMoniker": "ClassLibrary1\\User.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\User.cs",
+              "RelativeToolTip": "ClassLibrary1\\User.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAYwMUAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T10:45:05.255Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "EditerUtilisateurs.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml.cs",
+              "RelativeDocumentMoniker": "voyaggo\\EditerUtilisateurs.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml.cs",
+              "RelativeToolTip": "voyaggo\\EditerUtilisateurs.xaml.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAwwBIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T11:03:32.112Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 809,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -146,359 +110,62 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "ListeTickets.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\ListeTickets.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\ListeTickets.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\ListeTickets.xaml.cs",
-              "RelativeToolTip": "voyaggo\\ListeTickets.xaml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAUwBgAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T07:44:23.938Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Travelers.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Travelers.cs",
-              "RelativeDocumentMoniker": "ClassLibrary1\\Travelers.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Travelers.cs",
-              "RelativeToolTip": "ClassLibrary1\\Travelers.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T07:41:50.585Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ListeTickets.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\ListeTickets.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\ListeTickets.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\ListeTickets.xaml",
-              "RelativeToolTip": "voyaggo\\ListeTickets.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T07:38:29.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IndexAdmin.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\IndexAdmin.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml.cs",
-              "RelativeToolTip": "voyaggo\\IndexAdmin.xaml.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAzwBgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T23:17:47.449Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\App.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\App.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\App.xaml",
-              "RelativeToolTip": "voyaggo\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T05:21:39.097Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IndexAdmin.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\IndexAdmin.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml",
-              "RelativeToolTip": "voyaggo\\IndexAdmin.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T07:37:59.077Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "EditerUtilisateurs.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\EditerUtilisateurs.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml.cs",
-              "RelativeToolTip": "voyaggo\\EditerUtilisateurs.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAkwBUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T23:19:54.164Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "AjouterVoyages.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\AjouterVoyages.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml",
-              "RelativeToolTip": "voyaggo\\AjouterVoyages.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T23:45:35.001Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "EditerUtilisateurs.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\EditerUtilisateurs.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
-              "RelativeToolTip": "voyaggo\\EditerUtilisateurs.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T07:33:49.525Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "EditerUtilisateurs.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\EditerUtilisateurs.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
-              "RelativeToolTip": "voyaggo\\EditerUtilisateurs.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAwwKIAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T07:17:33.24Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "IndexAdmin.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\IndexAdmin.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\IndexAdmin.xaml",
-              "RelativeToolTip": "voyaggo\\IndexAdmin.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T07:17:05.337Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Trips.json",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "RelativeDocumentMoniker": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "RelativeToolTip": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAXAAAAAAAAAA==",
+              "Title": "travelers.json",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json",
+              "RelativeDocumentMoniker": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json",
+              "RelativeToolTip": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\travelers.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-30T06:59:29.998Z"
+              "WhenOpened": "2025-04-08T10:38:51.576Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Index.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\Index.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
-              "RelativeToolTip": "voyaggo\\Index.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T22:23:45.227Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Index.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\Index.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml.cs",
-              "RelativeToolTip": "voyaggo\\Index.xaml.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:46:38.482Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "GererVoyages.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\GererVoyages.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\GererVoyages.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\GererVoyages.xaml",
-              "RelativeToolTip": "voyaggo\\GererVoyages.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-30T01:53:50.96Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "AjouterVoyages.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\AjouterVoyages.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml.cs",
-              "RelativeToolTip": "voyaggo\\AjouterVoyages.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T23:46:26.103Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "MyData.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MyData.cs",
-              "RelativeDocumentMoniker": "voyaggo\\MyData.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MyData.cs",
-              "RelativeToolTip": "voyaggo\\MyData.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T01:38:56.484Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Detail.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Detail.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\Detail.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Detail.xaml.cs",
-              "RelativeToolTip": "voyaggo\\Detail.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T22:40:45.214Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 5,
               "Title": "users.json",
               "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json",
               "RelativeDocumentMoniker": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json",
               "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json",
               "RelativeToolTip": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\users.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAGMAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-30T04:33:00.204Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "Detail.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Detail.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\Detail.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Detail.xaml",
-              "RelativeToolTip": "voyaggo\\Detail.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T22:40:09.509Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MainWindow.xaml.cs",
-              "RelativeToolTip": "voyaggo\\MainWindow.xaml.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwCwAAABEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-27T17:56:15.811Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Session.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Session.cs",
-              "RelativeDocumentMoniker": "ClassLibrary1\\Session.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Session.cs",
-              "RelativeToolTip": "ClassLibrary1\\Session.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-28T12:40:05.208Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Register.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Register.xaml.cs",
-              "RelativeDocumentMoniker": "voyaggo\\Register.xaml.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Register.xaml.cs",
-              "RelativeToolTip": "voyaggo\\Register.xaml.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAowAcAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T21:59:45.358Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\MainWindow.xaml",
-              "RelativeToolTip": "voyaggo\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T21:14:40.922Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Register.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Register.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\Register.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Register.xaml",
-              "RelativeToolTip": "voyaggo\\Register.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-28T08:49:49.681Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "Index.xaml",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
-              "RelativeDocumentMoniker": "voyaggo\\Index.xaml",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
-              "RelativeToolTip": "voyaggo\\Index.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-29T21:58:48.528Z"
-            }
-          ]
-        },
-        {
-          "DockedWidth": 758,
-          "SelectedChildIndex": 4,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AssemblyInfo.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AssemblyInfo.cs",
-              "RelativeDocumentMoniker": "voyaggo\\AssemblyInfo.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AssemblyInfo.cs",
-              "RelativeToolTip": "voyaggo\\AssemblyInfo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T10:56:43.387Z"
+              "WhenOpened": "2025-04-08T10:32:02.712Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Trips.json",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "RelativeDocumentMoniker": "..\\ProjetFinalc#\\voyagoo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\ProjetFinalc#\\voyagoo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "RelativeToolTip": "..\\ProjetFinalc#\\voyagoo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-03-31T10:56:05.281Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\User.cs",
-              "RelativeDocumentMoniker": "ClassLibrary1\\User.cs",
-              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\User.cs",
-              "RelativeToolTip": "ClassLibrary1\\User.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAwAsAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-31T10:53:10.661Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
               "Title": "Trip.cs",
               "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Trip.cs",
               "RelativeDocumentMoniker": "ClassLibrary1\\Trip.cs",
               "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Trip.cs",
               "RelativeToolTip": "ClassLibrary1\\Trip.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAIwMUAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T02:06:51.855Z"
+              "WhenOpened": "2025-04-08T10:34:21.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditerUtilisateurs.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
+              "RelativeDocumentMoniker": "voyaggo\\EditerUtilisateurs.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\EditerUtilisateurs.xaml",
+              "RelativeToolTip": "voyaggo\\EditerUtilisateurs.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-08T11:12:27.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Travelers.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Travelers.cs",
+              "RelativeDocumentMoniker": "ClassLibrary1\\Travelers.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\ClassLibrary1\\Travelers.cs",
+              "RelativeToolTip": "ClassLibrary1\\Travelers.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAgwAkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T10:40:03.946Z"
             },
             {
               "$type": "Document",
@@ -508,10 +175,79 @@
               "RelativeDocumentMoniker": "voyaggo\\GererVoyages.xaml.cs",
               "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\GererVoyages.xaml.cs",
               "RelativeToolTip": "voyaggo\\GererVoyages.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T01:54:25.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-08T11:16:12.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Trips.json",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
+              "RelativeDocumentMoniker": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
+              "RelativeToolTip": "voyaggo\\bin\\Debug\\net8.0-windows\\Data\\Trips.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-08T10:37:15.416Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AjouterVoyages.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml.cs",
+              "RelativeDocumentMoniker": "voyaggo\\AjouterVoyages.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml.cs",
+              "RelativeToolTip": "voyaggo\\AjouterVoyages.xaml.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAwwFUAAAB4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T10:35:13.454Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AjouterVoyages.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml",
+              "RelativeDocumentMoniker": "voyaggo\\AjouterVoyages.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\AjouterVoyages.xaml",
+              "RelativeToolTip": "voyaggo\\AjouterVoyages.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-08T10:35:11.689Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml.cs",
+              "RelativeDocumentMoniker": "voyaggo\\Index.xaml.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml.cs",
+              "RelativeToolTip": "voyaggo\\Index.xaml.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAwwC0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T10:22:31.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Index.xaml",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
+              "RelativeDocumentMoniker": "voyaggo\\Index.xaml",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Index.xaml",
+              "RelativeToolTip": "voyaggo\\Index.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-08T10:22:28.644Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "RegistryHelper.cs",
+              "DocumentMoniker": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\Registre\\RegistryHelper.cs",
+              "RelativeDocumentMoniker": "Registre\\RegistryHelper.cs",
+              "ToolTip": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\Registre\\RegistryHelper.cs",
+              "RelativeToolTip": "Registre\\RegistryHelper.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAowCcAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-08T10:14:00.112Z"
             }
           ]
         }

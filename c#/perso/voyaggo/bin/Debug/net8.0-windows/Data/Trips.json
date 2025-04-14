@@ -1,12 +1,302 @@
 [
   {
     "_idTrip": 1,
-    "_destination": "aazrzrz",
-    "_description": "azeazezzz",
-    "_date": "21-03-25",
-    "_price": 15,
-    "_image": "Images/aazrzrz.png",
+    "_destination": "maroc",
+    "_description": "le plus beau pays",
+    "_date": "14-06-25",
+    "_price": 120,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
     "_duration": 12,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 2,
+    "_destination": "france",
+    "_description": "le pays de la gastronomie",
+    "_date": "15-07-10",
+    "_price": 150,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 10,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 3,
+    "_destination": "espagne",
+    "_description": "plages et fiesta",
+    "_date": "16-08-20",
+    "_price": 180,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 15,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 4,
+    "_destination": "italie",
+    "_description": "art et culture",
+    "_date": "17-09-05",
+    "_price": 130,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 9,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 5,
+    "_destination": "gr\u00E8ce",
+    "_description": "les \u00EEles magnifiques",
+    "_date": "18-10-30",
+    "_price": 140,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 11,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 6,
+    "_destination": "portugal",
+    "_description": "plages et paysages",
+    "_date": "19-12-12",
+    "_price": 160,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 10,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 7,
+    "_destination": "turquie",
+    "_description": "histoire et merveilles",
+    "_date": "20-01-15",
+    "_price": 135,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 13,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 8,
+    "_destination": "taille",
+    "_description": "merveilles naturelles",
+    "_date": "21-02-02",
+    "_price": 145,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 12,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 9,
+    "_destination": "egypte",
+    "_description": "les pyramides et le d\u00E9sert",
+    "_date": "22-03-07",
+    "_price": 125,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 10,
+    "_destination": "thailande",
+    "_description": "plages et temples",
+    "_date": "23-04-01",
+    "_price": 160,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 11,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 11,
+    "_destination": "malaisie",
+    "_description": "plages et jungle",
+    "_date": "24-05-21",
+    "_price": 170,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 13,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 12,
+    "_destination": "chine",
+    "_description": "la grande muraille et la culture",
+    "_date": "25-06-12",
+    "_price": 190,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 13,
+    "_destination": "japon",
+    "_description": "tradition et modernit\u00E9",
+    "_date": "26-07-15",
+    "_price": 200,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 16,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 14,
+    "_destination": "canada",
+    "_description": "nature et grands espaces",
+    "_date": "27-08-20",
+    "_price": 220,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 18,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 15,
+    "_destination": "us",
+    "_description": "parcs nationaux et paysages",
+    "_date": "28-09-10",
+    "_price": 250,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 20,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 16,
+    "_destination": "australie",
+    "_description": "grands espaces et animaux",
+    "_date": "29-10-05",
+    "_price": 240,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 22,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 17,
+    "_destination": "nouvelle zelande",
+    "_description": "nature et aventure",
+    "_date": "30-11-22",
+    "_price": 210,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 19,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 18,
+    "_destination": "argentine",
+    "_description": "nature et culture",
+    "_date": "31-12-15",
+    "_price": 180,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 19,
+    "_destination": "br\u00E9sil",
+    "_description": "plages et culture",
+    "_date": "32-01-25",
+    "_price": 195,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 12,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 20,
+    "_destination": "safrican",
+    "_description": "safari et paysages",
+    "_date": "33-02-10",
+    "_price": 170,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 11,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 21,
+    "_destination": "mexique",
+    "_description": "plages et culture",
+    "_date": "34-03-30",
+    "_price": 190,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 13,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 22,
+    "_destination": "chili",
+    "_description": "paysages \u00E0 couper le souffle",
+    "_date": "35-04-18",
+    "_price": 180,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 12,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 23,
+    "_destination": "colombie",
+    "_description": "nature et histoire",
+    "_date": "36-05-01",
+    "_price": 170,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 24,
+    "_destination": "perou",
+    "_description": "incas et merveilles naturelles",
+    "_date": "37-06-10",
+    "_price": 190,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 13,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 25,
+    "_destination": "chine",
+    "_description": "les temples et l\u0027histoire",
+    "_date": "38-07-20",
+    "_price": 220,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 15,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 26,
+    "_destination": "indon\u00E9sie",
+    "_description": "plages et volcans",
+    "_date": "39-08-12",
+    "_price": 230,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 27,
+    "_destination": "philippines",
+    "_description": "\u00EEles et plages",
+    "_date": "40-09-25",
+    "_price": 240,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 12,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 28,
+    "_destination": "coree du sud",
+    "_description": "culture et technologie",
+    "_date": "41-10-05",
+    "_price": 250,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 13,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 29,
+    "_destination": "su\u00E8de",
+    "_description": "paysages nordiques",
+    "_date": "42-11-02",
+    "_price": 270,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 14,
+    "_isDeleted": false
+  },
+  {
+    "_idTrip": 30,
+    "_destination": "finlande",
+    "_description": "lumi\u00E8res et nature",
+    "_date": "43-12-15",
+    "_price": 260,
+    "_image": "C:\\Users\\pasch\\Documents\\Mes-codes\\c#\\perso\\voyaggo\\Images\\maroc.jpeg",
+    "_duration": 16,
     "_isDeleted": false
   }
 ]

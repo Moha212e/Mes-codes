@@ -121,7 +121,7 @@ namespace MyShapeClass
                 return trips.FindAll(trip =>
                     (string.IsNullOrEmpty(destination) || trip._destination.ToLower().Contains(destination.ToLower())) &&
                     (string.IsNullOrEmpty(date) || trip._date == date) &&
-                    (price == 0 || trip._price <= price)
+                    (price == 0 || trip._price <= price || price == -1)  // Ajout de la condition 'price == -1' pour ignorer le prix si non précisé
                 );
             }
             catch (Exception ex)
@@ -167,7 +167,7 @@ namespace MyShapeClass
 
         public static string SaveImageLocally(string sourcePath, string destination)
         {
-            string imagesFolder = "Data/Images"; // Dossier où l'image sera sauvegardée
+            string imagesFolder = "voyaggo\\Images\\"; // Dossier où l'image sera sauvegardée
 
             // Crée le dossier si nécessaire
             Directory.CreateDirectory(imagesFolder);
@@ -195,6 +195,20 @@ namespace MyShapeClass
             {
                 Debug.WriteLine($"❌ Erreur lors de la sauvegarde des voyages : {ex.Message}");
                 return 1;
+            }
+        }
+
+        public static string FindTripById(int idTrip)
+        {
+            List<Trip> trips = LoadTrips();
+            Trip trip = trips.Find(t => t._idTrip == idTrip);
+            if (trip != null)
+            {
+                return trip._destination; // Retourne la date du voyage
+            }
+            else
+            {
+                return "Aucune date trouvée"; // Si aucun voyage n'est trouvé
             }
         }
 

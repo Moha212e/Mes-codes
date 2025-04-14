@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyShapeClass")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43b9fa4c1e2e2f70e021c4df06eb18b5ea1687aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+494da94b852a646c3fb2143df9b13ddc9cae4920")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyShapeClass")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyShapeClass")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

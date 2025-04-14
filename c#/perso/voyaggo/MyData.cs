@@ -12,33 +12,46 @@ namespace voyagoo
 {
     public class MyData : INotifyPropertyChanged
     {
-        #region Fields and properties
+        private ObservableCollection<Trip> _trips;
 
-        private ObservableCollection<User> _listPersons;
-
-        public ObservableCollection<User> ListPersons
+        public ObservableCollection<Trip> Trips
         {
-            get { return _listPersons; }
+            get { return _trips; }
             set
             {
-                if (_listPersons != value)
+                if (_trips != value)
                 {
-                    _listPersons = value;
+                    _trips = value;
                     NotifyPropertyChanged();
                 }
             }
         }
 
-        private ObservableCollection<Trip> _listTrips;
+        private ObservableCollection<User> _users;
 
-        public ObservableCollection<Trip> ListTrips
+        public ObservableCollection<User> Users
         {
-            get { return _listTrips; }
+            get { return _users; }
             set
             {
-                if (_listTrips != value)
+                if (_users != value)
                 {
-                    _listTrips = value;
+                    _users = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private ObservableCollection<Travelers> _travelers;
+
+        public ObservableCollection<Travelers> Travelers
+        {
+            get { return _travelers; }
+            set
+            {
+                if (_travelers != value)
+                {
+                    _travelers = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -46,16 +59,18 @@ namespace voyagoo
 
         public MyData()
         {
-            ListPersons = new ObservableCollection<User>(User.LoadUsers());
-            ListTrips = new ObservableCollection<Trip>((IEnumerable<Trip>)MyShapeClass.Trip.LoadTrips());
+            Trips = new ObservableCollection<Trip>(Trip.LoadTrips());
+            Users = new ObservableCollection<User>(User.LoadUsers());
+            //Travelers = new ObservableCollection<Travelers>(Travelers.LoadAllTravelers());
         }
-
-        #endregion Fields and properties
 
         #region INotifyPropertyChanged implementation
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
+        // This method is called by the Set accessor of each property.
+        // The CallerMemberName attribute that is applied to the optional propertyName
+        // parameter causes the property name of the caller to be substituted as an argument.
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

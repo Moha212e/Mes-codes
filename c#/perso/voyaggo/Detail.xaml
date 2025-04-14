@@ -7,176 +7,176 @@
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized">
 
-    <Window.Resources>
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#4285F4" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="12,6" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect
+	<Window.Resources>
+		<Style TargetType="Button">
+			<Setter Property="Background" Value="#4285F4" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontWeight" Value="SemiBold" />
+			<Setter Property="BorderThickness" Value="0" />
+			<Setter Property="Padding" Value="12,6" />
+			<Setter Property="Cursor" Value="Hand" />
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect
                         BlurRadius="8"
                         Opacity="0.2"
                         ShadowDepth="2" />
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3367D6" />
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Background" Value="#3367D6" />
+					<Setter Property="Effect">
+						<Setter.Value>
+							<DropShadowEffect
                                 BlurRadius="12"
                                 Opacity="0.3"
                                 ShadowDepth="3" />
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+						</Setter.Value>
+					</Setter>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
 
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#424242" />
-        </Style>
+		<Style TargetType="TextBlock">
+			<Setter Property="Foreground" Value="#424242" />
+		</Style>
 
-        <Style TargetType="Border">
-            <Setter Property="CornerRadius" Value="12" />
-            <Setter Property="Background" Value="#FFFFFF" />
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect
+		<Style TargetType="Border">
+			<Setter Property="CornerRadius" Value="12" />
+			<Setter Property="Background" Value="#FFFFFF" />
+			<Setter Property="Effect">
+				<Setter.Value>
+					<DropShadowEffect
                         BlurRadius="16"
                         Opacity="0.1"
                         ShadowDepth="4" />
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Window.Resources>
 
-    <Grid>
-        <!--  Image de fond  -->
-        <Image
+	<Grid>
+		<!--  Image de fond  -->
+		<Image
             Panel.ZIndex="-1"
             Opacity="0.95"
             Source="pack://application:,,,/Images/Designer.jpeg"
             Stretch="UniformToFill" />
 
-        <!--  Conteneur principal  -->
-        <Grid Margin="30">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+		<!--  Conteneur principal  -->
+		<Grid Margin="30">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
 
-            <!--  En-tete  -->
-            <Border Margin="0,0,0,15" Padding="15">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
+			<!--  En-tete  -->
+			<Border Margin="0,0,0,15" Padding="15">
+				<StackPanel Orientation="Horizontal">
+					<TextBlock
                         FontSize="24"
                         FontWeight="SemiBold"
                         Foreground="#212121"
                         Text="Details du voyage" />
 
-                    <Button
+					<Button
                         Margin="20,0,0,0"
                         Padding="15,5"
                         HorizontalAlignment="Right"
                         Click="BackButton_Click"
                         Content="Retour" />
-                </StackPanel>
-            </Border>
+				</StackPanel>
+			</Border>
 
-            <!--  Contenu detaille  -->
-            <Border Grid.Row="1" Padding="20">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+			<!--  Contenu detaille  -->
+			<Border Grid.Row="1" Padding="20">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="2*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
 
-                    <!--  Image et description  -->
-                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                        <Border Height="350" CornerRadius="10">
-                            <Image Source="{Binding Image}" Stretch="UniformToFill" />
-                        </Border>
+					<!--  Image et description  -->
+					<StackPanel Grid.Column="0" Margin="0,0,20,0">
+						<Border Height="350" CornerRadius="10">
+							<Image Source="{Binding _image}" />
+						</Border>
 
-                        <Border Margin="0,20,0,0" Padding="15">
-                            <TextBlock
+						<Border Margin="0,20,0,0" Padding="15">
+							<TextBlock
                                 FontSize="16"
-                                Text="{Binding Description}"
+                                Text="{Binding _description}"
                                 TextWrapping="Wrap" />
-                        </Border>
-                    </StackPanel>
+						</Border>
+					</StackPanel>
 
-                    <!--  Details et reservation  -->
-                    <Border Grid.Column="1" Padding="15">
-                        <StackPanel>
-                            <TextBlock
+					<!--  Details et reservation  -->
+					<Border Grid.Column="1" Padding="15">
+						<StackPanel>
+							<TextBlock
                                 Margin="0,0,0,10"
                                 FontSize="22"
                                 FontWeight="Bold"
-                                Text="{Binding Destination}" />
+                                Text="{Binding _destination}" />
 
-                            <StackPanel Margin="0,10,0,0">
-                                <TextBlock
+							<StackPanel Margin="0,10,0,0">
+								<TextBlock
                                     FontWeight="SemiBold"
                                     Foreground="#757575"
                                     Text="Date du voyage:" />
-                                <TextBlock
+								<TextBlock
                                     Margin="0,5,0,15"
                                     FontSize="16"
-                                    Text="{Binding Date}" />
+                                    Text="{Binding _date}" />
 
-                                <TextBlock
+								<TextBlock
                                     FontWeight="SemiBold"
                                     Foreground="#757575"
                                     Text="Prix par personne:" />
-                                <TextBlock
+								<TextBlock
                                     Margin="0,5,0,15"
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4285F4"
-                                    Text="{Binding Price}" />
+                                    Text="{Binding _price}" />
 
-                                <TextBlock
+								<TextBlock
                                     FontWeight="SemiBold"
                                     Foreground="#757575"
                                     Text="Duree:" />
-                                <TextBlock
+								<TextBlock
                                     Margin="0,5,0,15"
                                     FontSize="16"
-                                    Text="{Binding Duration}" />
+                                    Text="{Binding _duration}" />
 
-                                <TextBlock
+								<TextBlock
                                     Margin="0,10,0,5"
                                     FontWeight="SemiBold"
                                     Foreground="#757575"
                                     Text="Inclus dans le prix:" />
-                                <ItemsControl ItemsSource="{Binding IncludedItems}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock
+								<ItemsControl ItemsSource="{Binding IncludedItems}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<TextBlock
                                                 Margin="10,2,0,2"
                                                 FontSize="14"
                                                 Text="{Binding}" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
 
-                            <Button
+							<Button
                                 Margin="0,30,0,0"
                                 Padding="20,10"
                                 Click="BookButton_Click"
                                 Content="Reserver maintenant"
                                 FontSize="16" />
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </Border>
-        </Grid>
-    </Grid>
+						</StackPanel>
+					</Border>
+				</Grid>
+			</Border>
+		</Grid>
+	</Grid>
 </Window>

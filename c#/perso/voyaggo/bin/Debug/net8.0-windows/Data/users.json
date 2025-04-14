@@ -1,1 +1,112 @@
-[{"_IdUser":1,"_firstName":"mohammed","_lastName":"elaouali","_email":"mohammed@gmail.com","_password":"863498dfa3f35f634f532b3cab89b0f8b6baaf9a2a94722c52ca2ef44377efc2","_dateBirth":"1998-10-29T00:00:00","_isAdmin":true,"_isDeleted":false},{"_IdUser":3,"_firstName":"aa","_lastName":"aa","_email":"aaa@gmail.com","_password":"961b6dd3ede3cb8ecbaacbd68de040cd78eb2ed5889130cceb4c49268ea4d506","_dateBirth":"2025-03-06T00:00:00","_isAdmin":false,"_isDeleted":false},{"_IdUser":3,"_firstName":"zafina","_lastName":"ganiji","_email":"zafina@gmail.com","_password":"ad38816045829dfd1c07de7d18954a0d63ff3f7bd7602adba33a0e95e7f5d4f6","_dateBirth":"2002-08-10T00:00:00","_isAdmin":false,"_isDeleted":false}]
+[
+    {
+        "_IdUser": 1,
+        "_firstName": "sara",
+        "_lastName": "rahmouni",
+        "_email": "sara@gmail.com",
+        "_password": "3a6d64c24cf80b69ccda37650406467e8266667b50cfd0b984beb3651b129ed7",
+        "_dateBirth": "1980-06-18T00:00:00",
+        "_isAdmin": true,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 2,
+        "_firstName": "mohammed",
+        "_lastName": "ahmeds",
+        "_email": "mohammed@gmail.com",
+        "_password": "b457f6c40e2167bbdbf8503d1dbeff4899e2b7395d915f24269ecf5d2d9a5331",
+        "_dateBirth": "1990-02-25T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 3,
+        "_firstName": "zafina",
+        "_lastName": "bentari",
+        "_email": "zafina@gmail.com",
+        "_password": "d60d6a6573d23f19e2ff5795d4ffcb6b7394e49988abef44f7b0284054e8a214",
+        "_dateBirth": "1995-04-11T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 4,
+        "_firstName": "ali",
+        "_lastName": "benali",
+        "_email": "ali.benali@gmail.com",
+        "_password": "ec85e7390b302116cb2d736456eb96b9cc423184a1ef462bb4f8bb62d3e4c9c9",
+        "_dateBirth": "1985-09-10T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 5,
+        "_firstName": "fatima",
+        "_lastName": "el amrani",
+        "_email": "fatima.elamrani@gmail.com",
+        "_password": "b0f3b8f68dbe8ac3d6b204c0a6f64c17a19be1c5c0b4ac2a9ebd0a254fc4b502",
+        "_dateBirth": "1992-07-23T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 6,
+        "_firstName": "youssef",
+        "_lastName": "amrani",
+        "_email": "youssef.amrani@gmail.com",
+        "_password": "26f6dcbba3704f773b244576e906c33e49c66f6a9f92b33dbb724d3d2fcff0fc",
+        "_dateBirth": "1988-01-13T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 7,
+        "_firstName": "salma",
+        "_lastName": "el hachimi",
+        "_email": "salma.elhachimi@gmail.com",
+        "_password": "3a70e51c6cf1e216342e543f9a6b9dff0b825baed77f81ffb2e5e63d8d02d129",
+        "_dateBirth": "1997-12-30T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 8,
+        "_firstName": "karim",
+        "_lastName": "bouziane",
+        "_email": "karim.bouziane@gmail.com",
+        "_password": "d72d7f5459f09397389955c24fe3f8d098d153015fb3a27e2aef7c23a8655be3",
+        "_dateBirth": "1993-08-11T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 9,
+        "_firstName": "nour",
+        "_lastName": "el fakir",
+        "_email": "nour.elfakir@gmail.com",
+        "_password": "c26391a9ba86e747bcb4e72de6600a29e5ac7c9a5012a040be72cb327a8b8698",
+        "_dateBirth": "2000-05-18T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 10,
+        "_firstName": "ibrahim",
+        "_lastName": "mohammed",
+        "_email": "ibrahim.mohammed@gmail.com",
+        "_password": "2a348b0971b9e2e4fdcdd504417e06eb16ca64b67bcba178baaa48edb40b48c8",
+        "_dateBirth": "1996-11-07T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    },
+    {
+        "_IdUser": 11,
+        "_firstName": "jm",
+        "_lastName": "wagner",
+        "_email": "jmw@hepl.be",
+        "_password": "6ca13d52ca70c883e0f0bb101e425a89e8624de51db2d2392593af6a84118090",
+        "_dateBirth": "1974-06-13T00:00:00",
+        "_isAdmin": false,
+        "_isDeleted": false
+    }
+]

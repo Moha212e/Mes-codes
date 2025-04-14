@@ -1,42 +1,31 @@
 ﻿<Window x:Class="voyagoo.ListeTickets"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Liste des Tickets" Height="400" Width="700"
+        Title="Liste des Voyageurs" Height="600" Width="900"
         Background="#F4F7FC" WindowStartupLocation="CenterScreen">
 
     <Grid>
-        <TextBlock Text="Liste des Tickets" FontSize="18" FontWeight="Bold"
+        <TextBlock Text="Liste des Voyageurs" FontSize="18" FontWeight="Bold"
                    Foreground="#007ACC" HorizontalAlignment="Center" Margin="0,20,0,0" />
 
-        <!-- DataGrid avec modification des donnees -->
+        <!-- DataGrid avec les voyageurs -->
         <DataGrid Name="TicketsDataGrid" Margin="20,60,20,100" AutoGenerateColumns="False"
-                  CanUserAddRows="False" CanUserDeleteRows="True" IsReadOnly="False"
-                  SelectionMode="Single">
+                  CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True"
+                  SelectionMode="Single" SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Voyage" Binding="{Binding IdTrip}" Width="200" IsReadOnly="True" />
-                <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="150" IsReadOnly="True" />
-                <DataGridTextColumn Header="Prix" Binding="{Binding Prix}" Width="120" IsReadOnly="True" />
-                <!-- Afficher les voyageurs -->
-                <DataGridTemplateColumn Header="Voyageurs" Width="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Travelers.Count, StringFormat={}{0} voyageurs}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <!-- Changement de titre de la colonne "Operations" -->
-                <DataGridTemplateColumn Header="Operations" Width="200">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="ID Voyageur" Binding="{Binding idTraveler}" Width="80" />
+                <DataGridTextColumn Header="ID Voyage" Binding="{Binding idTrip}" Width="80" />
+                <DataGridTextColumn Header="Prénom" Binding="{Binding firstName}" Width="120" />
+                <DataGridTextColumn Header="Nom" Binding="{Binding lastName}" Width="120" />
+                <DataGridTextColumn Header="Date de naissance" Binding="{Binding dateOfBirth, StringFormat=d}" Width="120" />
+                <DataGridTextColumn Header="Nationalité" Binding="{Binding nationality}" Width="100" />
+                <DataGridTextColumn Header="N° Passeport" Binding="{Binding passportNumber}" Width="100" />
+                <DataGridTextColumn Header="Destination" Binding="{Binding destinination}" Width="100" />
+                <DataGridTextColumn Header="Bagage (kg)" Binding="{Binding bagage}" Width="80" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Bouton retour pour revenir a IndexAdmin.xaml -->
+        <!-- Bouton retour -->
         <Button Content="Retour" Width="100" Height="30" HorizontalAlignment="Left"
                 VerticalAlignment="Bottom" Margin="20,0,0,20" Click="Retour_Click" />
     </Grid>

@@ -26,7 +26,6 @@ namespace voyagoo
 
             if (openFileDialog.ShowDialog() == true)
             {
-                // Récupérer la destination pour renommer l'image
                 string destination = txtDestination.Text.Trim();
                 if (string.IsNullOrEmpty(destination))
                 {
@@ -34,14 +33,27 @@ namespace voyagoo
                     return;
                 }
 
-                // Sauvegarder l'image localement avec un nom basé sur la destination
-                string fileName = MyShapeClass.Trip.SaveImageLocally(openFileDialog.FileName, destination);
+                string imagesFolder = @"C:\Users\pasch\Documents\Mes-codes\c#\perso\voyaggo\Images\";
 
-                if (!string.IsNullOrEmpty(fileName))
+                // Vérifier et créer le dossier si nécessaire
+                if (!Directory.Exists(imagesFolder))
                 {
-                    imagePath = fileName; // Stocke uniquement le nom du fichier
-                    imgVoyage.Source = new BitmapImage(new Uri(System.IO.Path.Combine("Data/Images", fileName), UriKind.Relative));
-                    imgVoyage.Visibility = Visibility.Visible;
+                    Directory.CreateDirectory(imagesFolder);
+                }
+
+                string fileExtension = System.IO.Path.GetExtension(openFileDialog.FileName);
+                string newFileName = $"{destination}{fileExtension}";
+                string destinationPath = System.IO.Path.Combine(imagesFolder, newFileName);
+
+                try
+                {
+                    File.Copy(openFileDialog.FileName, destinationPath, true);
+                    imagePath = destinationPath;
+                    MessageBox.Show("Image enregistrée avec succès !", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erreur lors de la sauvegarde de l'image : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -66,7 +78,7 @@ namespace voyagoo
             string date = selectedDate.Value.ToShortDateString();
 
             // Sauvegarde du voyage en utilisant la classe Trip
-            int result = MyShapeClass.Trip.AddTrip(destination, description, date, prix, "Images/" + imagePath, duree);
+            int result = MyShapeClass.Trip.AddTrip(destination, description, date, prix, imagePath, duree);
 
             switch (result)
             {

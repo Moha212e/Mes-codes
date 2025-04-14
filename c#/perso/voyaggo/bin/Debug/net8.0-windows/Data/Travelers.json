@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "idTraveler": 1,
+    "idTrip": 1,
+    "firstName": "aaaa",
+    "lastName": "bbb",
+    "dateOfBirth": "2004-06-16T00:00:00",
+    "nationality": "cccc",
+    "passportNumber": "12345678",
+    "destinination": "maroc",
+    "bagage": 20
+  }
+]

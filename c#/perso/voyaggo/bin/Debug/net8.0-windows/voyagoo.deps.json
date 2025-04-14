@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "voyagoo/1.0.0": {
         "dependencies": {
-          "MyShapeClass": "1.0.0"
+          "MyShapeClass": "1.0.0",
+          "Registre": "1.0.0"
         },
         "runtime": {
           "voyagoo.dll": {}
@@ -17,6 +18,14 @@
       "MyShapeClass/1.0.0": {
         "runtime": {
           "MyShapeClass.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Registre/1.0.0": {
+        "runtime": {
+          "Registre.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -31,6 +40,11 @@
       "sha512": ""
     },
     "MyShapeClass/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Registre/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

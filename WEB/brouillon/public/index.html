@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez des recettes gourmandes pour toutes les occasions. Cuisinez facilement avec nos instructions détaillées.">
+    <title>Recettes Gourmandes - Découvrez des plats délicieux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Passer au contenu principal</a>
+
+<header class="main-header">
+    <div class="header-container">
+        <h1 class="site-title">
+            <span class="site-logo" aria-hidden="true">🍳</span>
+            Recettes Gourmandes
+        </h1>
+
+        <button class="theme-toggle" aria-label="Changer le thème">
+            <span class="toggle-icon">🌓</span>
+        </button>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-label="Menu mobile">
+                <span class="hamburger"></span>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link active" aria-current="page">Accueil</a></li>
+                <li><a href="/recettes" class="nav-link">Recettes</a></li>
+                <li><a href="/categories" class="nav-link">Catégories</a></li>
+                <li><a href="#favoris" class="nav-link" id="show-favorites">Mes Favoris</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+                <li><a href="/connexion" class="nav-link cta-button">Connexion</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main id="main-content">
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title">Découvrez des recettes qui font du bien</h2>
+            <p class="hero-subtitle">Des plats savoureux pour tous les jours et toutes les occasions</p>
+            <form class="search-form" role="search">
+                <label for="recipe-search" class="visually-hidden">Rechercher une recette</label>
+                <input type="search" id="recipe-search" placeholder="Rechercher une recette..." class="search-input">
+                <button type="submit" class="search-button">Chercher</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="featured-section" aria-labelledby="featured-recipes">
+        <div class="section-header">
+            <h2 id="featured-recipes" class="section-title">Nos recettes populaires</h2>
+            <a href="/recettes" class="view-all">Voir toutes les recettes →</a>
+        </div>
+
+        <div class="recipe-grid">
+            <!-- Les cartes de recettes seront générées dynamiquement ici -->
+            <div class="recipe-card skeleton" aria-hidden="true">
+                <div class="card-image"></div>
+                <div class="card-content">
+                    <h3 class="card-title"></h3>
+                    <p class="card-meta"></p>
+                </div>
+            </div>
+            <!-- Répéter pour les squelettes de chargement -->
+        </div>
+    </section>
+
+    <section class="categories-section" aria-labelledby="recipe-categories">
+        <h2 id="recipe-categories" class="section-title">Explorer par catégorie</h2>
+        <div class="category-tags">
+            <a href="/categories/entrees" class="category-tag">Entrées</a>
+            <a href="/categories/plats" class="category-tag">Plats principaux</a>
+            <a href="/categories/desserts" class="category-tag">Desserts</a>
+            <a href="/categories/vegetarien" class="category-tag">Végétarien</a>
+            <a href="/categories/rapide" class="category-tag">Rapide</a>
+            <a href="/categories/saison" class="category-tag">De saison</a>
+        </div>
+    </section>
+</main>
+
+<aside class="newsletter-section" aria-labelledby="newsletter-heading">
+    <div class="newsletter-container">
+        <h2 id="newsletter-heading" class="newsletter-title">Recevez nos meilleures recettes</h2>
+        <p class="newsletter-text">Abonnez-vous à notre newsletter hebdomadaire</p>
+        <form class="newsletter-form">
+            <label for="newsletter-email" class="visually-hidden">Votre email</label>
+            <input type="email" id="newsletter-email" placeholder="Votre email" required class="newsletter-input">
+            <button type="submit" class="newsletter-button">S'abonner</button>
+        </form>
+    </div>
+</aside>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h3 class="footer-title">Recettes Gourmandes</h3>
+            <p class="footer-tagline">Partageons le plaisir de cuisiner</p>
+        </div>
+
+        <nav class="footer-nav" aria-label="Navigation secondaire">
+            <div class="footer-nav-column">
+                <h4 class="footer-nav-title">Recettes</h4>
+                <ul>
+                    <li><a href="/recettes/nouveautes">Nouveautés</a></li>
+                    <li><a href="/recettes/populaires">Populaires</a></li>
+                    <li><a href="/recettes/classiques">Classiques</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-nav-column">
+                <h4 class="footer-nav-title">Aide</h4>
+                <ul>
+                    <li><a href="/aide/contact">Contact</a></li>
+                    <li><a href="/aide/faq">FAQ</a></li>
+                    <li><a href="/aide/mentions-legales">Mentions légales</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="footer-social">
+            <h4 class="footer-nav-title">Suivez-nous</h4>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><span class="social-icon">f</span></a>
+                <a href="#" aria-label="Instagram"><span class="social-icon">ig</span></a>
+                <a href="#" aria-label="Pinterest"><span class="social-icon">p</span></a>
+                <a href="#" aria-label="YouTube"><span class="social-icon">yt</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-copyright">
+        <p>&copy; 2023 Recettes Gourmandes. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<div class="loading-overlay" role="alert" aria-live="assertive">
+    <div class="loading-spinner"></div>
+    <p class="loading-text">Chargement en cours...</p>
+</div>
+
+<div class="error-message" role="alert" aria-live="assertive" hidden>
+    <div class="error-content">
+        <span class="error-icon">⚠️</span>
+        <p class="error-text">Une erreur est survenue lors du chargement des données.</p>
+        <button class="error-retry">Réessayer</button>
+    </div>
+</div>
+
+<dialog class="recipe-modal" aria-modal="true">
+    <div class="modal-container">
+        <button class="modal-close" aria-label="Fermer la fenêtre modale">×</button>
+        <div class="modal-content">
+            <!-- Contenu dynamique pour le modal -->
+        </div>
+    </div>
+</dialog>
+
+<script src="script.js" defer></script>
+</body>
+</html>
