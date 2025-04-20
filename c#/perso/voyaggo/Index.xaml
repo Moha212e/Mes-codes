@@ -185,7 +185,7 @@
                                                 Grid.Row="0"
                                                 Margin="20"
                                                 CornerRadius="10,10,0,0">
-                                                <Image Source="{Binding _image}">
+                                                <Image Source="{Binding Image}">
                                                     <Image.Triggers>
                                                         <EventTrigger RoutedEvent="MouseEnter">
                                                             <BeginStoryboard>
@@ -234,12 +234,12 @@
                                                 <TextBlock
                                                     FontSize="28"
                                                     FontWeight="SemiBold"
-                                                    Text="{Binding _destination}" />
+                                                    Text="{Binding Destination}" />
                                                 <TextBlock
                                                     Margin="0,4,0,0"
                                                     FontSize="20"
                                                     Foreground="#757575"
-                                                    Text="{Binding _date}" />
+                                                    Text="{Binding Date}" />
                                                 <StackPanel
                                                     Margin="0,8,0,0"
                                                     HorizontalAlignment="Right"
@@ -248,7 +248,7 @@
                                                         FontSize="26"
                                                         FontWeight="Bold"
                                                         Foreground="#4285F4"
-                                                        Text="{Binding _price}" />
+                                                        Text="{Binding Price}" />
                                                     <TextBlock
                                                         Margin="4,0,0,0"
                                                         Foreground="#757575"

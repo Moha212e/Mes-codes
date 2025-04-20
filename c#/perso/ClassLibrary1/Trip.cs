@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,59 +7,176 @@ using System.Text.Json.Serialization;
 
 namespace MyShapeClass
 {
+    /// <summary>
+    /// Classe représentant un voyage dans le système.
+    /// Gère la création, la recherche et la gestion des voyages.
+    /// </summary>
     public class Trip
     {
-        #region Num
+        #region Enums
 
+        /// <summary>
+        /// Enumération des erreurs possibles lors de l'ajout d'un voyage
+        /// </summary>
         public enum addTripError
         {
+            /// <summary>Ajout réussi</summary>
             Success = 0,
+            /// <summary>Le voyage existe déjà</summary>
             TripAlreadyExists = 1,
+            /// <summary>Erreur générale</summary>
             Error = 2
         }
 
-        #endregion Num
+        #endregion Enums
 
         #region Variables & Propriétés
 
-        private static readonly string _filePath = "Data/Trips.json";
+        /// <summary>
+        /// Chemin du fichier de stockage des voyages
+        /// </summary>
+        private static readonly string _filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Trips.json");
 
+        /// <summary>
+        /// Identifiant unique du voyage
+        /// </summary>
         [JsonPropertyName("_idTrip")]
-        public int _idTrip { get; set; }
+        private int _idTrip { get; set; }
 
+        /// <summary>
+        /// Destination du voyage
+        /// </summary>
         [JsonPropertyName("_destination")]
-        public string _destination { get; set; }
+        private string _destination { get; set; }
 
+        /// <summary>
+        /// Description détaillée du voyage
+        /// </summary>
         [JsonPropertyName("_description")]
-        public string _description { get; set; }
+        private string _description { get; set; }
 
+        /// <summary>
+        /// Date du voyage au format string
+        /// </summary>
         [JsonPropertyName("_date")]
-        public string _date { get; set; }
+        private string _date { get; set; }
 
+        /// <summary>
+        /// Prix du voyage en unité monétaire
+        /// </summary>
         [JsonPropertyName("_price")]
-        public int _price { get; set; }
+        private int _price { get; set; }
 
+        /// <summary>
+        /// Chemin de l'image représentant le voyage
+        /// </summary>
         [JsonPropertyName("_image")]
-        public string _image { get; set; }
+        private string _image { get; set; }
 
+        /// <summary>
+        /// Durée du voyage en jours
+        /// </summary>
         [JsonPropertyName("_duration")]
-        public int _duration { get; set; }
+        private int _duration { get; set; }
 
+        /// <summary>
+        /// Indique si le voyage a été supprimé logiquement
+        /// </summary>
         [JsonPropertyName("_isDeleted")]
-        public bool _isDeleted { get; set; }
+        private bool _isDeleted { get; set; }
+
+        /// <summary>
+        /// Propriété publique pour accéder à l'identifiant du voyage
+        /// </summary>
+        public int IdTrip
+        {
+            get { return _idTrip; }
+            set { _idTrip = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder à la destination du voyage
+        /// </summary>
+        public string Destination
+        {
+            get { return _destination; }
+            set { _destination = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder à la description du voyage
+        /// </summary>
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder à la date du voyage
+        /// </summary>
+        public string Date
+        {
+            get { return _date; }
+            set { _date = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder au prix du voyage
+        /// </summary>
+        public int Price
+        {
+            get { return _price; }
+            set { _price = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder à l'image du voyage
+        /// </summary>
+        public string Image
+        {
+            get { return _image; }
+            set { _image = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder à la durée du voyage
+        /// </summary>
+        public int Duration
+        {
+            get { return _duration; }
+            set { _duration = value; }
+        }
+
+        /// <summary>
+        /// Propriété publique pour accéder au statut de suppression du voyage
+        /// </summary>
+        public bool IsDeleted
+        {
+            get { return _isDeleted; }
+            set { _isDeleted = value; }
+        }
 
         #endregion Variables & Propriétés
 
         #region Constructeurs
 
-        // Constructeur sans paramètres requis par la désérialisation JSON
+        /// <summary>
+        /// Constructeur sans paramètres requis par la désérialisation JSON
+        /// </summary>
         public Trip()
         { }
 
-        #endregion Constructeurs
-
-        #region Constructeurs
-
+        /// <summary>
+        /// Constructeur complet pour créer un nouveau voyage
+        /// </summary>
+        /// <param name="idTrip">Identifiant unique du voyage</param>
+        /// <param name="destination">Destination du voyage</param>
+        /// <param name="description">Description détaillée du voyage</param>
+        /// <param name="date">Date du voyage</param>
+        /// <param name="price">Prix du voyage</param>
+        /// <param name="image">Chemin de l'image représentant le voyage</param>
+        /// <param name="duration">Durée du voyage en jours</param>
         public Trip(int idTrip, string destination, string description, string date, int price, string image, int duration)
         {
             _idTrip = idTrip;
@@ -76,6 +193,11 @@ namespace MyShapeClass
 
         #region Méthodes de Chargement
 
+        /// <summary>
+        /// Charge la liste des voyages depuis le fichier JSON
+        /// </summary>
+        /// <param name="includeDeleted">Si true, inclut les voyages marqués comme supprimés</param>
+        /// <returns>Liste des voyages disponibles</returns>
         public static List<Trip> LoadTrips(bool includeDeleted = false)
         {
             try
@@ -113,6 +235,13 @@ namespace MyShapeClass
 
         #region Méthodes de Recherche
 
+        /// <summary>
+        /// Recherche des voyages selon différents critères
+        /// </summary>
+        /// <param name="destination">Destination recherchée (peut être partielle)</param>
+        /// <param name="date">Date spécifique du voyage</param>
+        /// <param name="price">Prix maximum du voyage (-1 pour ignorer)</param>
+        /// <returns>Liste des voyages correspondant aux critères</returns>
         public static List<Trip> SearchTrips(string destination, string date, int price)
         {
             try
@@ -131,6 +260,11 @@ namespace MyShapeClass
             }
         }
 
+        /// <summary>
+        /// Récupère la destination d'un voyage par son identifiant
+        /// </summary>
+        /// <param name="id">Identifiant du voyage</param>
+        /// <returns>Nom de la destination ou chaîne vide si non trouvé</returns>
         public static string GetTripDestinationById(int id)
         {
             List<Trip> trips = LoadTrips();
@@ -142,6 +276,16 @@ namespace MyShapeClass
 
         #region Méthodes de Sauvegarde
 
+        /// <summary>
+        /// Ajoute un nouveau voyage dans le système
+        /// </summary>
+        /// <param name="destination">Destination du voyage</param>
+        /// <param name="description">Description détaillée du voyage</param>
+        /// <param name="date">Date du voyage</param>
+        /// <param name="price">Prix du voyage</param>
+        /// <param name="image">Chemin de l'image représentant le voyage</param>
+        /// <param name="duration">Durée du voyage en jours</param>
+        /// <returns>Code d'erreur (0 = succès)</returns>
         public static int AddTrip(string destination, string description, string date, int price, string image, int duration)
         {
             try
@@ -165,6 +309,12 @@ namespace MyShapeClass
             }
         }
 
+        /// <summary>
+        /// Sauvegarde une image localement pour un voyage
+        /// </summary>
+        /// <param name="sourcePath">Chemin source de l'image</param>
+        /// <param name="destination">Destination du voyage (utilisée pour nommer le fichier)</param>
+        /// <returns>Nom du fichier image sauvegardé</returns>
         public static string SaveImageLocally(string sourcePath, string destination)
         {
             string imagesFolder = "voyaggo\\Images\\"; // Dossier où l'image sera sauvegardée
@@ -182,6 +332,11 @@ namespace MyShapeClass
             return fileName; // Retourne le nom du fichier
         }
 
+        /// <summary>
+        /// Sauvegarde la liste des voyages dans le fichier JSON
+        /// </summary>
+        /// <param name="trips">Liste des voyages à sauvegarder</param>
+        /// <returns>0 si succès, 1 si erreur</returns>
         public static int SaveVoyages(List<Trip> trips)
         {
             try
@@ -198,17 +353,22 @@ namespace MyShapeClass
             }
         }
 
+        /// <summary>
+        /// Recherche un voyage par son identifiant et retourne sa destination
+        /// </summary>
+        /// <param name="idTrip">Identifiant du voyage</param>
+        /// <returns>Destination du voyage ou message d'erreur si non trouvé</returns>
         public static string FindTripById(int idTrip)
         {
             List<Trip> trips = LoadTrips();
             Trip trip = trips.Find(t => t._idTrip == idTrip);
             if (trip != null)
             {
-                return trip._destination; // Retourne la date du voyage
+                return trip._destination; // Retourne la destination du voyage
             }
             else
             {
-                return "Aucune date trouvée"; // Si aucun voyage n'est trouvé
+                return "Aucune destination trouvée"; // Si aucun voyage n'est trouvé
             }
         }
 

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using MyShapeClass;
 
@@ -12,11 +12,11 @@ namespace voyagoo
             this.DataContext = selectedDetail; // Lie les données du voyage sélectionné
 
             // Message plus propre et organisé pour afficher les détails
-            string message = $"Détails du voyage à {selectedDetail._destination}\n\n"
-                          + $"Description: {selectedDetail._description}\n"
-                          + $"Durée: {selectedDetail._duration}\n"
-                          + $"Date: {selectedDetail._date}\n"
-                          + $"Prix: {selectedDetail._price}";
+            string message = $"Détails du voyage à {selectedDetail.Destination}\n\n"
+                          + $"Description: {selectedDetail.Description}\n"
+                          + $"Durée: {selectedDetail.Duration}\n"
+                          + $"Date: {selectedDetail.Date}\n"
+                          + $"Prix: {selectedDetail.Price}";
 
             MessageBox.Show(message,
                           "Détails du voyage",

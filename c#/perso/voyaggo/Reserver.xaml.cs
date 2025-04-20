@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using MyShapeClass;
@@ -20,14 +20,14 @@ namespace voyagoo
             }
 
             this.DataContext = trip;
-            _idTrip = trip._idTrip; // Utiliser une propriété publique
-            _price = trip._price;
+            _idTrip = trip.IdTrip; // Utiliser une propriété publique
+            _price = trip.Price;
 
             MessageBox.Show(
-                $"Réservation pour le voyage à {trip._destination}.\n" +
-                $"Prix : {trip._price} €\n" +
-                $"Description : {trip._description}\n" +
-                $"Durée : {trip._duration} jours",
+                $"Réservation pour le voyage à {trip.Destination}.\n" +
+                $"Prix : {trip.Price} €\n" +
+                $"Description : {trip.Description}\n" +
+                $"Durée : {trip.Duration} jours",
                 "Information",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information
@@ -59,7 +59,7 @@ namespace voyagoo
 
                 // Vérification des informations
                 int verificationResult = Travelers.VerifyInfos(
-                    currentTrip._idTrip,
+                    currentTrip.IdTrip,
                     txtPrenom.Text.Trim(),
                     txtNom.Text.Trim(),
                     dpDateNaissance.SelectedDate.Value,
@@ -77,7 +77,7 @@ namespace voyagoo
                         dpDateNaissance.SelectedDate.Value,
                         txtNationalite.Text.Trim(),
                         txtPasseport.Text.Trim(),
-                        currentTrip._destination
+                        currentTrip.Destination
                     );
 
                     // Passage à la fenêtre Bagage

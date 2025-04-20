@@ -1,74 +1,103 @@
 package org.example.model.authentication;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Properties;
+import java.util.regex.Pattern;
 
 public class SimpleLogin extends LoginTemplate {
     private Map<String, String> userStore;
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+    );
+    private static final String PROPERTIES_FILE = "users.properties";
+
 
     public SimpleLogin(Map<String, String> userStore) {
         this.userStore = userStore;
+        // Charger les utilisateurs existants depuis le fichier properties
+        loadUsersFromProperties();
+    }
+
+    /**
+     * Charge les utilisateurs depuis le fichier properties
+     */
+    private void loadUsersFromProperties() {
+        Properties properties = new Properties();
+        try (FileInputStream fis = new FileInputStream(PROPERTIES_FILE)) {
+            properties.load(fis);
+            for (String username : properties.stringPropertyNames()) {
+                userStore.put(username, properties.getProperty(username));
+            }
+        } catch (IOException e) {
+            // Le fichier n'existe peut-être pas encore, ce n'est pas une erreur
+            System.out.println("Fichier properties non trouvé, il sera créé lors de la première inscription");
+        }
+    }
+
+    /**
+     * Sauvegarde les utilisateurs dans le fichier properties
+     */
+    private void saveUsersToProperties() {
+        Properties properties = new Properties();
+        for (Map.Entry<String, String> entry : userStore.entrySet()) {
+            properties.setProperty(entry.getKey(), entry.getValue());
+        }
+        
+        try (FileOutputStream fos = new FileOutputStream(PROPERTIES_FILE)) {
+            properties.store(fos, "LocaDrive Users");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la sauvegarde des utilisateurs: " + e.getMessage());
+        }
     }
 
     @Override
     protected String encryptPassword(String password) {
-        // Pas de chiffrement ici, on retourne simplement le mot de passe
-        return password;
+        if(password == null) {
+            return null;
+        }
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Erreur de chiffrement", e);
+        }
     }
 
     @Override
     protected boolean authenticate(String username, String encryptedPassword) {
-        if (!userStore.containsKey(username)) return false;
+        if (!isValidEmail(username) || !userStore.containsKey(username)) {
+            return false;
+        }
         return userStore.get(username).equals(encryptedPassword);
     }
+
+    public boolean isValidEmail(String email) {
+        return email != null && EMAIL_PATTERN.matcher(email).matches();
+    }
+
+    public boolean register(String username, String password) {
+        if (!isValidEmail(username) || password == null || password.length() < 8) {
+            return false;
+        }
+        if (userStore.containsKey(username)) {
+            return false;
+        }
+        userStore.put(username, encryptPassword(password));
+        // Sauvegarder les utilisateurs dans le fichier properties après chaque inscription
+        saveUsersToProperties();
+        return true;
+    }
 }
-/**
- * # Synthèse de la classe `SimpleLogin`
- *
- * ## Description générale
- * La classe `SimpleLogin` est une implémentation concrète d'un système d'authentification simple qui hérite d'un template de login (`LoginTemplate`). Elle utilise un stockage clé-valeur pour gérer les utilisateurs et leurs mots de passe sans chiffrement.
- *
- * ## Structure et implémentation
- *
- * ### Héritage
- * - Hérite de `LoginTemplate` (implémente le pattern Template Method)
- * - Doit implémenter les méthodes abstraites `encryptPassword` et `authenticate`
- *
- * ### Attributs
- * - `userStore`: Une Map<String, String> qui sert de base de données utilisateur
- *   - Clé: nom d'utilisateur (String)
- *   - Valeur: mot de passe (String)
- *
- * ### Constructeur
- * - Prend en paramètre la Map contenant les utilisateurs et mots de passe
- * - Initialise l'attribut `userStore` avec cette Map
- *
- * ### Méthodes implémentées
- *
- * 1. **encryptPassword(String password)**
- *    - Implémentation minimale qui retourne le mot de passe en clair
- *    - Ne réalise aucun chiffrement (contrairement à ce que le nom suggère)
- *
- * 2. **authenticate(String username, String encryptedPassword)**
- *    - Vérifie si l'utilisateur existe dans le `userStore`
- *    - Compare le mot de passe fourni avec celui stocké
- *    - Retourne `true` seulement si:
- *      - L'utilisateur existe
- *      - Le mot de passe correspond exactement
- *
- * ## Caractéristiques clés
- * - **Simplicité**: Implémentation minimale sans complexité de chiffrement
- * - **Flexibilité**: Le stockage des utilisateurs est injecté via le constructeur
- * - **Insécurité**: Les mots de passe sont stockés et comparés en clair
- *
- * ## Cas d'utilisation typique
- * - Systèmes où la sécurité n'est pas critique
- * - Prototypage rapide
- * - Environnements de test
- *
- * ## Limitations
- * - **Sécurité faible**: Absence de chiffrement des mots de passe
- * - **Stockage volatile**: Dépend de la Map fournie, pas de persistance intégrée
- * - **Pas de gestion des salages**: Vulnérable aux attaques par dictionnaire
- *
- * Cette implémentation représente un système d'authentification basique qui pourrait être étendu pour des besoins plus sécurisés (ajout de chiffrement, salage, etc.).
- */

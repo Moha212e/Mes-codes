@@ -1,13 +1,13 @@
 [
   {
     "idTraveler": 1,
-    "idTrip": 1,
-    "firstName": "aaaa",
-    "lastName": "bbb",
-    "dateOfBirth": "2004-06-16T00:00:00",
-    "nationality": "cccc",
+    "idTrip": 2,
+    "firstName": "caprasse",
+    "lastName": "francois",
+    "dateOfBirth": "2000-02-12T00:00:00",
+    "nationality": "belge",
     "passportNumber": "12345678",
-    "destinination": "maroc",
+    "destinination": "Islande",
     "bagage": 20
   }
 ]

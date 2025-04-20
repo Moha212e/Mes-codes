@@ -1,0 +1,13 @@
+[
+  {
+    "idTraveler": 1,
+    "idTrip": 3,
+    "firstName": "kgrnjg",
+    "lastName": "jfenjge",
+    "dateOfBirth": "2000-02-12T00:00:00",
+    "nationality": "kngrjgr",
+    "passportNumber": "12345678",
+    "destinination": "espagne",
+    "bagage": 10
+  }
+]

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using MyShapeClass;
@@ -26,11 +26,11 @@ namespace voyagoo
 
             MessageBox.Show(
                 $"🧳 DÉTAILS DE LA RÉSERVATION\n\n" +
-                $"📍 Destination : {_currentTrip._destination}\n" +
-                $"⏳ Durée : {_currentTrip._duration} jours\n" +
-                $"📅 Date : {_currentTrip._date:dd/MM/yyyy}\n" +
-                $"📝 Description : {_currentTrip._description}\n\n" +
-                $"💰 PRIX : {_currentTrip._price} €\n\n" +
+                $"📍 Destination : {_currentTrip.Destination}\n" +
+                $"⏳ Durée : {_currentTrip.Duration} jours\n" +
+                $"📅 Date : {_currentTrip.Date:dd/MM/yyyy}\n" +
+                $"📝 Description : {_currentTrip.Description}\n\n" +
+                $"💰 PRIX : {_currentTrip.Price} €\n\n" +
                 $"👤 CLIENT : {_traveler.firstName} {_traveler.lastName}\n" +
                 $"🛂 Passeport : {_traveler.PassportNumber}",
                 "Confirmation de réservation",

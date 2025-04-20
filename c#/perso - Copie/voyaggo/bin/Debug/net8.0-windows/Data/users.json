@@ -1,0 +1,12 @@
+[
+    {
+        "_IdUser": 1,
+        "_firstName": "yasmine",
+        "_lastName": "namli",
+        "_email": "yasmine@gmail.com",
+        "_password": "dfb70c36bac8aab9c7509858300b6cc68b459d70fb67ce25067a00c01f715b7f",
+        "_dateBirth": "2000-12-12T00:00:00",
+        "_isAdmin": true,
+        "_isDeleted": false
+    }
+]

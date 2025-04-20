@@ -1,16 +1,12 @@
 package org.example.model.entity;
 
 import org.junit.jupiter.api.Test;
+import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
-/* private int idClient;
-    private String name;
-    private String surname;
-    private String email;
-    private String password;
-    private Date birthDate;
-    private boolean isDeteled;*/
-
+/**
+ * Tests pour la classe Client
+ */
 public class ClientTest {
 
     @Test
@@ -21,47 +17,101 @@ public class ClientTest {
         assertNull(client.getName());
         assertNull(client.getSurname());
         assertNull(client.getEmail());
-        assertNull(client.getPassword());
+        assertNull(client.getPhoneNumber());
         assertNull(client.getBirthDate());
-        assertFalse(client.isDeteled());
+        assertNull(client.getLicenseNumber());
+        assertNull(client.getAddress());
+        assertFalse(client.isDeleted());
     }
 
     @Test
     public void testParameterizedConstructor() {
-        Client client = new Client(1, "Pasch", "Mueller", "<EMAIL>", "123456", null, false);
+        LocalDate birthDate = LocalDate.of(1990, 1, 1);
+        Client client = new Client(1, "John", "Doe", "john.doe@example.com", birthDate);
         assertEquals(1, client.getIdClient());
-        assertEquals("Pasch", client.getName());
-        assertEquals("Mueller", client.getSurname());
-        assertEquals("<EMAIL>", client.getEmail());
-        assertEquals("123456", client.getPassword());
-        assertNull(client.getBirthDate());
-        assertFalse(client.isDeteled());
+        assertEquals("John", client.getName());
+        assertEquals("Doe", client.getSurname());
+        assertEquals("john.doe@example.com", client.getEmail());
+        assertEquals(birthDate, client.getBirthDate());
+        assertFalse(client.isDeleted());
+    }
 
+    @Test
+    public void testFullConstructor() {
+        LocalDate birthDate = LocalDate.of(1990, 1, 1);
+        Client client = new Client(1, "John", "Doe", "john.doe@example.com", "+33612345678", 
+                                  birthDate, "ABC123456", "123 Main St");
+        assertEquals(1, client.getIdClient());
+        assertEquals("John", client.getName());
+        assertEquals("Doe", client.getSurname());
+        assertEquals("john.doe@example.com", client.getEmail());
+        assertEquals("+33612345678", client.getPhoneNumber());
+        assertEquals(birthDate, client.getBirthDate());
+        assertEquals("ABC123456", client.getLicenseNumber());
+        assertEquals("123 Main St", client.getAddress());
+        assertFalse(client.isDeleted());
     }
 
     @Test
     public void testSettersAndGetters() {
         Client client = new Client();
+        LocalDate birthDate = LocalDate.of(1985, 5, 15);
+        
         client.setIdClient(100);
-        client.setName("Pasch");
-        client.setSurname("Mueller");
-        client.setEmail("<EMAIL>");
-        client.setPassword("<PASSWORD>");
+        client.setName("Jane");
+        client.setSurname("Smith");
+        client.setEmail("jane.smith@example.com");
+        client.setPhoneNumber("+33698765432");
+        client.setBirthDate(birthDate);
+        client.setLicenseNumber("XYZ987654");
+        client.setAddress("456 Oak St");
+        client.setDeleted(true);
 
         assertEquals(100, client.getIdClient());
-        assertEquals("Pasch", client.getName());
-        assertEquals("Mueller", client.getSurname());
-        assertEquals("<EMAIL>", client.getEmail());
-        assertEquals("123456", client.getPassword());
+        assertEquals("Jane", client.getName());
+        assertEquals("Smith", client.getSurname());
+        assertEquals("jane.smith@example.com", client.getEmail());
+        assertEquals("+33698765432", client.getPhoneNumber());
+        assertEquals(birthDate, client.getBirthDate());
+        assertEquals("XYZ987654", client.getLicenseNumber());
+        assertEquals("456 Oak St", client.getAddress());
+        assertTrue(client.isDeleted());
     }
 
     @Test
     public void testToString() {
-        Client client = new Client(2, "Pasch", "Mueller", "<EMAIL>", "123456", null, false);
-        String expected = "Client{idClient=2, name=Pasch, surname=Mueller, email=<EMAIL>, password=<PASSWORD>, birthDate=null, isDeteled=false}";
-        assertEquals(expected, client.toString());
+        LocalDate birthDate = LocalDate.of(1990, 1, 1);
+        Client client = new Client(2, "John", "Doe", "john.doe@example.com", "+33612345678", 
+                                  birthDate, "ABC123456", "123 Main St");
+        
+        String toString = client.toString();
+        assertTrue(toString.contains("idClient=2"));
+        assertTrue(toString.contains("name='John'"));
+        assertTrue(toString.contains("surname='Doe'"));
+        assertTrue(toString.contains("email='john.doe@example.com'"));
     }
-
-
-
+    
+    @Test
+    public void testGetId() {
+        Client client = new Client(5, "Alice", "Johnson", "alice@example.com", LocalDate.of(1995, 3, 10));
+        assertEquals(5, client.getId());
+    }
+    
+    @Test
+    public void testEqualsAndHashCode() {
+        Client client1 = new Client(1, "John", "Doe", "john@example.com", LocalDate.of(1990, 1, 1));
+        Client client2 = new Client(1, "Jane", "Smith", "jane@example.com", LocalDate.of(1995, 5, 5));
+        Client client3 = new Client(2, "John", "Doe", "john@example.com", LocalDate.of(1990, 1, 1));
+        
+        // Test equals
+        assertEquals(client1, client1); // Réflexivité
+        assertEquals(client1, client2); // Même ID => égaux
+        assertNotEquals(client1, client3); // ID différent => pas égaux
+        assertNotEquals(client1, null); // Comparaison avec null
+        assertNotEquals(client1, "Not a client"); // Comparaison avec un autre type
+        
+        // Test hashCode
+        assertEquals(client1.hashCode(), client2.hashCode()); // Même ID => même hashCode
+        assertNotEquals(client1.hashCode(), client3.hashCode()); // ID différent => hashCode différent
+    }
 }

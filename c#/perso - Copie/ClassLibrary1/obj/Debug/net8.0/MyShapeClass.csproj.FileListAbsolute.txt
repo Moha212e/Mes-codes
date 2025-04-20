@@ -1,0 +1,12 @@
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\bin\Debug\net8.0\MyShapeClass.deps.json
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\bin\Debug\net8.0\MyShapeClass.dll
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\bin\Debug\net8.0\MyShapeClass.pdb
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.AssemblyInfoInputs.cache
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.AssemblyInfo.cs
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.csproj.CoreCompileInputs.cache
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.sourcelink.json
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.dll
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\refint\MyShapeClass.dll
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\MyShapeClass.pdb
+C:\Users\pasch\Documents\Mes-codes\c#\perso\ClassLibrary1\obj\Debug\net8.0\ref\MyShapeClass.dll

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using MyShapeClass;
 
@@ -34,15 +34,15 @@ namespace voyagoo
         private void InitializeTicket()
         {
             // Chargement des données du voyage
-            txtDestination.Text = currentTrip._destination;
-            txtDate.Text = currentTrip._date.ToString();
-            txtDuration.Text = $"{currentTrip._duration} jours";
-            txtDescription.Text = currentTrip._description;
+            txtDestination.Text = currentTrip.Destination;
+            txtDate.Text = currentTrip.Date.ToString();
+            txtDuration.Text = $"{currentTrip.Duration} jours";
+            txtDescription.Text = currentTrip.Description;
 
             // Calcul du prix total
             int baggagePrice = CalculateBaggagePrice();
             txtLuggage.Text = $"{baggageWeight} kg ({(baggagePrice > 0 ? $"{baggagePrice} €" : "inclus")})";
-            txtTotal.Text = $"{currentTrip._price + baggagePrice} €";
+            txtTotal.Text = $"{currentTrip.Price + baggagePrice} €";
 
             // Affichage des infos du voyageur
             txtMainPassenger.Text = $"{traveler.firstName} {traveler.lastName}\n" +
@@ -61,8 +61,8 @@ namespace voyagoo
         {
             MessageBox.Show(
                 "Votre billet a été généré avec succès !\n\n" +
-                $"🗺️ Destination : {currentTrip._destination}\n" +
-                $"📅 Date : {currentTrip._date:dd/MM/yyyy}\n" +
+                $"🗺️ Destination : {currentTrip.Destination}\n" +
+                $"📅 Date : {currentTrip.Date:dd/MM/yyyy}\n" +
                 $"👤 Voyageur : {traveler.firstName} {traveler.lastName}",
                 "Confirmation",
                 MessageBoxButton.OK,

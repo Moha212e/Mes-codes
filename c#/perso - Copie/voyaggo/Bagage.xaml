@@ -1,0 +1,248 @@
+﻿<Window
+    x:Class="voyagoo.Bagage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Gestion des Bagages"
+    FontFamily="Segoe UI"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+
+    <Grid>
+        <!--  Image de fond avec overlay sombre pour meilleure lisibilite  -->
+        <Grid>
+            <Image
+                Panel.ZIndex="-1"
+                Source="Images/Designer.jpeg"
+                Stretch="UniformToFill" />
+            <Rectangle Panel.ZIndex="0" Fill="#80000000" />
+        </Grid>
+
+        <!--  En-tete moderne  -->
+        <StackPanel Margin="20" VerticalAlignment="Top">
+            <TextBlock
+                Margin="0,0,0,10"
+                FontSize="24"
+                FontWeight="SemiBold"
+                Foreground="White"
+                Text="Voyagevoo" />
+            <Border
+                Width="100"
+                Height="2"
+                HorizontalAlignment="Left"
+                Background="#007ACC" />
+        </StackPanel>
+
+        <!--  Carte principale avec effet d'ombre  -->
+        <Border
+            Height="356"
+            Margin="40,0,40,0"
+            Padding="0"
+            VerticalAlignment="Center"
+            Background="#FAFAFA"
+            BorderThickness="0"
+            CornerRadius="12">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!--  Titre de la carte  -->
+                <Border
+                    Grid.RowSpan="2"
+                    Margin="0,27,0,280"
+                    Padding="15"
+                    Background="#007ACC"
+                    CornerRadius="12,12,0,0">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        Text="Selectionnez vos bagages" />
+                </Border>
+
+                <!--  Options de bagage  -->
+                <UniformGrid
+                    Grid.Row="1"
+                    Margin="15"
+                    Columns="3">
+
+                    <!--  Bagage Cabine  -->
+                    <Border
+                        Margin="10,42,10,-22"
+                        Padding="15"
+                        Background="White"
+                        BorderBrush="#EEEEEE"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image
+                                Width="120"
+                                Height="120"
+                                Source="Images/bagage_cabine.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Margin="0,10,0,5"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center">
+                                Bagage Cabine
+                            </TextBlock>
+                            <TextBlock
+                                FontSize="13"
+                                Foreground="#666666"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap">
+                                Petit format, max 10kg
+                            </TextBlock>
+                            <RadioButton
+                                x:Name="bagageCabine"
+                                Margin="0,15,0,0"
+                                Content="Selectionner"
+                                GroupName="Bagage" />
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Bagage Soute  -->
+                    <Border
+                        Margin="10,38,10,-18"
+                        Padding="15"
+                        Background="White"
+                        BorderBrush="#EEEEEE"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image
+                                Width="120"
+                                Height="120"
+                                Source="Images/bagage_soute.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Margin="0,10,0,5"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center">
+                                Bagage Soute
+                            </TextBlock>
+                            <TextBlock
+                                FontSize="13"
+                                Foreground="#666666"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap">
+                                Jusqu'a 23kg
+                            </TextBlock>
+                            <RadioButton
+                                x:Name="bagageSoute"
+                                Margin="0,15,0,0"
+                                Content="Selectionner"
+                                GroupName="Bagage" />
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Aucun Bagage  -->
+                    <Border
+                        Margin="10,38,10,-18"
+                        Padding="15"
+                        Background="White"
+                        BorderBrush="#EEEEEE"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image
+                                Width="120"
+                                Height="120"
+                                Source="Images/sans_bagage.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                Margin="0,10,0,5"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center">
+                                Sans Bagage
+                            </TextBlock>
+                            <TextBlock
+                                FontSize="13"
+                                Foreground="#666666"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap">
+                                Voyager léger !
+                            </TextBlock>
+                            <RadioButton
+                                x:Name="sansBagage"
+                                Margin="0,15,0,0"
+                                Content="Selectionner"
+                                GroupName="Bagage" />
+                        </StackPanel>
+                    </Border>
+                </UniformGrid>
+
+                <!--  Bouton en bas de la carte  -->
+                <Border
+                    Grid.Row="2"
+                    Margin="0,6,0,-6"
+                    Padding="15"
+                    Background="#F5F5F5"
+                    CornerRadius="0,0,12,12">
+                    <Button
+                        Width="150"
+                        Height="40"
+                        HorizontalAlignment="Right"
+                        Background="#007ACC"
+                        BorderThickness="0"
+                        Click="Reserver_Click"
+                        Content="Reserver"
+                        Cursor="Hand"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Foreground="White" />
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+
+    <Window.Resources>
+        <!--  Styles pour les elements modernes  -->
+        <Style x:Key="ModernRadioButton" TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid>
+                            <Border
+                                x:Name="border"
+                                Padding="8,4"
+                                Background="Transparent"
+                                BorderBrush="#007ACC"
+                                BorderThickness="1"
+                                CornerRadius="12">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#007ACC" />
+                                <Setter TargetName="border" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#005D99" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Effet d'ombre  -->
+        <DropShadowEffect
+            x:Key="ShadowEffect"
+            BlurRadius="15"
+            Opacity="0.2"
+            ShadowDepth="3"
+            Color="Black" />
+    </Window.Resources>
+</Window>

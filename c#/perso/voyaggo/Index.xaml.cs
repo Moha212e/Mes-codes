@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using MyShapeClass;
@@ -30,7 +30,7 @@ namespace voyagoo
 
             foreach (var trip in trips)
             {
-                Debug.WriteLine($"Trip chargé: {trip._destination}, Image: {trip._image}");
+                Debug.WriteLine($"Trip chargé: {trip.Destination}, Image: {trip.Image}");
             }
         }
 

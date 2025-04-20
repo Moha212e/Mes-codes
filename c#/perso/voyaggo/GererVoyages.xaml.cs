@@ -60,11 +60,11 @@ namespace voyagoo
 
                 if (openFileDialog.ShowDialog() == true)
                 {
-                    string fileName = MyShapeClass.Trip.SaveImageLocally(openFileDialog.FileName, trip._destination);
+                    string fileName = MyShapeClass.Trip.SaveImageLocally(openFileDialog.FileName, trip.Destination);
 
                     if (!string.IsNullOrEmpty(fileName))
                     {
-                        trip._image = $"Data/Images/{fileName}";
+                        trip.Image = $"Data/Images/{fileName}";
                         if (MyShapeClass.Trip.SaveVoyages(trips) == 0)
                         {
                             MessageBox.Show("Image importée avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -92,7 +92,7 @@ namespace voyagoo
         private void FiltrerVoyages()
         {
             string recherche = txtRecherche.Text.Trim().ToLower();
-            filteredTrips = trips.Where(trip => trip._destination.ToLower().Contains(recherche)).ToList();
+            filteredTrips = trips.Where(trip => trip.Destination.ToLower().Contains(recherche)).ToList();
             VoyagesDataGrid.ItemsSource = filteredTrips;
         }
 

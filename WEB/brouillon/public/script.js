@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const showAllBtn = document.getElementById('show-all');
 
     // Configuration API
-    const API_KEY = 'e431fc9020b04ef895a8713003ba2a2a';
+    const API_KEY = 'e16cdcfb5e3c46e3897f91458bb5701d';
     const BASE_URL = 'https://api.spoonacular.com/recipes';
     const DEFAULT_RECIPES_COUNT = 100;
 

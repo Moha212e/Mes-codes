@@ -1,0 +1,187 @@
+﻿<Window x:Class="voyagoo.GererVoyages"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Gérer les Voyages"
+        WindowState="Maximized"
+        Background="#FFF0F0F0"
+        FontFamily="Segoe UI">
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Barre de recherche étendue -->
+        <Border Grid.Row="0" Background="White" CornerRadius="5" Padding="10" Margin="5"
+                BorderThickness="1" BorderBrush="#FFDDDDDD">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="txtRecherche" Grid.Column="0" Height="35"
+                         Style="{StaticResource ModernTextBox}" Tag="Rechercher..."
+                         TextChanged="Recherche_TextChanged" />
+
+                <Button Grid.Column="1" Width="120" Height="35" Margin="10,0,0,0"
+                        Style="{StaticResource PrimaryButton}" Click="Recherche_Click"
+                        Content="Rechercher" />
+
+                <Button Grid.Column="2" Width="150" Height="35" Margin="10,0,0,0"
+                        Style="{StaticResource PrimaryButton}"
+                        Click="AjouterVoyage_Click"
+                        Content="+ Nouveau Voyage" />
+            </Grid>
+        </Border>
+
+        <!-- DataGrid éditable -->
+        <DataGrid x:Name="VoyagesDataGrid" Grid.Row="1" Margin="5"
+                 AutoGenerateColumns="False" CanUserAddRows="False"
+                 SelectionMode="Single" HeadersVisibility="Column"
+                 RowHeaderWidth="0" GridLinesVisibility="None"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 CanUserDeleteRows="False" CanUserReorderColumns="False">
+
+            <DataGrid.Columns>
+                <!-- Colonne Destination éditable -->
+                <DataGridTemplateColumn Width="1.5*" Header="Destination"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding _destination}" Padding="5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding _destination, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource ModernTextBox}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Colonne Description éditable -->
+                <DataGridTemplateColumn Width="2*" Header="Description"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding _description}" Padding="5" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding _description, UpdateSourceTrigger=PropertyChanged}"
+                                     AcceptsReturn="True" TextWrapping="Wrap"
+                                     Style="{StaticResource ModernTextBox}" BorderThickness="0" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Colonne Date éditable -->
+                <DataGridTemplateColumn Width="1*" Header="Date"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding _date, StringFormat=d}" Padding="5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding _date, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{StaticResource ModernDatePicker}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Colonne Prix éditable -->
+                <DataGridTemplateColumn Width="1*" Header="Prix"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding _price, StringFormat=C}" Padding="5" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding _price, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource ModernTextBox}" BorderThickness="0">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Key="Enter" Command="{Binding UpdatePriceCommand}" />
+                                </TextBox.InputBindings>
+                            </TextBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Colonne Image avec importation -->
+                <DataGridTemplateColumn Width="1.5*" Header="Image"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Height="50" Source="{Binding _image}"
+                                       Stretch="Uniform" HorizontalAlignment="Left" />
+
+                                <Button Grid.Column="1" Click="ImportImage_Click"
+                                        DataContext="{Binding}" Content="Changer"
+                                        Style="{StaticResource SecondaryButton}"
+                                        Margin="10,0,0,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Colonne Actions -->
+                <DataGridTemplateColumn Width="1*" Header="Actions"
+                                       HeaderStyle="{StaticResource DataGridColumnHeaderStyle}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!-- ajoute une check box-->
+                            <CheckBox IsChecked="{Binding _isDeleted, UpdateSourceTrigger=PropertyChanged}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="White" />
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FFF5F5F5" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="#FFE3F2FD" />
+                        </Trigger>
+                        <Trigger Property="IsEditing" Value="True">
+                            <Setter Property="Background" Value="#FFF0FFF0" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+
+        <!-- Barre d'actions -->
+        <Border Grid.Row="2" Background="White" CornerRadius="0,0,5,5"
+                Padding="10" Margin="5,0,5,5" BorderThickness="0,1,1,1"
+                BorderBrush="#FFDDDDDD">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Width="120" Height="35" Style="{StaticResource PrimaryButton}"
+                        Click="SaveVoyages_Click" Content="Enregistrer tout" />
+
+                <Button Width="100" Height="35" Margin="10,0,0,0"
+                        Style="{StaticResource SecondaryButton}" Click="Retour_Click"
+                        Content="Retour" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

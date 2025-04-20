@@ -100,13 +100,13 @@
 					<!--  Image et description  -->
 					<StackPanel Grid.Column="0" Margin="0,0,20,0">
 						<Border Height="350" CornerRadius="10">
-							<Image Source="{Binding _image}" />
+							<Image Source="{Binding Image}" />
 						</Border>
 
 						<Border Margin="0,20,0,0" Padding="15">
 							<TextBlock
                                 FontSize="16"
-                                Text="{Binding _description}"
+                                Text="{Binding Description}"
                                 TextWrapping="Wrap" />
 						</Border>
 					</StackPanel>
@@ -118,7 +118,7 @@
                                 Margin="0,0,0,10"
                                 FontSize="22"
                                 FontWeight="Bold"
-                                Text="{Binding _destination}" />
+                                Text="{Binding Destination}" />
 
 							<StackPanel Margin="0,10,0,0">
 								<TextBlock
@@ -128,7 +128,7 @@
 								<TextBlock
                                     Margin="0,5,0,15"
                                     FontSize="16"
-                                    Text="{Binding _date}" />
+                                    Text="{Binding Date}" />
 
 								<TextBlock
                                     FontWeight="SemiBold"
@@ -139,7 +139,7 @@
                                     FontSize="18"
                                     FontWeight="Bold"
                                     Foreground="#4285F4"
-                                    Text="{Binding _price}" />
+                                    Text="{Binding Price}" />
 
 								<TextBlock
                                     FontWeight="SemiBold"
@@ -148,7 +148,7 @@
 								<TextBlock
                                     Margin="0,5,0,15"
                                     FontSize="16"
-                                    Text="{Binding _duration}" />
+                                    Text="{Binding Duration}" />
 
 								<TextBlock
                                     Margin="0,10,0,5"
