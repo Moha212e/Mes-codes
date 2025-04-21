@@ -36,16 +36,10 @@ public class PropertiesLogin extends LoginTemplate {
                 try {
                     file.getParentFile().mkdirs(); // Crée les répertoires parents si nécessaire
                     file.createNewFile();
-                    
-                    // Ajouter des utilisateurs par défaut
-                    userProperties.setProperty("admin", "admin:admin");
-                    userProperties.setProperty("mohammed", "1234:user");
-                    userProperties.setProperty("zafina", "azerty:user");
-                    
-                    saveProperties(); // Sauvegarde le fichier properties avec les utilisateurs par défaut
-                    System.out.println(STR."Fichier properties créé avec des utilisateurs par défaut: \{propertiesFilePath}");
+
+                    System.out.println("Fichier properties créé avec des utilisateurs par défaut: " + propertiesFilePath);
                 } catch (IOException ex) {
-                    System.err.println(STR."Erreur lors de la création du fichier properties: \{ex.getMessage()}");
+                    System.err.println("Erreur lors de la création du fichier properties: " + ex.getMessage());
                 }
             }
         }
@@ -57,14 +51,20 @@ public class PropertiesLogin extends LoginTemplate {
     private void saveProperties() {
         try (OutputStream output = new FileOutputStream(propertiesFilePath)) {
             userProperties.store(output, "LocaDrive User Properties");
-            System.out.println(STR."Fichier properties sauvegardé avec succès: \{propertiesFilePath}");
+            System.out.println("Fichier properties sauvegardé avec succès: " + propertiesFilePath);
         } catch (IOException e) {
-            System.err.println(STR."Erreur lors de la sauvegarde du fichier properties: \{e.getMessage()}");
+            System.err.println("Erreur lors de la sauvegarde du fichier properties: " + e.getMessage());
         }
     }
     
     @Override
     protected boolean checkCredentials(String username, String password) {
+        // Vérifier si les identifiants sont null ou vides
+        if (username == null || password == null || 
+            username.isEmpty() || password.isEmpty()) {
+            return false;
+        }
+        
         if (!userProperties.containsKey(username)) {
             return false;
         }
@@ -82,12 +82,22 @@ public class PropertiesLogin extends LoginTemplate {
     
     @Override
     protected String encryptPassword(String password) {
+        // Retourner une chaîne vide si le mot de passe est null
+        if (password == null) {
+            return "";
+        }
         // Pas de chiffrement dans cette implémentation simple
         return password;
     }
     
     @Override
     protected boolean authenticate(String username, String encryptedPassword) {
+        // Vérifier si les identifiants sont null ou vides
+        if (username == null || encryptedPassword == null || 
+            username.isEmpty() || encryptedPassword.isEmpty()) {
+            return false;
+        }
+        
         if (!userProperties.containsKey(username)) {
             return false;
         }

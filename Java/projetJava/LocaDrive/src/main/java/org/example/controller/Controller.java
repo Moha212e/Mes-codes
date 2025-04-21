@@ -617,11 +617,7 @@ public final class Controller implements ActionListener {
             System.out.println("Impossible de charger les données: " + e.getMessage());
         }
     }
-    
-    /* ------------------------ */
-    /* Méthodes de récupération */
-    /* ------------------------ */
-    
+
     /**
      * Récupère toutes les voitures du modèle
      * @return Liste des voitures
@@ -682,10 +678,7 @@ public final class Controller implements ActionListener {
         }
         return model.getAllContracts();
     }
-    
-    /* ----------------------- */
-    /* Méthodes de mise à jour */
-    /* ----------------------- */
+
     
     /**
      * Met à jour une voiture dans le modèle

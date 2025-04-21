@@ -58,7 +58,7 @@ public class ReservationTest {
     public void testFullConstructor() {
         // Créer des objets pour le test
         Car car = new Car("1-ABC-123", "Toyota", "Corolla", 2020, 25);
-        Client client = new Client(1, "John", "Doe", "john@example.com", "password", LocalDate.of(1990, 1, 1));
+        Client client = new Client(1, "John", "Doe", "john@example.com", LocalDate.of(1990, 1, 1));
         LocalDate startLocalDate = LocalDate.of(2023, 1, 1);
         LocalDate endLocalDate = LocalDate.of(2023, 1, 10);
         Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -98,7 +98,7 @@ public class ReservationTest {
         
         // Ajouter des tests pour les nouvelles propriétés
         Car car = new Car("1-DEF-456", "Honda", "Civic", 2021, 30);
-        Client client = new Client(2, "Alice", "Smith", "alice@example.com", "password", LocalDate.of(1985, 5, 15));
+        Client client = new Client(2, "Alice", "Smith", "alice@example.com", LocalDate.of(1985, 5, 15));
         Contrat contrat = new Contrat("C456", 1500.0, "Tiers", false, StatutContrat.EN_ATTENTE);
         
         reservation.setCar(car);

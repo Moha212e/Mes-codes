@@ -13,11 +13,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PropertiesLoginTest {
 
-    private static final String TEST_PROPERTIES_FILE = "test_users.properties";
+    private static final String TEST_PROPERTIES_FILE = "src/test/resources/user.properties";
     private PropertiesLogin propertiesLogin;
     
     @BeforeEach
     public void setUp() {
+        // Créer le répertoire de test s'il n'existe pas
+        File directory = new File("src/test/resources");
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        
         // Supprimer le fichier de test s'il existe déjà
         File file = new File(TEST_PROPERTIES_FILE);
         if (file.exists()) {
@@ -26,6 +32,11 @@ public class PropertiesLoginTest {
         
         // Créer une nouvelle instance de PropertiesLogin avec le fichier de test
         propertiesLogin = new PropertiesLogin(TEST_PROPERTIES_FILE);
+        
+        // Ajouter des utilisateurs de test manuellement pour s'assurer qu'ils existent
+        propertiesLogin.addUser("admin", "admin", "admin");
+        propertiesLogin.addUser("mohammed", "1234", "user");
+        propertiesLogin.addUser("zafina", "azerty", "user");
     }
     
     @AfterEach

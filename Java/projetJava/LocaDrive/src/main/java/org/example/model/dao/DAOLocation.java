@@ -90,12 +90,9 @@ public class DAOLocation implements DataAccessLayer {
     
     /**
      * Charge les données depuis les fichiers sérialisés.
-     * Si les fichiers sérialisés n'existent pas, tente de charger les données depuis les fichiers JSON.
      */
     @SuppressWarnings("unchecked")
     public void loadData() {
-        boolean migrationNeeded = false;
-        
         try {
             // Vider les collections actuelles
             reservations.clear();
@@ -113,8 +110,6 @@ public class DAOLocation implements DataAccessLayer {
                     contractIdGenerator = new AtomicInteger(counters.getOrDefault("contractId", 1));
                     clientIdGenerator = new AtomicInteger(counters.getOrDefault("clientId", 1));
                 }
-            } else {
-                migrationNeeded = true;
             }
             
             // 1. Charger les voitures (entité indépendante)
@@ -124,8 +119,6 @@ public class DAOLocation implements DataAccessLayer {
                     cars = (Map<String, Car>) ois.readObject();
                     System.out.println("Voitures chargées: " + cars.size());
                 }
-            } else if (new File(CARS_FILE).exists()) {
-                migrationNeeded = true;
             }
             
             // 2. Charger les clients (entité indépendante)
@@ -135,8 +128,6 @@ public class DAOLocation implements DataAccessLayer {
                     clients = (Map<Integer, Client>) ois.readObject();
                     System.out.println("Clients chargés: " + clients.size());
                 }
-            } else if (new File(CLIENTS_FILE).exists()) {
-                migrationNeeded = true;
             }
             
             // 3. Charger les contrats (dépend des réservations)
@@ -146,8 +137,6 @@ public class DAOLocation implements DataAccessLayer {
                     contracts = (Map<String, Contrat>) ois.readObject();
                     System.out.println("Contrats chargés: " + contracts.size());
                 }
-            } else if (new File(CONTRACTS_FILE).exists()) {
-                migrationNeeded = true;
             }
             
             // 4. Charger les réservations (dépend des voitures et clients)
@@ -157,11 +146,7 @@ public class DAOLocation implements DataAccessLayer {
                     reservations = (Map<Integer, Reservation>) ois.readObject();
                     System.out.println("Réservations chargées: " + reservations.size());
                 }
-            } else if (new File(RESERVATIONS_FILE).exists()) {
-                migrationNeeded = true;
             }
-            
-
 
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Erreur lors du chargement des données sérialisées: " + e.getMessage());
