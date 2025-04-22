@@ -1,6 +1,7 @@
 package org.example.controller;
 
 public class ControllerActions {
+
     // Actions d'authentification
     public static final String LOGIN = "LOGIN";
     public static final String LOGOUT = "LOGOUT";
@@ -30,10 +31,7 @@ public class ControllerActions {
     public static final String ADD_CONTRAT = "addContrat";
     public static final String MODIFY_CONTRAT = "modifyContrat";
     public static final String DELETE_CONTRAT = "deleteContrat";
-    public static final String ADD = "add";
-    public static final String UPDATE = "update";
-    public static final String DELETE = "delete";
-    
+
     // Actions d'importation et d'exportation
     public static final String IMPORT_CARS = "IMPORT_CARS";
     public static final String IMPORT_CLIENTS = "IMPORT_CLIENTS";

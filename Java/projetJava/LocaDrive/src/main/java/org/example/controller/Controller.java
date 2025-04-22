@@ -7,7 +7,6 @@ import org.example.model.entity.Client;
 import org.example.model.entity.Contrat;
 import org.example.model.entity.Reservation;
 import org.example.model.authentication.LoginTemplate;
-import org.example.model.authentication.SimpleLogin;
 import org.example.model.authentication.PropertiesLogin;
 import org.example.view.ViewLocation;
 
@@ -15,8 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
-import java.time.LocalDate;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -570,9 +567,9 @@ public final class Controller implements ActionListener {
                     return;
             }
             
-            view.showMessage("Exportation des " + type + " réussie !");
+            view.showMessage(STR."Exportation des \{type} réussie !");
         } catch (IOException e) {
-            view.showErrorMessage("Erreur lors de l'exportation: " + e.getMessage());
+            view.showErrorMessage(STR."Erreur lors de l'exportation: \{e.getMessage()}");
             e.printStackTrace();
         }
     }
@@ -583,11 +580,8 @@ public final class Controller implements ActionListener {
     
     // Méthode pour mettre à jour le texte du bouton de connexion/déconnexion
     private void updateLoginButtonText() {
-        if (isLoggedIn) {
-            // La vue s'occupera de gérer ce changement
-        } else {
-            // La vue s'occupera de gérer ce changement
-        }
+        // La vue s'occupera de gérer ce changement
+        // La vue s'occupera de gérer ce changement
     }
     
     // Méthode pour mettre à jour toutes les tables

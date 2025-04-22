@@ -5,16 +5,19 @@ import java.util.List;
 import java.io.IOException;
 
 public interface DataAccessLayer {
+
     // Ajouter une nouvelle entité
     int addReservation(Reservation reservation);
     int addCar(Car car);
     int addContract(Contrat contrat);
     int addClient(Client client);
+
     // Supprimer une entité
     boolean deleteReservation(Reservation reservation);
     boolean deleteCar(Car car);
     boolean deleteContract(Contrat contrat);
     boolean deleteClient(Client client);
+
     // Modifier une entité
     void updateReservation(Reservation reservation);
     void updateCar(Car car);
@@ -29,26 +32,18 @@ public interface DataAccessLayer {
     
     // Méthodes pour récupérer des entités par ID
     Car getCarById(String idCar);
-
     void getListCar();
-
     void saveReservations(List<Reservation> reservations);
-    
+
     // Méthodes d'importation
     void importCars(String filePath) throws IOException;
-    
     void importClients(String filePath) throws IOException;
-    
     void importContracts(String filePath) throws IOException;
-    
     void importReservations(String filePath) throws IOException;
+
     // Méthodes d'exportation
-    
     void exportCars(String filePath) throws IOException;
-    
     void exportClients(String filePath) throws IOException;
-    
     void exportContracts(String filePath) throws IOException;
-    
     void exportReservations(String filePath) throws IOException;
 }

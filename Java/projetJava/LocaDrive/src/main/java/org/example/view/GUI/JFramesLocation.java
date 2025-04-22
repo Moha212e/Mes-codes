@@ -6,6 +6,7 @@ import org.example.model.entity.Contrat;
 import org.example.model.entity.Car;
 import org.example.model.entity.Client;
 import org.example.model.entity.Reservation;
+import org.example.utils.DateFormatter;
 import org.example.utils.WrapLayout;
 import org.example.view.ViewLocation;
 
@@ -35,6 +36,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private int posBouton = 0;
     private Controller controller;
     private JButton sessionButton; // Ajout de la référence directe
+    private JButton lightThemeButton, darkThemeButton; // Boutons pour changer de thème
 
     // Formulaires et dialogues
     private ImprovedSessionDialog sessionDialog;
@@ -45,9 +47,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
     public JFramesLocation() {
         super("LocaDrive");
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (Exception e) { e.printStackTrace(); }
+        // Suppression de la configuration du Look and Feel Nimbus car nous utilisons FlatLaf
         UIManager.put("control", new Color(245, 247, 250));
         UIManager.put("info", new Color(245, 247, 250));
         UIManager.put("nimbusBase", new Color(80, 90, 170));
@@ -84,7 +84,115 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         add(topPanel, BorderLayout.NORTH);
 
         // Création de la barre de menu
-        createMenuBar();
+        JMenuBar menuBar = new JMenuBar();
+        
+        // Menu Fichier
+        JMenu fileMenu = new JMenu("Fichier");
+        fileMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
+        // Sous-menu Importer
+        JMenu importMenu = new JMenu("Importer");
+        importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        
+        JMenuItem importCars = new JMenuItem("Voitures");
+        importCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        importCars.setActionCommand(ControllerActions.IMPORT_CARS);
+        importCars.addActionListener(controller);
+        
+        JMenuItem importClients = new JMenuItem("Clients");
+        importClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
+        importClients.addActionListener(controller);
+        
+        importMenu.add(importCars);
+        importMenu.add(importClients);
+        
+        // Sous-menu Exporter
+        JMenu exportMenu = new JMenu("Exporter");
+        exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        
+        JMenuItem exportCars = new JMenuItem("Voitures");
+        exportCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exportCars.setActionCommand(ControllerActions.EXPORT_CARS);
+        exportCars.addActionListener(controller);
+        
+        JMenuItem exportClients = new JMenuItem("Clients");
+        exportClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
+        exportClients.addActionListener(controller);
+        
+        exportMenu.add(exportCars);
+        exportMenu.add(exportClients);
+        
+        fileMenu.add(importMenu);
+        fileMenu.add(exportMenu);
+        fileMenu.addSeparator();
+        
+        JMenuItem exitItem = new JMenuItem("Quitter");
+        exitItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exitItem.setActionCommand("EXIT");
+        exitItem.addActionListener(e -> System.exit(0));
+        fileMenu.add(exitItem);
+        
+        // Menu Session
+        JMenu sessionMenu = new JMenu("Session");
+        JMenuItem sessionItem = new JMenuItem("Connexion / Inscription");
+        sessionItem.setActionCommand(ControllerActions.SESSION);
+        sessionItem.addActionListener(controller);
+        sessionMenu.add(sessionItem);
+        
+        // Menu Thèmes
+        JMenu themeMenu = new JMenu("Thèmes");
+        themeMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
+        JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
+        lightThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lightThemeItem.addActionListener(e -> changeTheme("light"));
+        
+        JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
+        darkThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        darkThemeItem.addActionListener(e -> changeTheme("dark"));
+        
+        themeMenu.add(lightThemeItem);
+        themeMenu.add(darkThemeItem);
+        
+        // Menu Paramètres
+        JMenu settingsMenu = new JMenu("Paramètres");
+        settingsMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        
+        // Sous-menu Format de date
+        JMenu dateFormatMenu = new JMenu("Format de date");
+        dateFormatMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        
+        JMenuItem defaultFormatItem = new JMenuItem("Standard (dd/MM/yyyy)");
+        defaultFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        defaultFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_DEFAULT));
+        
+        JMenuItem isoFormatItem = new JMenuItem("ISO (yyyy-MM-dd)");
+        isoFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        isoFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_ISO));
+        
+        JMenuItem longFormatItem = new JMenuItem("Long (dd MMMM yyyy)");
+        longFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        longFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_LONG));
+        
+        JMenuItem shortFormatItem = new JMenuItem("Court (dd/MM/yy)");
+        shortFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        shortFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_SHORT));
+        
+        dateFormatMenu.add(defaultFormatItem);
+        dateFormatMenu.add(isoFormatItem);
+        dateFormatMenu.add(longFormatItem);
+        dateFormatMenu.add(shortFormatItem);
+        
+        settingsMenu.add(dateFormatMenu);
+        
+        menuBar.add(fileMenu);
+        menuBar.add(sessionMenu);
+        menuBar.add(themeMenu);
+        menuBar.add(settingsMenu);
+        
+        setJMenuBar(menuBar);
 
         // Création du JTabbedPane
         tabbedPane = new JTabbedPane();
@@ -345,7 +453,8 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             data[i][2] = client.getSurname();
             data[i][3] = client.getEmail();
             data[i][4] = client.getLicenseNumber();
-            data[i][5] = client.getBirthDate();
+            // Utiliser DateFormatter pour formater la date de naissance
+            data[i][5] = client.getBirthDate() != null ? DateFormatter.format(client.getBirthDate()) : "N/A";
             data[i][6] = client.getPhoneNumber();
             i++;
         }
@@ -371,9 +480,9 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             // Nom complet du client (nouvel attribut)
             data[i][2] = reservation.getClientFullName() != null ? reservation.getClientFullName() : "N/A";
 
-            // Dates et autres informations
-            data[i][3] = reservation.getStartDate();
-            data[i][4] = reservation.getEndDate();
+            // Dates et autres informations - Utiliser DateFormatter pour formater les dates
+            data[i][3] = reservation.getStartDate() != null ? DateFormatter.format(reservation.getStartDate()) : "N/A";
+            data[i][4] = reservation.getEndDate() != null ? DateFormatter.format(reservation.getEndDate()) : "N/A";
             data[i][5] = reservation.getResponsable();
             data[i][6] = reservation.getPrice();
             data[i][7] = reservation.getNotes();
@@ -1016,20 +1125,14 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             imageLabel.setText("Pas d'image");
         }
 
-        leftPanel.add(imageLabel, BorderLayout.CENTER);
-
-        // Panel droit pour les informations détaillées
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.setBackground(Color.WHITE);
-        rightPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)
-        ));
+        // Créer un panel pour les informations de la voiture
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.WHITE);
 
         // Titre (marque et modèle)
         JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel());
-        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Créer un tableau pour afficher toutes les informations
@@ -1045,8 +1148,8 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         };
 
         // Panel pour contenir les informations
-        JPanel infoPanel = new JPanel(new GridLayout(data.length, 2, 10, 10));
-        infoPanel.setBackground(Color.WHITE);
+        JPanel infoContentPanel = new JPanel(new GridLayout(data.length, 2, 10, 10));
+        infoContentPanel.setBackground(Color.WHITE);
 
         // Ajouter les informations au panel
         for (String[] row : data) {
@@ -1056,23 +1159,24 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             JLabel valueLabel = new JLabel(row[1]);
             valueLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 
-            infoPanel.add(keyLabel);
-            infoPanel.add(valueLabel);
+            infoContentPanel.add(keyLabel);
+            infoContentPanel.add(valueLabel);
         }
 
-        // Ajouter les composants au panel droit
-        rightPanel.add(titleLabel);
-        rightPanel.add(Box.createVerticalStrut(20));
-        rightPanel.add(infoPanel);
+        // Ajouter les composants au panel d'informations
+        infoPanel.add(Box.createVerticalStrut(5));
+        infoPanel.add(titleLabel);
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(infoContentPanel);
+
+        // Ajouter les composants au panel principal
+        mainPanel.add(leftPanel, BorderLayout.WEST);
+        mainPanel.add(infoPanel, BorderLayout.CENTER);
 
         // Panel pour les boutons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.setBackground(new Color(245, 247, 250));
 
-
-        // Ajouter les panels au panel principal
-        mainPanel.add(leftPanel, BorderLayout.WEST);
-        mainPanel.add(rightPanel, BorderLayout.CENTER);
 
         // Ajouter le panel principal et le panel de boutons à la boîte de dialogue
         detailsDialog.add(mainPanel, BorderLayout.CENTER);
@@ -1231,7 +1335,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             String[] carColumns = {"ID Car", "Marque", "Modèle", "Année", "Prix/jour", "Kilometrages", "Carburant", "Transmission", "Places", "Disponibilité"};
             table1.setModel(new DefaultTableModel(new Object[0][carColumns.length], carColumns));
 
-            String[] clientColumns = {"ID Client", "Nom", "Prénom", "Email", "Numéro de permis", "Date de naissance", "Téléphone"};
+            String[] clientColumns = {"ID Client", "Nom", "Prénom", "Email","Numéro de permis", "Date de naissance", "Téléphone"};
             table2.setModel(new DefaultTableModel(new Object[0][clientColumns.length], clientColumns));
 
             String[] locationColumns = {"ID Réservation", "Véhicule", "Immatriculation", "Client", "Nom Complet", "Date Début", "Date Fin", "Responsable", "Prix Total", "Notes"};
@@ -1325,105 +1429,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Menu Fichier
         JMenu fileMenu = new JMenu("Fichier");
-        fileMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-        // Sous-menu Importer
-        JMenu importMenu = new JMenu("Importer");
-        importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-        // Essayer de charger l'icône, mais ne pas échouer si elle n'est pas trouvée
-        try {
-            ImageIcon importIcon = new ImageIcon(getClass().getResource("/icons/import.png"));
-            if (importIcon.getIconWidth() > 0) {
-                importMenu.setIcon(importIcon);
-            }
-        } catch (Exception e) {
-            System.out.println("Icône d'importation non trouvée");
-        }
-
-        JMenuItem importCars = new JMenuItem("Voitures");
-        importCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        importCars.setActionCommand(ControllerActions.IMPORT_CARS);
-        importCars.addActionListener(controller);
-
-        JMenuItem importClients = new JMenuItem("Clients");
-        importClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
-        importClients.addActionListener(controller);
-
-        JMenuItem importContracts = new JMenuItem("Contrats");
-        importContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        importContracts.setActionCommand(ControllerActions.IMPORT_CONTRACTS);
-        importContracts.addActionListener(controller);
-
-        JMenuItem importReservations = new JMenuItem("Réservations");
-        importReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        importReservations.setActionCommand(ControllerActions.IMPORT_RESERVATIONS);
-        importReservations.addActionListener(controller);
-
-        importMenu.add(importCars);
-        importMenu.add(importClients);
-        importMenu.add(importContracts);
-        importMenu.add(importReservations);
-
-        // Sous-menu Exporter
-        JMenu exportMenu = new JMenu("Exporter");
-        exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-        // Essayer de charger l'icône, mais ne pas échouer si elle n'est pas trouvée
-        try {
-            ImageIcon exportIcon = new ImageIcon(getClass().getResource("/icons/export.png"));
-            if (exportIcon.getIconWidth() > 0) {
-                exportMenu.setIcon(exportIcon);
-            }
-        } catch (Exception e) {
-            System.out.println("Icône d'exportation non trouvée");
-        }
-
-        JMenuItem exportCars = new JMenuItem("Voitures");
-        exportCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        exportCars.setActionCommand(ControllerActions.EXPORT_CARS);
-        exportCars.addActionListener(controller);
-
-        JMenuItem exportClients = new JMenuItem("Clients");
-        exportClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
-        exportClients.addActionListener(controller);
-
-        JMenuItem exportContracts = new JMenuItem("Contrats");
-        exportContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        exportContracts.setActionCommand(ControllerActions.EXPORT_CONTRACTS);
-        exportContracts.addActionListener(controller);
-
-        JMenuItem exportReservations = new JMenuItem("Réservations");
-        exportReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        exportReservations.setActionCommand(ControllerActions.EXPORT_RESERVATIONS);
-        exportReservations.addActionListener(controller);
-
-        exportMenu.add(exportCars);
-        exportMenu.add(exportClients);
-        exportMenu.add(exportContracts);
-        exportMenu.add(exportReservations);
-
-        fileMenu.add(importMenu);
-        fileMenu.add(exportMenu);
-        fileMenu.addSeparator();
-
-        JMenuItem exitItem = new JMenuItem("Quitter");
-        exitItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        exitItem.setActionCommand("EXIT");
-        exitItem.addActionListener(e -> System.exit(0));
-        fileMenu.add(exitItem);
-
-        // Menu Session
-        JMenu sessionMenu = new JMenu("Session");
-        JMenuItem sessionItem = new JMenuItem("Connexion / Inscription");
-        sessionItem.setActionCommand(ControllerActions.SESSION);
-        sessionItem.addActionListener(controller); // Déléguer au contrôleur
-        sessionMenu.add(sessionItem);
-
         menuBar.add(fileMenu);
-        menuBar.add(sessionMenu);
+
+        // Ajouter le menu Thèmes
+        JMenu themeMenu = new JMenu("Thèmes");
+        menuBar.add(themeMenu);
+
+        // Ajouter les options de thème
+        JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
+        lightThemeItem.addActionListener(e -> changeTheme("light"));
+        themeMenu.add(lightThemeItem);
+
+        JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
+        darkThemeItem.addActionListener(e -> changeTheme("dark"));
+        themeMenu.add(darkThemeItem);
 
         setJMenuBar(menuBar);
     }
@@ -1528,5 +1547,59 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
         return null;
+    }
+
+    /**
+     * Change le thème de l'application
+     * @param themeName Le nom du thème à appliquer ("light" ou "dark")
+     */
+    private void changeTheme(String themeName) {
+        try {
+            if ("dark".equals(themeName)) {
+                // Appliquer le thème Dracula (sombre)
+                com.formdev.flatlaf.FlatDarkLaf.setup();
+            } else {
+                // Appliquer le thème clair (par défaut)
+                com.formdev.flatlaf.FlatLightLaf.setup();
+            }
+            
+            // Mettre à jour tous les composants de l'interface
+            SwingUtilities.updateComponentTreeUI(this);
+            
+            // Mettre à jour les dialogues s'ils sont ouverts
+            if (sessionDialog != null) {
+                SwingUtilities.updateComponentTreeUI(sessionDialog);
+            }
+            
+            // Comme les formulaires ne sont pas des composants Swing directs,
+            // nous devons recréer les formulaires si nécessaire lors de leur prochaine utilisation
+            
+            // Informer l'utilisateur du changement de thème
+            JOptionPane.showMessageDialog(this, 
+                "Le thème " + (themeName.equals("dark") ? "Dracula" : "Clair") + " a été appliqué avec succès.",
+                "Changement de thème", JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, 
+                "Erreur lors du changement de thème: " + ex.getMessage(),
+                "Erreur", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Change le format d'affichage des dates dans l'application
+     * @param format Le nouveau format à utiliser
+     */
+    private void changeDateFormat(String format) {
+        // Changer le format dans la classe utilitaire
+        DateFormatter.setDateFormat(format);
+        
+        // Mettre à jour les tables pour refléter le nouveau format
+        if (controller != null) {
+            controller.updateAllTables();
+        }
+        
+        // Informer l'utilisateur
+        showMessage("Format de date changé en : " + format);
     }
 }

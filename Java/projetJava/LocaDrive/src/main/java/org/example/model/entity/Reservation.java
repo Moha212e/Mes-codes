@@ -221,15 +221,6 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "idReservation=" + idReservation +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", responsable='" + responsable + '\'' +
-                ", notes='" + notes + '\'' +
-                ", price=" + price +
-                ", clientFullName='" + clientFullName + '\'' +
-                ", carRegistration='" + carRegistration + '\'' +
-                '}';
+        return STR."Reservation{idReservation=\{idReservation}, startDate=\{startDate}, endDate=\{endDate}, responsable='\{responsable}', notes='\{notes}', price=\{price}, clientFullName='\{clientFullName}', carRegistration='\{carRegistration}'}";
     }
 }

@@ -196,6 +196,13 @@ public class Car implements Serializable {
     public String toString() {
         return "Car{idCar='" + idCar + "', brand='" + brand + "', model='" + model + "', year=" + year + ", priceday=" + priceday + ", mileage=" + mileage + ", fuelType='" + fuelType + "', transmission='" + transmission + "', seats=" + seats + ", available=" + available + ", image='" + image + "'}";
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return idCar.equals(car.idCar);
+    }
 
     public Object getType() {
         return transmission;
