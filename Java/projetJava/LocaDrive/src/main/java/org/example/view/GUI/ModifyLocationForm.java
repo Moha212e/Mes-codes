@@ -371,7 +371,7 @@ public class ModifyLocationForm {
         float price;
         try {
             price = Float.parseFloat(priceStr);
-            if (price <= 0) {
+            if (price <= 0 && originalReservation.getPrice() != price) {
                 throw new NumberFormatException("Le prix doit être positif");
             }
         } catch (NumberFormatException e) {

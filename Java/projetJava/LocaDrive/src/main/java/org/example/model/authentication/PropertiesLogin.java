@@ -22,7 +22,7 @@ public class PropertiesLogin extends LoginTemplate {
     }
     
     /**
-     * Charge les propriétés depuis le fichier.
+     * Charge les propriétés depuis le fichier
      */
     private void loadProperties() {
         try (InputStream input = new FileInputStream(propertiesFilePath)) {
@@ -64,7 +64,6 @@ public class PropertiesLogin extends LoginTemplate {
         if (password == null) {
             return "";
         }
-        // Pas de chiffrement dans cette implémentation simple
         return password;
     }
     
@@ -112,39 +111,6 @@ public class PropertiesLogin extends LoginTemplate {
         saveProperties();
         return true;
     }
-    
-    /**
-     * Supprime un utilisateur.
-     * @param username Nom d'utilisateur
-     * @return true si l'utilisateur a été supprimé avec succès, false sinon
-     */
-    public boolean removeUser(String username) {
-        if (!userProperties.containsKey(username)) {
-            return false;
-        }
-        
-        userProperties.remove(username);
-        saveProperties();
-        return true;
-    }
-    
-    /**
-     * Récupère le rôle d'un utilisateur.
-     * @param username Nom d'utilisateur
-     * @return Le rôle de l'utilisateur ou null si l'utilisateur n'existe pas
-     */
-    public String getUserRole(String username) {
-        if (!userProperties.containsKey(username)) {
-            return null;
-        }
-        
-        String storedValue = userProperties.getProperty(username);
-        String[] parts = storedValue.split(":");
-        
-        if (parts.length < 2) {
-            return "user"; // Rôle par défaut
-        }
-        
-        return parts[1];
-    }
+
+
 }

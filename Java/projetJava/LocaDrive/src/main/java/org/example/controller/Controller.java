@@ -23,27 +23,21 @@ public final class Controller implements ActionListener {
     private ViewLocation view;
     private LoginTemplate loginManager;
     private boolean isLoggedIn = false; // État de connexion
-    private String currentUser = null; // Utilisateur actuellement connecté
 
     public Controller() {
         // Constructeur par défaut
     }
 
-    public Controller(DataAccessLayer data, ViewLocation view) {
-        this.model = data;
+    public Controller(DataAccessLayer model, ViewLocation view) {
+        this.model = model;
         this.view = view;
-        this.view.setController(this);
-
-        // Initialiser le gestionnaire d'authentification avec PropertiesLogin
-        // Utiliser un chemin absolu pour le fichier properties
+        this.view.setController(this); // tout ce que la vue doit faire avec le controller par moi (this)
         String propertiesFilePath = "C:/Users/pasch/Documents/Mes-codes/Java/projetJava/LocaDrive/data/users.properties";
-        this.loginManager = new PropertiesLogin(propertiesFilePath);
+        this.loginManager = new PropertiesLogin(propertiesFilePath); // Utiliser PropertiesLogin comme gestionnaire de connexion
 
         // L'interface est verrouillée au démarrage
         view.lockInterface();
 
-        // Mettre à jour les tables au démarrage
-        updateAllTables();
     }
 
     public void run(){
@@ -129,13 +123,11 @@ public final class Controller implements ActionListener {
                 handleDeleteContrat();
                 break;
             case ControllerActions.SHOW_CAR_DETAILS:
-                if (e.getSource() instanceof javax.swing.JComponent source) {
-                    if (source.getClientProperty("car") instanceof Car car) {
-                        handleShowCarDetails(car);
+                if (e.getSource() instanceof javax.swing.JComponent source) { // il verifie si l'objet source est un composant Swing
+                    if (source.getClientProperty("car") instanceof Car car) { // il verifie si le client property "car" est une voiture
+                        handleShowCarDetails(car); // appel de la methode
                     }
                 }
-                break;
-            case ControllerActions.CLOSE_DETAILS:
                 break;
             default:
                 System.out.println(STR."Commande non reconnue: \{command}");
@@ -343,7 +335,6 @@ public final class Controller implements ActionListener {
 
                 if (success) {
                     isLoggedIn = true;
-                    currentUser = username;
                     view.unlockInterface();
 
                     // S'assurer que les données sont chargées avant de mettre à jour les tables
@@ -358,32 +349,8 @@ public final class Controller implements ActionListener {
                 } else {
                     view.showErrorMessage("Échec de la connexion. Veuillez vérifier vos identifiants.");
                 }
-            }
-        } else {
-            // Fallback pour la compatibilité avec l'implémentation actuelle
-            if (view.getSessionDialog() != null) {
-                String username = view.getSessionDialog().getEmail();
-                String password = view.getSessionDialog().getPassword();
 
-                if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
-                    boolean success = loginManager.login(username, password);
-
-                    if (success) {
-                        isLoggedIn = true;
-                        currentUser = username;
-                        view.unlockInterface();
-
-                        loadModelData();
-                        updateAllTables();
-
-                        view.showMessage("Connexion réussie. Bienvenue, " + username + "!");
-                        view.getSessionDialog().dispose();
-                        updateLoginButtonText();
-                    } else {
-                        view.showErrorMessage("Échec de la connexion. Veuillez vérifier vos identifiants.");
-                    }
-                }
-            }
+        }
         }
     }
 
@@ -412,6 +379,11 @@ public final class Controller implements ActionListener {
 
                     if (success) {
                         view.showMessage("Inscription réussie! Vous pouvez maintenant vous connecter.");
+                        view.getSessionDialog().dispose();
+                        updateLoginButtonText();
+                        isLoggedIn = true;
+                        view.unlockInterface();
+                        updateAllTables();
                     } else {
                         view.showErrorMessage("Échec de l'inscription. Cet utilisateur existe peut-être déjà.");
                     }
@@ -421,44 +393,11 @@ public final class Controller implements ActionListener {
             } else {
                 view.showErrorMessage("Veuillez remplir tous les champs.");
             }
-        } else {
-            // Fallback pour la compatibilité avec l'implémentation actuelle
-            if (view.getSessionDialog() != null) {
-                String username = view.getSessionDialog().getEmail();
-                String password = view.getSessionDialog().getPassword();
-                String confirmPassword = view.getSessionDialog().getConfirmPassword();
-
-                if (username != null && !username.isEmpty() &&
-                        password != null && !password.isEmpty() &&
-                        confirmPassword != null && !confirmPassword.isEmpty()) {
-
-                    if (!password.equals(confirmPassword)) {
-                        view.showErrorMessage("Les mots de passe ne correspondent pas.");
-                        return;
-                    }
-
-                    if (loginManager instanceof PropertiesLogin) {
-                        PropertiesLogin propLogin = (PropertiesLogin) loginManager;
-                        boolean success = propLogin.addUser(username, password, "user");
-
-                        if (success) {
-                            view.showMessage("Inscription réussie! Vous pouvez maintenant vous connecter.");
-                        } else {
-                            view.showErrorMessage("Échec de l'inscription. Cet utilisateur existe peut-être déjà.");
-                        }
-                    } else {
-                        view.showErrorMessage("L'inscription n'est pas disponible avec ce système d'authentification.");
-                    }
-                } else {
-                    view.showErrorMessage("Veuillez remplir tous les champs.");
-                }
-            }
         }
     }
 
     private void handleLogout() {
         isLoggedIn = false;
-        currentUser = null;
         view.lockInterface();
         view.clearAllTables();
         view.showMessage("Vous avez été déconnecté.");
@@ -499,7 +438,7 @@ public final class Controller implements ActionListener {
                     model.importReservations(filePath);
                     break;
                 default:
-                    view.showErrorMessage("Type de données non reconnu pour l'importation.");
+                    view.showErrorMessage(STR."Type de données non reconnu pour l'importation.\{type}");
                     return;
             }
 
@@ -518,19 +457,7 @@ public final class Controller implements ActionListener {
         }
 
         try {
-            // Exécuter le diagnostic des collections avant l'exportation
-            String diagnosticReport = runDiagnosticIfPossible(model);
-            if (diagnosticReport != null) {
-                System.out.println(diagnosticReport);
-
-                // Vérifier s'il y a des données à exporter
-                if (isCollectionEmpty(type)) {
-                    view.showMessage("Aucune donnée de type '" + type + "' à exporter. Veuillez d'abord ajouter des données.");
-                    return;
-                }
-            }
-
-            // Déléguer la sélection du fichier à la vue
+           // Déléguer la sélection du fichier à la vue
             String filePath = view.promptForSaveFilePath("Exporter", "csv");
 
             if (filePath == null || filePath.isEmpty()) {
@@ -610,7 +537,7 @@ public final class Controller implements ActionListener {
     public List<Car> getAllCars() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour accéder aux données des voitures");
-            return new ArrayList<>();
+            return null;
         }
         return model.getAllCars();
     }
@@ -635,7 +562,7 @@ public final class Controller implements ActionListener {
     public List<Client> getAllClients() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour accéder aux données des clients");
-            return new ArrayList<>();
+            return null;
         }
         return model.getAllClients();
     }
@@ -647,7 +574,7 @@ public final class Controller implements ActionListener {
     public List<Reservation> getAllReservations() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour accéder aux données des réservations");
-            return new ArrayList<>();
+            return null;
         }
         return model.getAllReservations();
     }
@@ -659,7 +586,7 @@ public final class Controller implements ActionListener {
     public List<Contrat> getAllContracts() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour accéder aux données des contrats");
-            return new ArrayList<>();
+            return null;
         }
         return model.getAllContracts();
     }
@@ -707,29 +634,6 @@ public final class Controller implements ActionListener {
         if (reservation != null) {
             model.updateReservation(reservation);
             updateAllTables();
-        }
-    }
-
-    private String runDiagnosticIfPossible(DataAccessLayer model) {
-        if (model instanceof DAOLocation) {
-            DAOLocation daoLocation = (DAOLocation) model;
-            return daoLocation.diagnosticCollections();
-        }
-        return null;
-    }
-
-    private boolean isCollectionEmpty(String type) {
-        switch (type) {
-            case "voitures":
-                return model.getAllCars().isEmpty();
-            case "clients":
-                return model.getAllClients().isEmpty();
-            case "contrats":
-                return model.getAllContracts().isEmpty();
-            case "réservations":
-                return model.getAllReservations().isEmpty();
-            default:
-                return true;
         }
     }
 }

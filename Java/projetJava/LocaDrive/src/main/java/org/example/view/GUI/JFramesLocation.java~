@@ -157,7 +157,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         exitItem.addActionListener(e -> System.exit(0));
         fileMenu.add(exitItem);
         
-
+        
         
         // Menu Thèmes
         JMenu themeMenu = new JMenu("Thèmes");

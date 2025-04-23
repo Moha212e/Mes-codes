@@ -25,11 +25,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DAOLocation implements DataAccessLayer {
     // Chemins des fichiers de données
     private static final String DATA_DIR = "data";
-    private static final String RESERVATIONS_FILE = STR."\{DATA_DIR}\{File.separator}reservations.ser";
-    private static final String CARS_FILE = STR."\{DATA_DIR}\{File.separator}cars.ser";
-    private static final String CONTRACTS_FILE = STR."\{DATA_DIR}\{File.separator}contracts.ser";
-    private static final String CLIENTS_FILE = STR."\{DATA_DIR}\{File.separator}clients.ser";
-    private static final String COUNTERS_FILE = STR."\{DATA_DIR}\{File.separator}counters.ser";
+    private static final String RESERVATIONS_FILE = DATA_DIR + File.separator + "reservations.ser";
+    private static final String CARS_FILE = DATA_DIR + File.separator + "cars.ser";
+    private static final String CONTRACTS_FILE = DATA_DIR + File.separator + "contracts.ser";
+    private static final String CLIENTS_FILE = DATA_DIR + File.separator + "clients.ser";
+    private static final String COUNTERS_FILE = DATA_DIR + File.separator + "counters.ser";
 
     private AtomicInteger reservationIdGenerator;
     private AtomicInteger carIdGenerator;
@@ -108,7 +108,7 @@ public class DAOLocation implements DataAccessLayer {
             if (carsFile.exists() && carsFile.length() > 0) {
                 try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(carsFile))) {
                     cars = (Map<String, Car>) ois.readObject();
-                    System.out.println(STR."Voitures chargées: \{cars.size()}");
+                    System.out.println("Voitures chargées: " + cars.size());
                 }
             }
 
@@ -176,7 +176,7 @@ public class DAOLocation implements DataAccessLayer {
             // Récupérer le nom complet du client sans modifier l'objet client
             Client client = clients.get(clientId);
             if (client != null) {
-                reservation.setClientFullName(STR."\{client.getName()} \{client.getSurname()}");
+                reservation.setClientFullName(client.getName() + " " + client.getSurname());
             }
         }
 
@@ -222,19 +222,18 @@ public class DAOLocation implements DataAccessLayer {
         return client.getIdClient();
     }
 
+    /**
+     *  Supprime une reservation de la collection
+     * @param reservation
+     * @return true si la reservation a ete supprimée, false sinon
+     */
     public boolean deleteReservation(Reservation reservation) {
         // Récupérer la réservation avant de la supprimer
         Reservation existingReservation = reservations.get(reservation.getIdReservation());
 
         if (existingReservation != null) {
             // Marquer la voiture comme disponible
-            if (existingReservation.getCar() != null) {
-                // Si la référence à la voiture est directement disponible
-                Car car = existingReservation.getCar();
-                car.setAvailable(true);
-                cars.put(car.getIdCar(), car);
-                System.out.println("Voiture " + car.getIdCar() + " marquée comme disponible");
-            } else if (existingReservation.getCarId() != null && !existingReservation.getCarId().isEmpty()) {
+            if (existingReservation.getCarId() != null && !existingReservation.getCarId().isEmpty()) {
                 // Si seul l'ID de la voiture est disponible
                 Car car = cars.get(existingReservation.getCarId());
                 if (car != null) {
@@ -252,6 +251,11 @@ public class DAOLocation implements DataAccessLayer {
         return result;
     }
 
+    /**
+     * Supprime une voiture de la collection
+     * @param car La voiture à supprimer
+     * @return true si la voiture a été supprimée, false sinon
+     */
     public boolean deleteCar(Car car) {
         // Supprimer la voiture de la collection
         boolean result = cars.remove(car.getIdCar()) != null;
@@ -264,6 +268,11 @@ public class DAOLocation implements DataAccessLayer {
         return result;
     }
 
+    /**
+     *  Supprime un contrat de la collection
+     * @param contrat
+     * @return true si le contrat a ete supprimé, false sinon
+     */
     public boolean deleteContract(Contrat contrat) {
         // Supprimer le contrat de la collection
         boolean result = contracts.remove(contrat.getIdContrat()) != null; // Supprimer le contrat de la collection de contrats
@@ -276,6 +285,12 @@ public class DAOLocation implements DataAccessLayer {
         return result;
     }
 
+    /**
+     *
+     * Supprime un client de la collection
+     * @param client
+     * @return true si le client a ete supprimé, false sinon
+     */
     public boolean deleteClient(Client client) {
         // Au lieu de marquer comme supprimé, on pourrait simplement supprimer le client
         // ou implémenter une autre logique métier (désactiver le compte, etc.)
@@ -305,10 +320,6 @@ public class DAOLocation implements DataAccessLayer {
             // Sauvegarder les changements
             saveData();
             System.out.println("Voiture mise à jour avec succès : " + car.getIdCar());
-            // Mettre à jour la table des voitures
-            if (controller != null) {
-                controller.updateAllTables();
-            }
         } else {
             System.out.println("Voiture non trouvée pour la mise à jour : " + car.getIdCar());
         }
@@ -329,10 +340,7 @@ public class DAOLocation implements DataAccessLayer {
             // Sauvegarder les changements
             saveData();
             System.out.println("Client mis à jour avec succès : " + client.getIdClient());
-            // Mettre à jour la table des clients
-            if (controller != null) {
-                controller.updateAllTables();
-            }
+
         } else {
             System.out.println("Client non trouvé pour la mise à jour : " + client.getIdClient());
         }
@@ -353,10 +361,7 @@ public class DAOLocation implements DataAccessLayer {
             // Sauvegarder les changements
             saveData();
             System.out.println("Contrat mis à jour avec succès : " + contrat.getIdContrat());
-            // Mettre à jour la table des contrats
-            if (controller != null) {
-                controller.updateAllTables();
-            }
+
         } else {
             System.out.println("Contrat non trouvé pour la mise à jour : " + contrat.getIdContrat());
         }
@@ -419,9 +424,7 @@ public class DAOLocation implements DataAccessLayer {
             saveData();
             System.out.println("Réservation mise à jour avec succès : " + reservation.getIdReservation());
             // Mettre à jour la table des réservations
-            if (controller != null) {
-                controller.updateAllTables();
-            }
+
         } else {
             System.out.println("Réservation non trouvée pour la mise à jour : " + reservation.getIdReservation());
         }
@@ -448,15 +451,7 @@ public class DAOLocation implements DataAccessLayer {
         return new ArrayList<>(clients.values());
     }
 
-    /**
-     * Récupère une réservation par son ID.
-     *
-     * @param id ID de la réservation
-     * @return La réservation ou null si non trouvée
-     */
-    public Reservation getReservationById(int id) {
-        return reservations.get(id);
-    }
+
 
     /**
      * Récupère une voiture par son ID.
@@ -519,18 +514,19 @@ public class DAOLocation implements DataAccessLayer {
         if (isCsv || isTxt) {
             // Importer à partir d'un CSV ou TXT
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                // Lire la première ligne pour obtenir les en-têtes
-                String headerLine = reader.readLine();
+
+                String line; // Variable pour stocker les lignes lues
+
+                String headerLine = reader.readLine();// Lire la première ligne pour obtenir les en-têtes
 
                 if (headerLine == null) {
                     throw new IOException("Le fichier est vide ou mal formaté");
                 }
 
-                System.out.println(STR."En-têtes lus: \{headerLine}");
+                System.out.println("En-têtes lus: " + headerLine);
 
                 // Définir les indices des colonnes en fonction des en-têtes
-                String[] headers = headerLine.split(",");
+                String[] headers = headerLine.split(",");// Diviser la ligne en en-têtes
                 Map<String, Integer> headerMap = new HashMap<>();
 
                 for (int i = 0; i < headers.length; i++) {
@@ -544,8 +540,8 @@ public class DAOLocation implements DataAccessLayer {
                     String[] data = line.split(",");
 
                     // Vérifier que nous avons suffisamment de données
-                    if (data.length < headerMap.size()) {
-                        System.err.println(STR."Ligne ignorée car incomplète: \{line}");
+                    if (data.length < headerMap.size()) { // Si le nombre de données est insuffisant
+                        System.err.println("Ligne ignorée car incomplète: " + line);
                         continue;
                     }
 
@@ -739,10 +735,6 @@ public class DAOLocation implements DataAccessLayer {
                 // Sauvegarder les clients dans le fichier sérialisé
                 saveData();
                 System.out.println("Importation CSV terminée: " + clients.size() + " clients importés");
-                // Mettre à jour la table des clients
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
             }
         } else {
             // Méthode d'importation existante pour les fichiers texte
@@ -771,10 +763,7 @@ public class DAOLocation implements DataAccessLayer {
 
                 // Sauvegarder les clients dans le fichier sérialisé
                 saveData();
-                // Mettre à jour la table des clients
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
+
             }
         }
     }
@@ -878,9 +867,7 @@ public class DAOLocation implements DataAccessLayer {
                 saveData();
                 System.out.println("Importation CSV terminée: " + contracts.size() + " contrats importés");
                 // Mettre à jour la table des contrats
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
+
             }
         } else {
             // Méthode d'importation existante pour les fichiers texte
@@ -911,12 +898,10 @@ public class DAOLocation implements DataAccessLayer {
 
                 // Sauvegarder les contrats dans le fichier sérialisé
                 saveData();
-                // Mettre à jour la table des contrats
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
+
             }
         }
+        loadData();
     }
 
     public void importReservations(String filePath) throws IOException {
@@ -995,8 +980,7 @@ public class DAOLocation implements DataAccessLayer {
                             if (startDate != null) {
                                 // Stocker la date au format YYYY-MM-DD
                                 reservation.setStartDate(startDate);
-                                // Afficher un message de confirmation avec le format correct
-                                System.out.println("Date de début importée et formatée: " + formatDateToYYYYMMDD(startDate));
+
                             } else {
                                 System.err.println("Format de date de début invalide: " + dateStr);
                             }
@@ -1013,8 +997,7 @@ public class DAOLocation implements DataAccessLayer {
                             if (endDate != null) {
                                 // Stocker la date au format YYYY-MM-DD
                                 reservation.setEndDate(endDate);
-                                // Afficher un message de confirmation avec le format correct
-                                System.out.println("Date de fin importée et formatée: " + formatDateToYYYYMMDD(endDate));
+
                             } else {
                                 System.err.println("Format de date de fin invalide: " + dateStr);
                             }
@@ -1058,10 +1041,7 @@ public class DAOLocation implements DataAccessLayer {
                 // Sauvegarder les réservations dans le fichier sérialisé
                 saveData();
                 System.out.println("Importation CSV terminée: " + reservations.size() + " réservations importées");
-                // Mettre à jour la table des réservations
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
+
             }
         } else {
             // Méthode d'importation existante pour les fichiers texte
@@ -1117,21 +1097,18 @@ public class DAOLocation implements DataAccessLayer {
 
                 // Sauvegarder les réservations dans le fichier sérialisé
                 saveData();
-                // Mettre à jour la table des réservations
-                if (controller != null) {
-                    controller.updateAllTables();
-                }
             }
         }
+        loadData();
     }
 
     public void exportCars(String filePath) throws IOException {
         System.out.println("Exportation des voitures vers: " + filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Écrire l'en-tête CSV avec les noms des colonnes
-            writer.write("idCar,brand,model,year,priceday,mileage,fuel,transmission,seats,available,image");
-            writer.newLine();
+            // Écrire l'en-tête CSV
+            writer.write("Car");
+            writer.newLine(); //passe à la ligne suivante
 
             // Vérifier si la collection des voitures est vide
             if (cars.isEmpty()) {
@@ -1139,22 +1116,9 @@ public class DAOLocation implements DataAccessLayer {
                 return;
             }
 
-            // Écrire les données de chaque voiture au format CSV
+            // Écrire les données de chaque voiture au format CSV en utilisant toString()
             for (Car car : cars.values()) {
-                StringBuilder line = new StringBuilder();
-                line.append(escapeCSV(car.getIdCar())).append(",");
-                line.append(escapeCSV(car.getBrand())).append(",");
-                line.append(escapeCSV(car.getModel())).append(",");
-                line.append(car.getYear()).append(",");
-                line.append(car.getPriceday()).append(",");
-                line.append(car.getMileage()).append(",");
-                line.append(escapeCSV(car.getFuel())).append(",");
-                line.append(escapeCSV(car.getTransmission())).append(",");
-                line.append(car.getSeats()).append(",");
-                line.append(car.isAvailable()).append(",");
-                line.append(escapeCSV(car.getImage() != null ? car.getImage() : ""));
-
-                writer.write(line.toString());
+                writer.write(car.toString());
                 writer.newLine();
             }
 
@@ -1169,8 +1133,8 @@ public class DAOLocation implements DataAccessLayer {
         System.out.println("Exportation des clients vers: " + filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Écrire l'en-tête CSV avec les noms des colonnes
-            writer.write("idClient,name,surname,email,licenseNumber,birthDate,phoneNumber");
+            // Écrire l'en-tête CSV
+            writer.write("Client");
             writer.newLine();
 
             // Vérifier si la collection des clients est vide
@@ -1179,18 +1143,9 @@ public class DAOLocation implements DataAccessLayer {
                 return;
             }
 
-            // Écrire les données de chaque client au format CSV
+            // Écrire les données de chaque client au format CSV en utilisant toString()
             for (Client client : clients.values()) {
-                StringBuilder line = new StringBuilder();
-                line.append(client.getIdClient()).append(",");
-                line.append(escapeCSV(client.getName())).append(",");
-                line.append(escapeCSV(client.getSurname())).append(",");
-                line.append(escapeCSV(client.getEmail())).append(",");
-                line.append(escapeCSV(client.getLicenseNumber())).append(",");
-                line.append(client.getBirthDate() != null ? client.getBirthDate() : "").append(",");
-                line.append(escapeCSV(client.getPhoneNumber()));
-
-                writer.write(line.toString());
+                writer.write(client.toString());
                 writer.newLine();
             }
 
@@ -1205,8 +1160,8 @@ public class DAOLocation implements DataAccessLayer {
         System.out.println("Exportation des contrats vers: " + filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Écrire l'en-tête CSV avec les noms des colonnes
-            writer.write("idContrat,carBrand,carModel,clientName,clientSurname,caution,typeAssurance,options,estSigne,statutContrat,prixTotal");
+            // Écrire l'en-tête CSV
+            writer.write("Contrat");
             writer.newLine();
 
             // Vérifier si la collection des contrats est vide
@@ -1215,29 +1170,11 @@ public class DAOLocation implements DataAccessLayer {
                 return;
             }
 
-            // Restaurer les références entre objets avant l'exportation
-            restoreReferences();
 
-            // Écrire les données de chaque contrat au format CSV
+
+            // Écrire les données de chaque contrat au format CSV en utilisant toString()
             for (Contrat contrat : contracts.values()) {
-                StringBuilder line = new StringBuilder();
-                line.append(escapeCSV(contrat.getIdContrat())).append(",");
-                line.append(escapeCSV(contrat.getCarBrand())).append(",");
-                line.append(escapeCSV(contrat.getCarModel())).append(",");
-                line.append(escapeCSV(contrat.getClientName())).append(",");
-                line.append(escapeCSV(contrat.getClientSurname())).append(",");
-                line.append(contrat.getCaution()).append(",");
-                line.append(escapeCSV(contrat.getTypeAssurance())).append(",");
-
-                // Formater les options en une chaîne lisible
-                String optionsStr = String.join("|", contrat.getOptions());
-                line.append(escapeCSV(optionsStr)).append(",");
-
-                line.append(contrat.isEstSigne()).append(",");
-                line.append(contrat.getStatutContrat()).append(",");
-                line.append(contrat.getPrixTotal());
-
-                writer.write(line.toString());
+                writer.write(contrat.toString());
                 writer.newLine();
             }
 
@@ -1252,8 +1189,8 @@ public class DAOLocation implements DataAccessLayer {
         System.out.println("Exportation des réservations vers: " + filePath);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            // Écrire l'en-tête CSV avec les noms des colonnes
-            writer.write("idReservation,carId,carRegistration,clientId,clientFullName,startDate,endDate,responsable,price,notes");
+            // Écrire l'en-tête CSV
+            writer.write("Reservation");
             writer.newLine();
 
             // Vérifier si la collection des réservations est vide
@@ -1262,65 +1199,11 @@ public class DAOLocation implements DataAccessLayer {
                 return;
             }
 
-            // Restaurer les références entre objets avant l'exportation
-            restoreReferences();
 
-            // Écrire les données de chaque réservation au format CSV
+
+            // Écrire les données de chaque réservation au format CSV en utilisant toString()
             for (Reservation reservation : reservations.values()) {
-                StringBuilder line = new StringBuilder();
-                line.append(reservation.getIdReservation()).append(",");
-
-                // Informations sur la voiture
-                String carId = "";
-                String carRegistration = "";
-
-                if (reservation.getCar() != null) {
-                    carId = reservation.getCar().getIdCar();
-                    carRegistration = reservation.getCarRegistration();
-                } else if (reservation.getCarId() != null && !reservation.getCarId().isEmpty()) {
-                    carId = reservation.getCarId();
-                    carRegistration = reservation.getCarRegistration();
-
-                    // Essayer de récupérer la voiture si elle n'est pas déjà référencée
-                    Car car = cars.get(carId);
-                    if (car != null) {
-                        reservation.setCar(car);
-                    }
-                }
-
-                line.append(escapeCSV(carId)).append(",");
-                line.append(escapeCSV(carRegistration)).append(",");
-
-                // Informations sur le client
-                int clientId = 0;
-                String clientFullName = "";
-
-                if (reservation.getClient() != null) {
-                    clientId = reservation.getClient().getIdClient();
-                    clientFullName = reservation.getClientFullName();
-                } else if (reservation.getClientId() > 0) {
-                    clientId = reservation.getClientId();
-                    clientFullName = reservation.getClientFullName();
-
-                    // Essayer de récupérer le client si il n'est pas déjà référencé
-                    Client client = clients.get(clientId);
-                    if (client != null) {
-                        reservation.setClient(client);
-                        clientFullName = client.getName() + " " + client.getSurname();
-                    }
-                }
-
-                line.append(clientId).append(",");
-                line.append(escapeCSV(clientFullName)).append(",");
-
-                // Dates et autres informations
-                line.append(formatDateToYYYYMMDD(reservation.getStartDate())).append(",");
-                line.append(formatDateToYYYYMMDD(reservation.getEndDate())).append(",");
-                line.append(escapeCSV(reservation.getResponsable())).append(",");
-                line.append(reservation.getPrice()).append(",");
-                line.append(escapeCSV(reservation.getNotes()));
-
-                writer.write(line.toString());
+                writer.write(reservation.toString());
                 writer.newLine();
             }
 
@@ -1332,27 +1215,6 @@ public class DAOLocation implements DataAccessLayer {
     }
 
     /**
-     * Échappe une chaîne pour l'utilisation dans un CSV
-     * Si la chaîne contient des virgules, des guillemets ou des sauts de ligne,
-     * elle est entourée de guillemets et les guillemets internes sont doublés.
-     */
-    private String escapeCSV(String value) {
-        if (value == null) {
-            return "";
-        }
-
-        boolean needsQuotes = value.contains(",") || value.contains("\"") || value.contains("\n") || value.contains("\r");
-
-        if (needsQuotes) {
-            // Remplacer les guillemets par des guillemets doublés
-            String escaped = value.replace("\"", "\"\"");
-            return "\"" + escaped + "\"";
-        }
-
-        return value;
-    }
-
-    /**
      * Méthode utilitaire pour parser une date en essayant plusieurs formats courants.
      * @param dateStr La chaîne de date à parser
      * @return La date parsée ou null si aucun format ne correspond
@@ -1361,12 +1223,12 @@ public class DAOLocation implements DataAccessLayer {
     private LocalDate parseDate(String dateStr) {
         // Liste des formats de date à essayer
         String[] dateFormats = {
-            "yyyy-MM-dd",           // Format ISO standard
-            "dd/MM/yyyy",           // Format français
-            "MM/dd/yyyy",           // Format américain
-            "dd-MM-yyyy",           // Format avec tirets
-            "yyyy/MM/dd",           // Format avec slashes
-            "EEE MMM dd HH:mm:ss zzz yyyy"  // Format Java par défaut (ex: Tue Apr 08 00:00:00 CEST 2025)
+                "yyyy-MM-dd",           // Format ISO standard
+                "dd/MM/yyyy",           // Format français
+                "MM/dd/yyyy",           // Format américain
+                "dd-MM-yyyy",           // Format avec tirets
+                "yyyy/MM/dd",           // Format avec slashes
+                "EEE MMM dd HH:mm:ss zzz yyyy"  // Format Java par défaut (ex: Tue Apr 08 00:00:00 CEST 2025)
         };
 
         for (String format : dateFormats) {
@@ -1377,33 +1239,7 @@ public class DAOLocation implements DataAccessLayer {
                 // Continuer avec le format suivant
             }
         }
-
-        // Essayer de parser une date java.util.Date et la convertir en LocalDate
-        for (String format : dateFormats) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-                dateFormat.setLenient(false); // Stricte validation des dates
-                Date date = dateFormat.parse(dateStr);
-                return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            } catch (ParseException e) {
-                // Continuer avec le format suivant
-            }
-        }
-
         return null; // Aucun format ne correspond
-    }
-
-    /**
-     * Formate une date au format YYYY-MM-DD
-     * @param date La date à formater
-     * @return La date formatée au format YYYY-MM-DD ou une chaîne vide si la date est null
-     */
-    // pour l'export
-    private String formatDateToYYYYMMDD(LocalDate date) {
-        if (date == null) {
-            return "";
-        }
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     /**
@@ -1438,102 +1274,6 @@ public class DAOLocation implements DataAccessLayer {
         }
 
         return id.toString();
-    }
-
-    /**
-     * Restaure les références entre les objets après la désérialisation.
-     */
-    private void restoreReferences() {
-        System.out.println("Début de la restauration des références...");
-
-        // Restaurer les références dans les réservations
-        for (Reservation reservation : reservations.values()) {
-            try {
-                // Restaurer la référence à la voiture
-                if (reservation.getCarId() != null && !reservation.getCarId().isEmpty()) {
-                    Car car = cars.get(reservation.getCarId());
-                    if (car != null) {
-                        reservation.setCar(car);
-                        // S'assurer que carRegistration est initialisé
-                        if (reservation.getCarRegistration() == null || reservation.getCarRegistration().isEmpty()) {
-                            reservation.setCarRegistration(car.getIdCar());
-                        }
-                        System.out.println("Réservation " + reservation.getIdReservation() + " liée à la voiture " + car.getIdCar());
-                    } else {
-                        System.err.println("Erreur: Voiture avec ID " + reservation.getCarId() + " non trouvée pour la réservation " + reservation.getIdReservation());
-                    }
-                }
-
-                // Restaurer la référence au client
-                if (reservation.getClientId() > 0) {
-                    Client client = clients.get(reservation.getClientId());
-                    if (client != null) {
-                        reservation.setClient(client);
-                        // S'assurer que clientFullName est initialisé
-                        if (reservation.getClientFullName() == null || reservation.getClientFullName().isEmpty()) {
-                            reservation.setClientFullName(client.getName() + " " + client.getSurname());
-                        }
-                        System.out.println("Réservation " + reservation.getIdReservation() + " liée au client " + client.getIdClient());
-                    } else {
-                        System.err.println("Erreur: Client avec ID " + reservation.getClientId() + " non trouvé pour la réservation " + reservation.getIdReservation());
-                    }
-                }
-
-                // Restaurer la référence au contrat
-                if (reservation.getContratId() != null && !reservation.getContratId().isEmpty()) {
-                    Contrat contrat = contracts.get(reservation.getContratId());
-                    if (contrat != null) {
-                        reservation.setContrat(contrat);
-                        // Mettre à jour le contrat avec cette réservation
-                        contrat.setReservation(reservation);
-                        contrat.setReservationId(reservation.getIdReservation());
-                        System.out.println("Réservation " + reservation.getIdReservation() + " liée au contrat " + contrat.getIdContrat());
-                    } else {
-                        System.err.println("Erreur: Contrat avec ID " + reservation.getContratId() + " non trouvé pour la réservation " + reservation.getIdReservation());
-                    }
-                }
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la restauration des références pour la réservation " + reservation.getIdReservation() + ": " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        // Restaurer les références dans les contrats
-        for (Contrat contrat : contracts.values()) {
-            try {
-                // Si le contrat a un ID de réservation mais pas d'objet réservation
-                if (contrat.getReservationId() > 0 && contrat.getReservation() == null) {
-                    Reservation reservation = reservations.get(contrat.getReservationId());
-                    if (reservation != null) {
-                        contrat.setReservation(reservation);
-                        System.out.println("Contrat " + contrat.getIdContrat() + " lié à la réservation " + reservation.getIdReservation());
-                    }
-                }
-
-                // Mettre à jour les informations du client et de la voiture dans le contrat
-                if (contrat.getReservation() != null) {
-                    Reservation reservation = contrat.getReservation();
-                    if (reservation.getClient() != null) {
-                        Client client = reservation.getClient();
-                        contrat.setClientId(String.valueOf(client.getIdClient()));
-                        contrat.setClientName(client.getName());
-                        contrat.setClientSurname(client.getSurname());
-                    }
-
-                    if (reservation.getCar() != null) {
-                        Car car = reservation.getCar();
-                        contrat.setCarId(car.getIdCar());
-                        contrat.setCarBrand(car.getBrand());
-                        contrat.setCarModel(car.getModel());
-                    }
-                }
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la restauration des références pour le contrat " + contrat.getIdContrat() + ": " + e.getMessage());
-                e.printStackTrace();
-            }
-        }
-
-        System.out.println("Références restaurées avec succès.");
     }
 
     /**
@@ -1577,77 +1317,5 @@ public class DAOLocation implements DataAccessLayer {
             System.err.println("Erreur lors de la sauvegarde des données: " + e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Méthode de diagnostic pour vérifier l'état des collections et forcer le chargement des données si nécessaire.
-     * Cette méthode est utile pour résoudre les problèmes d'exportation.
-     * @return Un rapport sur l'état des collections
-     */
-    public String diagnosticCollections() {
-        StringBuilder report = new StringBuilder();
-        report.append("=== Rapport de diagnostic des collections ===\n");
-
-        // Vérifier l'état des collections
-        report.append("Nombre de voitures: ").append(cars.size()).append("\n");
-        report.append("Nombre de clients: ").append(clients.size()).append("\n");
-        report.append("Nombre de réservations: ").append(reservations.size()).append("\n");
-        report.append("Nombre de contrats: ").append(contracts.size()).append("\n");
-
-        // Si une collection est vide, essayer de recharger les données
-        if (cars.isEmpty() || clients.isEmpty() || reservations.isEmpty() || contracts.isEmpty()) {
-            report.append("\nAu moins une collection est vide. Tentative de rechargement des données...\n");
-
-            // Sauvegarder l'état actuel des générateurs d'ID
-            int reservationIdBackup = reservationIdGenerator.get();
-            int carIdBackup = carIdGenerator.get();
-            int contractIdBackup = contractIdGenerator.get();
-            int clientIdBackup = clientIdGenerator.get();
-
-            // Recharger les données
-            loadData();
-
-            // Restaurer les générateurs d'ID si nécessaire
-            if (reservationIdGenerator.get() < reservationIdBackup) {
-                reservationIdGenerator.set(reservationIdBackup);
-                report.append("Restauration du générateur d'ID de réservation: ").append(reservationIdBackup).append("\n");
-            }
-            if (carIdGenerator.get() < carIdBackup) {
-                carIdGenerator.set(carIdBackup);
-                report.append("Restauration du générateur d'ID de voiture: ").append(carIdBackup).append("\n");
-            }
-            if (contractIdGenerator.get() < contractIdBackup) {
-                contractIdGenerator.set(contractIdBackup);
-                report.append("Restauration du générateur d'ID de contrat: ").append(contractIdBackup).append("\n");
-            }
-            if (clientIdGenerator.get() < clientIdBackup) {
-                clientIdGenerator.set(clientIdBackup);
-                report.append("Restauration du générateur d'ID de client: ").append(clientIdBackup).append("\n");
-            }
-
-            // Vérifier à nouveau l'état des collections
-            report.append("\nAprès rechargement:\n");
-            report.append("Nombre de voitures: ").append(cars.size()).append("\n");
-            report.append("Nombre de clients: ").append(clients.size()).append("\n");
-            report.append("Nombre de réservations: ").append(reservations.size()).append("\n");
-            report.append("Nombre de contrats: ").append(contracts.size()).append("\n");
-
-            // Restaurer les références entre objets
-            restoreReferences();
-            report.append("\nRéférences entre objets restaurées.\n");
-
-            // Sauvegarder les données pour s'assurer de leur persistance
-            saveData();
-            report.append("Données sauvegardées.\n");
-        } else {
-            report.append("\nToutes les collections contiennent des données.\n");
-
-            // Restaurer les références entre objets par précaution
-            restoreReferences();
-            report.append("Références entre objets restaurées.\n");
-        }
-
-        report.append("=== Fin du rapport de diagnostic ===");
-        return report.toString();
     }
 }

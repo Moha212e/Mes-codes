@@ -10,27 +10,28 @@ import java.util.prefs.Preferences;
  * Classe utilitaire pour formater les dates dans l'application.
  * Permet de changer dynamiquement le format d'affichage des dates.
  */
+
 public class DateFormatter {
     // Formats disponibles
     public static final String FORMAT_DEFAULT = "dd/MM/yyyy";
     public static final String FORMAT_ISO = "yyyy-MM-dd";
     public static final String FORMAT_LONG = "dd MMMM yyyy";
     public static final String FORMAT_SHORT = "dd/MM/yy";
-    
+
     // Format actuel
     private static String currentFormat = FORMAT_DEFAULT;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(currentFormat);
-    
+
     // Clé pour les préférences utilisateur
     private static final String PREF_DATE_FORMAT = "dateFormat";
     private static final Preferences prefs = Preferences.userNodeForPackage(DateFormatter.class);
-    
+
     // Initialisation du format à partir des préférences
     static {
         String savedFormat = prefs.get(PREF_DATE_FORMAT, FORMAT_DEFAULT);
         setDateFormat(savedFormat);
     }
-    
+
     /**
      * Définit le format d'affichage des dates.
      * @param format Le nouveau format à utiliser
@@ -41,7 +42,7 @@ public class DateFormatter {
         // Sauvegarder le format dans les préférences
         prefs.put(PREF_DATE_FORMAT, format);
     }
-    
+
     /**
      * Récupère le format actuel d'affichage des dates.
      * @return Le format actuel
@@ -49,7 +50,7 @@ public class DateFormatter {
     public static String getCurrentFormat() {
         return currentFormat;
     }
-    
+
     /**
      * Formate une date java.util.Date selon le format actuel.
      * @param date La date à formater
@@ -60,7 +61,7 @@ public class DateFormatter {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return format(localDate);
     }
-    
+
     /**
      * Formate une date LocalDate selon le format actuel.
      * @param date La date à formater
@@ -70,7 +71,7 @@ public class DateFormatter {
         if (date == null) return "";
         return date.format(formatter);
     }
-    
+
     /**
      * Convertit une chaîne en date LocalDate selon le format actuel.
      * @param dateStr La chaîne à convertir
@@ -80,7 +81,7 @@ public class DateFormatter {
     public static LocalDate parseLocalDate(String dateStr) throws Exception {
         return LocalDate.parse(dateStr, formatter);
     }
-    
+
     /**
      * Convertit une chaîne en date java.util.Date selon le format actuel.
      * @param dateStr La chaîne à convertir
