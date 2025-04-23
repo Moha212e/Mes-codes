@@ -25,11 +25,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DAOLocation implements DataAccessLayer {
     // Chemins des fichiers de données
     private static final String DATA_DIR = "data";
-    private static final String RESERVATIONS_FILE = DATA_DIR + File.separator + "reservations.ser";
-    private static final String CARS_FILE = DATA_DIR + File.separator + "cars.ser";
-    private static final String CONTRACTS_FILE = DATA_DIR + File.separator + "contracts.ser";
-    private static final String CLIENTS_FILE = DATA_DIR + File.separator + "clients.ser";
-    private static final String COUNTERS_FILE = DATA_DIR + File.separator + "counters.ser";
+    private static final String RESERVATIONS_FILE = STR."\{DATA_DIR}\{File.separator}reservations.ser";
+    private static final String CARS_FILE = STR."\{DATA_DIR}\{File.separator}cars.ser";
+    private static final String CONTRACTS_FILE = STR."\{DATA_DIR}\{File.separator}contracts.ser";
+    private static final String CLIENTS_FILE = STR."\{DATA_DIR}\{File.separator}clients.ser";
+    private static final String COUNTERS_FILE = STR."\{DATA_DIR}\{File.separator}counters.ser";
     
     private AtomicInteger reservationIdGenerator;
     private AtomicInteger carIdGenerator;
@@ -163,7 +163,7 @@ public class DAOLocation implements DataAccessLayer {
             Car car = cars.get(carId);
             if (car != null) {
                 car.setAvailable(false);
-                cars.put(carId, car);
+                cars.put(carId, car); //maj de la voiture
                 System.out.println("Voiture " + carId + " marquée comme non disponible");
             }
         }
@@ -175,7 +175,7 @@ public class DAOLocation implements DataAccessLayer {
             // Récupérer le nom complet du client sans modifier l'objet client
             Client client = clients.get(clientId);
             if (client != null) {
-                reservation.setClientFullName(client.getName() + " " + client.getSurname());
+                reservation.setClientFullName(STR."\{client.getName()} \{client.getSurname()}");
             }
         }
         
@@ -265,7 +265,7 @@ public class DAOLocation implements DataAccessLayer {
 
     public boolean deleteContract(Contrat contrat) {
         // Supprimer le contrat de la collection
-        boolean result = contracts.remove(contrat.getIdContrat()) != null;
+        boolean result = contracts.remove(contrat.getIdContrat()) != null; // Supprimer le contrat de la collection de contrats
         if (result) {
             saveData(); // Sauvegarder après modification
             System.out.println("Contrat supprimé avec succès : " + contrat.getIdContrat());
@@ -467,74 +467,6 @@ public class DAOLocation implements DataAccessLayer {
         return cars.get(id);
     }
 
-    @Override
-    public void getListCar() {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void saveReservations(List<Reservation> reservationsList) {
-        try {
-            // D'abord, marquer toutes les voitures comme disponibles
-            for (Car car : cars.values()) {
-                car.setAvailable(true);
-            }
-            
-            // Mettre à jour la map des réservations avec les nouvelles données
-            reservations.clear();
-            for (Reservation reservation : reservationsList) {
-                reservations.put(reservation.getIdReservation(), reservation);
-                
-                // Marquer les voitures réservées comme non disponibles
-                if (reservation.getCar() != null) {
-                    // Si la référence à la voiture est directement disponible
-                    Car car = reservation.getCar();
-                    car.setAvailable(false);
-                    cars.put(car.getIdCar(), car);
-                } else if (reservation.getCarId() != null && !reservation.getCarId().isEmpty()) {
-                    // Si seul l'ID de la voiture est disponible
-                    Car car = cars.get(reservation.getCarId());
-                    if (car != null) {
-                        car.setAvailable(false);
-                        
-                        // Mettre à jour la référence à la voiture dans la réservation avec une copie simplifiée
-                        Car simpleCar = new Car();
-                        simpleCar.setIdCar(car.getIdCar());
-                        simpleCar.setBrand(car.getBrand());
-                        simpleCar.setModel(car.getModel());
-                        simpleCar.setYear(car.getYear());
-                        simpleCar.setPriceday(car.getPriceday());
-                        simpleCar.setAvailable(false);
-                        
-                        reservation.setCar(simpleCar);
-                        
-                        cars.put(car.getIdCar(), car);
-                        System.out.println("Voiture " + car.getIdCar() + " marquée comme non disponible");
-                    }
-                }
-            }
-            
-            // Sauvegarder les réservations et les voitures dans les fichiers
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(RESERVATIONS_FILE))) {
-                oos.writeObject(reservations);
-            }
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(CARS_FILE))) {
-                oos.writeObject(cars);
-            }
-            
-            // Restaurer les références entre les objets
-            restoreReferences();
-            
-            System.out.println("Réservations sauvegardées avec succès. Nombre de réservations : " + reservations.size());
-            // Mettre à jour la table des réservations
-            if (controller != null) {
-                controller.updateAllTables();
-            }
-        } catch (IOException e) {
-            System.err.println("Erreur lors de la sauvegarde des réservations : " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
     /**
      * S'assure que toutes les propriétés d'une voiture sont définies (non nulles)
      * @param car La voiture à vérifier
@@ -594,7 +526,7 @@ public class DAOLocation implements DataAccessLayer {
                     throw new IOException("Le fichier est vide ou mal formaté");
                 }
                 
-                System.out.println("En-têtes lus: " + headerLine);
+                System.out.println(STR."En-têtes lus: \{headerLine}");
                 
                 // Définir les indices des colonnes en fonction des en-têtes
                 String[] headers = headerLine.split(",");
@@ -612,7 +544,7 @@ public class DAOLocation implements DataAccessLayer {
                     
                     // Vérifier que nous avons suffisamment de données
                     if (data.length < headerMap.size()) {
-                        System.err.println("Ligne ignorée car incomplète: " + line);
+                        System.err.println(STR."Ligne ignorée car incomplète: \{line}");
                         continue;
                     }
                     

@@ -32,8 +32,6 @@ public interface DataAccessLayer {
     
     // Méthodes pour récupérer des entités par ID
     Car getCarById(String idCar);
-    void getListCar();
-    void saveReservations(List<Reservation> reservations);
 
     // Méthodes d'importation
     void importCars(String filePath) throws IOException;
@@ -46,4 +44,7 @@ public interface DataAccessLayer {
     void exportClients(String filePath) throws IOException;
     void exportContracts(String filePath) throws IOException;
     void exportReservations(String filePath) throws IOException;
+    
+    // Méthode pour charger les données
+    void loadData();
 }

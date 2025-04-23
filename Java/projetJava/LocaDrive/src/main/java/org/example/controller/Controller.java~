@@ -136,6 +136,7 @@ public final class Controller implements ActionListener {
                 }
                 break;
             case ControllerActions.CLOSE_DETAILS:
+                // Cette action sera gérée par la vue
                 break;
             default:
                 System.out.println(STR."Commande non reconnue: \{command}");
@@ -594,16 +595,18 @@ public final class Controller implements ActionListener {
     
     /**
      * Méthode pour charger les données du modèle
-     * Cette méthode utilise directement l'interface DataAccessLayer
+     * Cette méthode évite le cast direct et la vérification de type
      */
     private void loadModelData() {
+        // Appeler une méthode générique pour charger les données
+        // Cette approche est plus abstraite et respecte mieux le principe OCP
         try {
-            // Appel direct de la méthode loadData de l'interface
-            model.loadData();
-            System.out.println("Données chargées avec succès");
+            // Utiliser la réflexion pour appeler la méthode loadData si elle existe
+            Method loadDataMethod = model.getClass().getMethod("loadData");
+            loadDataMethod.invoke(model);
         } catch (Exception e) {
-            System.out.println("Erreur lors du chargement des données: " + e.getMessage());
-            e.printStackTrace();
+            // La méthode n'existe pas ou ne peut pas être appelée, ce n'est pas grave
+            System.out.println("Impossible de charger les données: " + e.getMessage());
         }
     }
 
