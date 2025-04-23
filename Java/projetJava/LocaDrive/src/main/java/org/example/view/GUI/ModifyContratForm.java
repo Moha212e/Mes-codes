@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,12 +43,12 @@ public class ModifyContratForm {
     }
 
     public void showForm() {
-        // Création du panel principal avec un espacement entre les composants
-        JPanel panel = new JPanel(new GridLayout(11, 2, 16, 16));
+        // Création du panel principal avec un espacement réduit entre les composants
+        JPanel panel = new JPanel(new GridLayout(11, 2, 8, 8));
         panel.setBackground(new Color(245, 247, 250));
-        panel.setBorder(BorderFactory.createEmptyBorder(24, 32, 24, 32));
-        Font labelFont = new Font("Segoe UI", Font.BOLD, 15);
-        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 15);
+        panel.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
+        Font labelFont = new Font("Segoe UI", Font.BOLD, 14);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
 
         // Champ ID Contrat (en lecture seule car c'est une modification)
         JLabel idContratLabel = new JLabel("ID Contrat :");
@@ -188,7 +189,7 @@ public class ModifyContratForm {
         optionsList = new JList<>(optionsListModel);
         optionsList.setFont(fieldFont);
         JScrollPane optionsScrollPane = new JScrollPane(optionsList);
-        optionsScrollPane.setPreferredSize(new Dimension(200, 100));
+        optionsScrollPane.setPreferredSize(new Dimension(200, 80));
 
         // Panel pour ajouter/supprimer des options
         JPanel optionsButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -268,7 +269,9 @@ public class ModifyContratForm {
         // Création de la boîte de dialogue
         dialog = new JDialog(parent, "Modifier un contrat", true);
         dialog.setContentPane(mainPanel);
-        dialog.pack();
+        
+        // Définir une taille fixe plus petite au lieu d'utiliser pack()
+        dialog.setSize(600, 650);
         dialog.setLocationRelativeTo(parent);
         
         // Remplir le formulaire avec les données du contrat existant
@@ -336,7 +339,7 @@ public class ModifyContratForm {
         this.availableReservations = reservations;
         reservationComboBox.removeAllItems();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         for (Reservation reservation : reservations) {
             // Afficher les informations pertinentes de la réservation dans le ComboBox
@@ -346,7 +349,7 @@ public class ModifyContratForm {
                     reservation.getCar().getBrand() + " " + reservation.getCar().getModel() : "Véhicule inconnu";
             String dates = "";
             if (reservation.getStartDate() != null && reservation.getEndDate() != null) {
-                dates = dateFormat.format(reservation.getStartDate()) + " - " + dateFormat.format(reservation.getEndDate());
+                dates = reservation.getStartDate().format(dateFormat) + " - " + reservation.getEndDate().format(dateFormat);
             }
 
             String displayText = "#" + reservation.getIdReservation() + ": " + clientName + " - " + carModel + " (" + dates + ") - " + reservation.getPrice() + "€";

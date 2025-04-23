@@ -1,15 +1,13 @@
 package org.example.model.entity;
 
 import org.junit.jupiter.api.Test;
-import java.util.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
     private int idReservation;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String responsable;
     private String notes;
     private float price;
@@ -40,8 +38,8 @@ public class ReservationTest {
     
     @Test
     public void testParameterizedConstructor() {
-        Date startDate = new Date();
-        Date endDate = new Date();
+        LocalDate startDate = LocalDate.now();
+        LocalDate endDate = LocalDate.now().plusDays(5);
         Reservation reservation = new Reservation(2, startDate, endDate, "John Doe", "Test notes", 100.0f);
         assertEquals(2, reservation.getIdReservation());
         assertEquals(startDate, reservation.getStartDate());
@@ -53,22 +51,17 @@ public class ReservationTest {
         assertNull(reservation.getClient());
         assertNull(reservation.getContrat());
     }
-
+    
     @Test
     public void testFullConstructor() {
-        // Créer des objets pour le test
         Car car = new Car("1-ABC-123", "Toyota", "Corolla", 2020, 25);
         Client client = new Client(1, "John", "Doe", "john@example.com", LocalDate.of(1990, 1, 1));
-        LocalDate startLocalDate = LocalDate.of(2023, 1, 1);
-        LocalDate endLocalDate = LocalDate.of(2023, 1, 10);
-        Date startDate = Date.from(startLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date endDate = Date.from(endLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        LocalDate startDate = LocalDate.of(2023, 1, 1);
+        LocalDate endDate = LocalDate.of(2023, 1, 10);
         Contrat contrat = new Contrat("C123", 1000.0, "Tous risques", true, StatutContrat.SIGNE);
         
-        // Créer la réservation avec le constructeur complet
-        Reservation reservation = new Reservation(3, car, client, startLocalDate, endLocalDate, "Jane Doe", 250.0f, "Full test notes", contrat);
+        Reservation reservation = new Reservation(3, car, client, startDate, endDate, "Jane Doe", 250.0f, "Full test notes", contrat);
         
-        // Vérifier les valeurs
         assertEquals(3, reservation.getIdReservation());
         assertNotNull(reservation.getStartDate());
         assertNotNull(reservation.getEndDate());
@@ -86,37 +79,41 @@ public class ReservationTest {
     @Test
     public void testSettersAndGetters() {
         Reservation reservation = new Reservation();
-        Date startDate = new Date();
-        Date endDate = new Date();
         
         reservation.setIdReservation(5);
-        reservation.setStartDate(startDate);
-        reservation.setEndDate(endDate);
-        reservation.setResponsable("Jane Doe");
-        reservation.setNotes("Updated notes");
-        reservation.setPrice(150.0f);
-        
-        // Ajouter des tests pour les nouvelles propriétés
-        Car car = new Car("1-DEF-456", "Honda", "Civic", 2021, 30);
-        Client client = new Client(2, "Alice", "Smith", "alice@example.com", LocalDate.of(1985, 5, 15));
-        Contrat contrat = new Contrat("C456", 1500.0, "Tiers", false, StatutContrat.EN_ATTENTE);
-        
-        reservation.setCar(car);
-        reservation.setClient(client);
-        reservation.setContrat(contrat);
-        
         assertEquals(5, reservation.getIdReservation());
+        
+        LocalDate startDate = LocalDate.now();
+        reservation.setStartDate(startDate);
         assertEquals(startDate, reservation.getStartDate());
+        
+        LocalDate endDate = LocalDate.now().plusDays(3);
+        reservation.setEndDate(endDate);
         assertEquals(endDate, reservation.getEndDate());
-        assertEquals("Jane Doe", reservation.getResponsable());
-        assertEquals("Updated notes", reservation.getNotes());
-        assertEquals(150.0f, reservation.getPrice(), 0.001);
+        
+        reservation.setResponsable("Alice Johnson");
+        assertEquals("Alice Johnson", reservation.getResponsable());
+        
+        reservation.setNotes("Important notes");
+        assertEquals("Important notes", reservation.getNotes());
+        
+        reservation.setPrice(150.75f);
+        assertEquals(150.75f, reservation.getPrice(), 0.001);
+        
+        Car car = new Car("1-DEF-456", "Honda", "Civic", 2021, 30);
+        reservation.setCar(car);
         assertEquals(car, reservation.getCar());
+        assertEquals(car.getIdCar(), reservation.getCarId());
+        
+        Client client = new Client(2, "Bob", "Smith", "alice@example.com", LocalDate.of(1985, 5, 15));
+        reservation.setClient(client);
         assertEquals(client, reservation.getClient());
+        assertEquals(client.getIdClient(), reservation.getClientId());
+        
+        Contrat contrat = new Contrat("C456", 1500.0, "Tiers", false, StatutContrat.EN_ATTENTE);
+        reservation.setContrat(contrat);
         assertEquals(contrat, reservation.getContrat());
-        assertEquals("1-DEF-456", reservation.getCarId());
-        assertEquals(2, reservation.getClientId());
-        assertEquals("C456", reservation.getContratId());
+        assertEquals(contrat.getIdContrat(), reservation.getContratId());
         
         // Tester la définition directe des IDs
         reservation = new Reservation();

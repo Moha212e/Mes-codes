@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -360,8 +360,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         reservation.setPrice(100.0f);
         
         // Ajouter la réservation
@@ -399,8 +399,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         reservation.setPrice(100.0f);
         
         dao.addReservation(reservation);
@@ -439,8 +439,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         
         dao.addReservation(reservation);
         
@@ -486,8 +486,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         dao.addReservation(reservation);
         
         // Créer un contrat
@@ -534,8 +534,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         dao.addReservation(reservation);
         
         // Créer et ajouter un contrat
@@ -585,8 +585,8 @@ public class DAOLocationTest {
         Reservation reservation = new Reservation();
         reservation.setCar(car);
         reservation.setClient(client);
-        reservation.setStartDate(new Date());
-        reservation.setEndDate(new Date(System.currentTimeMillis() + 86400000)); // +1 jour
+        reservation.setStartDate(LocalDate.now());
+        reservation.setEndDate(LocalDate.now().plusDays(1)); // +1 jour
         dao.addReservation(reservation);
         
         // Créer et ajouter un contrat

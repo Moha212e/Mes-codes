@@ -290,12 +290,12 @@ public class AddLocationForm {
             Client selectedClient = ((ClientItem)clientComboBox.getSelectedItem()).getClient();
             
             // Conversion des dates
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = dateFormat.parse(startDateField.getText());
-            Date endDate = dateFormat.parse(endDateField.getText());
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(startDateField.getText(), dateFormatter);
+            LocalDate endDate = LocalDate.parse(endDateField.getText(), dateFormatter);
             
             // Vérifier que la date de fin est après la date de début
-            if (endDate.before(startDate)) {
+            if (endDate.isBefore(startDate)) {
                 JOptionPane.showMessageDialog(parent, 
                     "La date de fin doit être après la date de début", 
                     "Erreur de saisie", 
@@ -311,6 +311,15 @@ public class AddLocationForm {
                     // Remplacer la virgule par un point pour assurer la compatibilité
                     String priceText = priceField.getText().trim().replace(',', '.');
                     price = Float.parseFloat(priceText);
+                    
+                    // Vérifier que le prix est positif
+                    if (price <= 0) {
+                        JOptionPane.showMessageDialog(parent, 
+                            "Le prix doit être positif", 
+                            "Erreur de saisie", 
+                            JOptionPane.ERROR_MESSAGE);
+                        return null;
+                    }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(parent, 
                         "Le prix doit être un nombre valide", 
@@ -321,7 +330,7 @@ public class AddLocationForm {
             } else {
                 // Calculer automatiquement le prix en fonction du prix journalier de la voiture
                 // et du nombre de jours de location
-                long days = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+                long days = endDate.toEpochDay() - startDate.toEpochDay() + 1;
                 price = selectedCar.getPriceday() * days;
                 priceField.setText(String.valueOf(price)); // Mettre à jour le champ de prix
             }
@@ -490,12 +499,12 @@ public class AddLocationForm {
             }
             
             // Récupérer les dates de début et de fin
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = dateFormat.parse(startDateField.getText());
-            Date endDate = dateFormat.parse(endDateField.getText());
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(startDateField.getText(), dateFormatter);
+            LocalDate endDate = LocalDate.parse(endDateField.getText(), dateFormatter);
             
             // Vérifier que la date de fin est après la date de début
-            if (endDate.before(startDate)) {
+            if (endDate.isBefore(startDate)) {
                 return; // Ne pas mettre à jour le prix si les dates sont invalides
             }
             
@@ -504,7 +513,7 @@ public class AddLocationForm {
             
             // Calculer le prix total en fonction du prix journalier de la voiture
             // et du nombre de jours de location
-            long days = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1;
+            long days = endDate.toEpochDay() - startDate.toEpochDay() + 1;
             float price = selectedCar.getPriceday() * days;
             
             // Mettre à jour le champ de prix avec deux décimales
@@ -555,12 +564,12 @@ public class AddLocationForm {
             
             // Formatter les dates pour l'affichage
             if (reservation.getStartDate() != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                startDateField.setText(dateFormat.format(reservation.getStartDate()));
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                startDateField.setText(dateFormatter.format(reservation.getStartDate()));
             }
             if (reservation.getEndDate() != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                endDateField.setText(dateFormat.format(reservation.getEndDate()));
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                endDateField.setText(dateFormatter.format(reservation.getEndDate()));
             }
             
             responsibleField.setText(reservation.getResponsable());

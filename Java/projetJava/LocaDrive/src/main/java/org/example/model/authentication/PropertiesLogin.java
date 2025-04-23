@@ -56,29 +56,7 @@ public class PropertiesLogin extends LoginTemplate {
             System.err.println("Erreur lors de la sauvegarde du fichier properties: " + e.getMessage());
         }
     }
-    
-    @Override
-    protected boolean checkCredentials(String username, String password) {
-        // Vérifier si les identifiants sont null ou vides
-        if (username == null || password == null || 
-            username.isEmpty() || password.isEmpty()) {
-            return false;
-        }
-        
-        if (!userProperties.containsKey(username)) {
-            return false;
-        }
-        
-        String storedValue = userProperties.getProperty(username);
-        String[] parts = storedValue.split(":");
-        
-        if (parts.length < 1) {
-            return false;
-        }
-        
-        String storedPassword = parts[0];
-        return storedPassword.equals(password);
-    }
+
     
     @Override
     protected String encryptPassword(String password) {

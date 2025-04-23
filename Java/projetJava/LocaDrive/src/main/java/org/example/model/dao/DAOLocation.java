@@ -1,22 +1,20 @@
 package org.example.model.dao;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.example.controller.Controller;
-import org.example.model.DataAccessLayer;
 import org.example.model.entity.Car;
 import org.example.model.entity.Client;
 import org.example.model.entity.Contrat;
 import org.example.model.entity.Reservation;
 import org.example.model.entity.StatutContrat;
+import org.example.controller.Controller;
+import org.example.model.DataAccessLayer;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,14 +25,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class DAOLocation implements DataAccessLayer {
     // Chemins des fichiers de données
     private static final String DATA_DIR = "data";
-    private static final String RESERVATIONS_FILE = DATA_DIR + File.separator + "reservations.ser";
-    private static final String CARS_FILE = DATA_DIR + File.separator + "cars.ser";
-    private static final String CONTRACTS_FILE = DATA_DIR + File.separator + "contracts.ser";
-    private static final String CLIENTS_FILE = DATA_DIR + File.separator + "clients.ser";
-    private static final String COUNTERS_FILE = DATA_DIR + File.separator + "counters.ser";
-
-    // ObjectMapper pour la migration depuis JSON
-    private final ObjectMapper objectMapper;
+    private static final String RESERVATIONS_FILE = STR."\{DATA_DIR}\{File.separator}reservations.ser";
+    private static final String CARS_FILE = STR."\{DATA_DIR}\{File.separator}cars.ser";
+    private static final String CONTRACTS_FILE = STR."\{DATA_DIR}\{File.separator}contracts.ser";
+    private static final String CLIENTS_FILE = STR."\{DATA_DIR}\{File.separator}clients.ser";
+    private static final String COUNTERS_FILE = STR."\{DATA_DIR}\{File.separator}counters.ser";
     
     private AtomicInteger reservationIdGenerator;
     private AtomicInteger carIdGenerator;
@@ -53,11 +48,6 @@ public class DAOLocation implements DataAccessLayer {
      * Constructeur qui initialise les collections et charge les données depuis les fichiers.
      */
     public DAOLocation() {
-        // Initialiser l'ObjectMapper pour la migration depuis JSON si nécessaire
-        objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule()); // Support pour java.time (LocalDate, etc.)
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); // Ignorer les propriétés inconnues
-        
         // Initialiser les collections
         reservations = new HashMap<>();
         cars = new HashMap<>();
@@ -1068,7 +1058,7 @@ public class DAOLocation implements DataAccessLayer {
                         try {
                             // Essayer plusieurs formats de date courants et convertir au format YYYY-MM-DD
                             String dateStr = data[headerMap.get("startDate")].trim();
-                            Date startDate = parseDate(dateStr);
+                            LocalDate startDate = parseDate(dateStr);
                             if (startDate != null) {
                                 // Stocker la date au format YYYY-MM-DD
                                 reservation.setStartDate(startDate);
@@ -1086,7 +1076,7 @@ public class DAOLocation implements DataAccessLayer {
                         try {
                             // Essayer plusieurs formats de date courants et convertir au format YYYY-MM-DD
                             String dateStr = data[headerMap.get("endDate")].trim();
-                            Date endDate = parseDate(dateStr);
+                            LocalDate endDate = parseDate(dateStr);
                             if (endDate != null) {
                                 // Stocker la date au format YYYY-MM-DD
                                 reservation.setEndDate(endDate);
@@ -1167,8 +1157,12 @@ public class DAOLocation implements DataAccessLayer {
                                 // Format attendu: yyyy-MM-dd
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                 
-                                Date startDate = dateFormat.parse(data[3].trim());
-                                Date endDate = dateFormat.parse(data[4].trim());
+                                Date startDateObj = dateFormat.parse(data[3].trim());
+                                Date endDateObj = dateFormat.parse(data[4].trim());
+                                
+                                // Convertir Date en LocalDate
+                                LocalDate startDate = startDateObj.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                                LocalDate endDate = endDateObj.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                                 
                                 reservation.setStartDate(startDate);
                                 reservation.setEndDate(endDate);
@@ -1425,6 +1419,91 @@ public class DAOLocation implements DataAccessLayer {
         return value;
     }
 
+    /**
+     * Méthode utilitaire pour parser une date en essayant plusieurs formats courants.
+     * @param dateStr La chaîne de date à parser
+     * @return La date parsée ou null si aucun format ne correspond
+     */
+    private LocalDate parseDate(String dateStr) {
+        // Liste des formats de date à essayer
+        String[] dateFormats = {
+            "yyyy-MM-dd",           // Format ISO standard
+            "dd/MM/yyyy",           // Format français
+            "MM/dd/yyyy",           // Format américain
+            "dd-MM-yyyy",           // Format avec tirets
+            "yyyy/MM/dd",           // Format avec slashes
+            "EEE MMM dd HH:mm:ss zzz yyyy"  // Format Java par défaut (ex: Tue Apr 08 00:00:00 CEST 2025)
+        };
+        
+        for (String format : dateFormats) {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+                return LocalDate.parse(dateStr, formatter);
+            } catch (DateTimeParseException e) {
+                // Continuer avec le format suivant
+            }
+        }
+        
+        // Essayer de parser une date java.util.Date et la convertir en LocalDate
+        for (String format : dateFormats) {
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+                dateFormat.setLenient(false); // Stricte validation des dates
+                Date date = dateFormat.parse(dateStr);
+                return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            } catch (ParseException e) {
+                // Continuer avec le format suivant
+            }
+        }
+        
+        return null; // Aucun format ne correspond
+    }
+    
+    /**
+     * Formate une date au format YYYY-MM-DD
+     * @param date La date à formater
+     * @return La date formatée au format YYYY-MM-DD ou une chaîne vide si la date est null
+     */
+    private String formatDateToYYYYMMDD(LocalDate date) {
+        if (date == null) {
+            return "";
+        }
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    
+    /**
+     * Génère un identifiant unique pour une voiture au format "XX-XXX-XXX"
+     * @return Un identifiant unique
+     */
+    private String generateUniqueCarId() {
+        // Générer un identifiant de plaque d'immatriculation au format français
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String digits = "0123456789";
+        Random random = new Random();
+        
+        StringBuilder id = new StringBuilder();
+        
+        // Première partie: 2 lettres
+        for (int i = 0; i < 2; i++) {
+            id.append(letters.charAt(random.nextInt(letters.length())));
+        }
+        
+        id.append('-');
+        
+        // Deuxième partie: 3 lettres
+        for (int i = 0; i < 3; i++) {
+            id.append(letters.charAt(random.nextInt(letters.length())));
+        }
+        
+        id.append('-');
+        
+        // Troisième partie: 3 chiffres
+        for (int i = 0; i < 3; i++) {
+            id.append(digits.charAt(random.nextInt(digits.length())));
+        }
+        
+        return id.toString();
+    }
     
     /**
      * Restaure les références entre les objets après la désérialisation.
@@ -1520,83 +1599,6 @@ public class DAOLocation implements DataAccessLayer {
         }
         
         System.out.println("Références restaurées avec succès.");
-    }
-    
-    /**
-     * Génère un identifiant unique pour une voiture au format "XX-XXX-XXX"
-     * @return Un identifiant unique
-     */
-    private String generateUniqueCarId() {
-        // Générer un identifiant de plaque d'immatriculation au format français
-        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String digits = "0123456789";
-        Random random = new Random();
-        
-        StringBuilder id = new StringBuilder();
-        
-        // Première partie: 2 lettres
-        for (int i = 0; i < 2; i++) {
-            id.append(letters.charAt(random.nextInt(letters.length())));
-        }
-        
-        id.append('-');
-        
-        // Deuxième partie: 3 lettres
-        for (int i = 0; i < 3; i++) {
-            id.append(letters.charAt(random.nextInt(letters.length())));
-        }
-        
-        id.append('-');
-        
-        // Troisième partie: 3 chiffres
-        for (int i = 0; i < 3; i++) {
-            id.append(digits.charAt(random.nextInt(digits.length())));
-        }
-        
-        return id.toString();
-    }
-    
-    /**
-     * Méthode utilitaire pour parser une date en essayant plusieurs formats courants.
-     * @param dateStr La chaîne de date à parser
-     * @return La date parsée ou null si aucun format ne correspond
-     */
-    private Date parseDate(String dateStr) {
-        // Liste des formats de date à essayer
-        String[] dateFormats = {
-            "yyyy-MM-dd",           // Format ISO standard
-            "dd/MM/yyyy",           // Format français
-            "MM/dd/yyyy",           // Format américain
-            "dd-MM-yyyy",           // Format avec tirets
-            "yyyy/MM/dd",           // Format avec slashes
-            "EEE MMM dd HH:mm:ss zzz yyyy"  // Format Java par défaut (ex: Tue Apr 08 00:00:00 CEST 2025)
-        };
-        
-        for (String format : dateFormats) {
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(format);
-                dateFormat.setLenient(false); // Stricte validation des dates
-                return dateFormat.parse(dateStr);
-            } catch (ParseException e) {
-                // Continuer avec le format suivant
-            }
-        }
-        
-        // Si on arrive ici, aucun format n'a fonctionné
-        return null;
-    }
-    
-    /**
-     * Formate une date au format YYYY-MM-DD
-     * @param date La date à formater
-     * @return La date formatée au format YYYY-MM-DD ou une chaîne vide si la date est null
-     */
-    private String formatDateToYYYYMMDD(Date date) {
-        if (date == null) {
-            return "";
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        return dateFormat.format(date);
     }
     
     /**

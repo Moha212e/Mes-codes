@@ -23,6 +23,8 @@ public class ModifyCarForm extends JDialog {
     private JTextField immatriculationField;
     private JTextField prixJournalierField;
     private JTextField urlImageField;
+    private JTextField kilometrageField;
+    private JTextField transmissionField;
     private JCheckBox disponibleCheckBox;
 
     /**
@@ -57,7 +59,7 @@ public class ModifyCarForm extends JDialog {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         // Panneau pour les champs de saisie
-        JPanel fieldsPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        JPanel fieldsPanel = new JPanel(new GridLayout(9, 2, 10, 10));
         
         // Création des champs de saisie
         marqueField = new JTextField(20);
@@ -66,6 +68,8 @@ public class ModifyCarForm extends JDialog {
         immatriculationField = new JTextField(20);
         prixJournalierField = new JTextField(20);
         urlImageField = new JTextField(20);
+        kilometrageField = new JTextField(20);
+        transmissionField = new JTextField(20);
         disponibleCheckBox = new JCheckBox("Disponible");
         
         // Ajout des champs au panneau
@@ -81,6 +85,10 @@ public class ModifyCarForm extends JDialog {
         fieldsPanel.add(prixJournalierField);
         fieldsPanel.add(new JLabel("URL de l'image :"));
         fieldsPanel.add(urlImageField);
+        fieldsPanel.add(new JLabel("Kilometrage :"));
+        fieldsPanel.add(kilometrageField);
+        fieldsPanel.add(new JLabel("Transmission :"));
+        fieldsPanel.add(transmissionField);
         fieldsPanel.add(new JLabel("Disponibilité :"));
         fieldsPanel.add(disponibleCheckBox);
         
@@ -130,6 +138,8 @@ public class ModifyCarForm extends JDialog {
             immatriculationField.setText(car.getIdCar());
             prixJournalierField.setText(String.valueOf(car.getPriceday()));
             urlImageField.setText(car.getImage());
+            kilometrageField.setText(String.valueOf(car.getMileage()));
+            transmissionField.setText(car.getTransmission());
             disponibleCheckBox.setSelected(car.isAvailable());
         }
     }
@@ -143,18 +153,39 @@ public class ModifyCarForm extends JDialog {
             modeleField.getText().trim().isEmpty() || 
             couleurField.getText().trim().isEmpty() || 
             immatriculationField.getText().trim().isEmpty() || 
-            prixJournalierField.getText().trim().isEmpty()) {
+            prixJournalierField.getText().trim().isEmpty() ||
+            kilometrageField.getText().trim().isEmpty() ||
+            transmissionField.getText().trim().isEmpty()) {
             
             JOptionPane.showMessageDialog(this, 
-                "Les champs Marque, Modèle, Couleur, Immatriculation et Prix journalier sont obligatoires.", 
+                "Les champs Marque, Modèle, Couleur, Immatriculation, Prix journalier, Kilométrage et Transmission sont obligatoires.", 
                 "Erreur de saisie", 
                 JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         try {
-            // Conversion du prix journalier
+            // Conversion du prix journalier et kilométrage
             float prixJournalier = Float.parseFloat(prixJournalierField.getText().trim());
+            int kilometrage = Integer.parseInt(kilometrageField.getText().trim());
+            
+            // Vérifier que le prix journalier est positif
+            if (prixJournalier <= 0) {
+                JOptionPane.showMessageDialog(this, 
+                    "Le prix journalier doit être positif.", 
+                    "Erreur de saisie", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            // Vérifier que le kilométrage est positif
+            if (kilometrage < 0) {
+                JOptionPane.showMessageDialog(this, 
+                    "Le kilométrage doit être positif ou nul.", 
+                    "Erreur de saisie", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             
             // Création d'une nouvelle voiture avec les données modifiées
             Car modifiedCar = new Car(
@@ -163,9 +194,9 @@ public class ModifyCarForm extends JDialog {
                 modeleField.getText().trim(),
                 originalCar.getYear(),
                 prixJournalier,
-                originalCar.getMileage(),
+                kilometrage,
                 couleurField.getText().trim(), // Utilisation du champ couleur pour fuelType
-                originalCar.getTransmission(),
+                transmissionField.getText().trim(),
                 originalCar.getSeats(),
                 disponibleCheckBox.isSelected(),
                 urlImageField.getText().trim()
@@ -181,7 +212,7 @@ public class ModifyCarForm extends JDialog {
             dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, 
-                "Le prix journalier doit être un nombre valide.", 
+                "Le prix journalier et le kilométrage doivent être des nombres valides.", 
                 "Erreur de saisie", 
                 JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {

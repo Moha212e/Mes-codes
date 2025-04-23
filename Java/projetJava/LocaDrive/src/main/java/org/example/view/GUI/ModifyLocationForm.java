@@ -10,10 +10,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
@@ -64,11 +63,11 @@ public class ModifyLocationForm {
      * @return La réservation modifiée ou null si annulée
      */
     public Reservation showForm() {
-        JPanel panel = new JPanel(new GridLayout(8, 2, 16, 16));
+        JPanel panel = new JPanel(new GridLayout(8, 2, 8, 8));
         panel.setBackground(new Color(245, 247, 250));
-        panel.setBorder(BorderFactory.createEmptyBorder(24, 32, 24, 32));
-        Font labelFont = new Font("Segoe UI", Font.BOLD, 15);
-        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 15);
+        panel.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
+        Font labelFont = new Font("Segoe UI", Font.BOLD, 14);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
 
         JLabel carLabel = new JLabel("Véhicule :");
         carLabel.setFont(labelFont);
@@ -124,9 +123,9 @@ public class ModifyLocationForm {
         startDateField.setFont(fieldFont);
         
         // Formater et afficher la date de début actuelle
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (originalReservation.getStartDate() != null) {
-            startDateField.setText(sdf.format(originalReservation.getStartDate()));
+            startDateField.setText(dateFormatter.format(originalReservation.getStartDate()));
         }
         
         startDateField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
@@ -171,7 +170,7 @@ public class ModifyLocationForm {
         
         // Formater et afficher la date de fin actuelle
         if (originalReservation.getEndDate() != null) {
-            endDateField.setText(sdf.format(originalReservation.getEndDate()));
+            endDateField.setText(dateFormatter.format(originalReservation.getEndDate()));
         }
         
         endDateField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
@@ -230,7 +229,7 @@ public class ModifyLocationForm {
         notesArea.setLineWrap(true);
         notesArea.setWrapStyleWord(true);
         JScrollPane notesScrollPane = new JScrollPane(notesArea);
-        notesScrollPane.setPreferredSize(new Dimension(300, 100));
+        notesScrollPane.setPreferredSize(new Dimension(250, 80));
         panel.add(notesLabel);
         panel.add(notesScrollPane);
 
@@ -274,12 +273,50 @@ public class ModifyLocationForm {
         // Créer et afficher la boîte de dialogue
         dialog = new JDialog(parent, "Modifier une location", true);
         dialog.setContentPane(mainPanel);
-        dialog.pack();
+        // Définir une taille fixe plus petite au lieu d'utiliser pack()
+        dialog.setSize(550, 600);
         dialog.setLocationRelativeTo(parent);
         dialog.setResizable(false);
         dialog.setVisible(true);
         
         return result;
+    }
+    
+    /**
+     * Met à jour le prix total en fonction des dates et du prix journalier
+     */
+    private void updateTotalPrice() {
+        try {
+            // Vérifier que les champs nécessaires sont remplis
+            if (startDateField.getText().isEmpty() || endDateField.getText().isEmpty()) {
+                return;
+            }
+            
+            // Récupérer les dates
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate startDate = LocalDate.parse(startDateField.getText(), dateFormatter);
+            LocalDate endDate = LocalDate.parse(endDateField.getText(), dateFormatter);
+            
+            // Vérifier que la date de fin est après la date de début
+            if (endDate.isBefore(startDate)) {
+                return; // Ne pas mettre à jour le prix si les dates sont invalides
+            }
+            
+            // Récupérer le prix journalier de la voiture
+            float pricePerDay = originalReservation.getCar().getPriceday();
+            
+            // Calculer le nombre de jours
+            long days = endDate.toEpochDay() - startDate.toEpochDay() + 1;
+            
+            // Calculer le prix total
+            float totalPrice = pricePerDay * days;
+            
+            // Mettre à jour le champ de prix
+            priceField.setText(String.format("%.2f", totalPrice));
+            
+        } catch (DateTimeParseException e) {
+            // Ignorer les erreurs de format de date pendant la saisie
+        }
     }
     
     /**
@@ -307,13 +344,13 @@ public class ModifyLocationForm {
             return false;
         }
         
-        // Convertir les dates
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate, endDate;
+        // Conversion des dates
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate, endDate;
         try {
-            startDate = sdf.parse(startDateStr);
-            endDate = sdf.parse(endDateStr);
-        } catch (ParseException e) {
+            startDate = LocalDate.parse(startDateStr, dateFormatter);
+            endDate = LocalDate.parse(endDateStr, dateFormatter);
+        } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(dialog, 
                 "Format de date invalide. Utilisez le format AAAA-MM-JJ", 
                 "Erreur de validation", 
@@ -321,8 +358,8 @@ public class ModifyLocationForm {
             return false;
         }
         
-        // Vérifier que la date de début est avant la date de fin
-        if (startDate.after(endDate)) {
+        // Vérifier que la date de fin est après la date de début
+        if (endDate.isBefore(startDate)) {
             JOptionPane.showMessageDialog(dialog, 
                 "La date de début doit être antérieure à la date de fin", 
                 "Erreur de validation", 
@@ -364,36 +401,6 @@ public class ModifyLocationForm {
     }
     
     /**
-     * Met à jour le prix total en fonction de la voiture et des dates sélectionnées
-     */
-    private void updateTotalPrice() {
-        CarItem selectedCarItem = (CarItem) carComboBox.getSelectedItem();
-        String startDateStr = startDateField.getText().trim();
-        String endDateStr = endDateField.getText().trim();
-        
-        if (selectedCarItem != null && !startDateStr.isEmpty() && !endDateStr.isEmpty()) {
-            try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date startDate = sdf.parse(startDateStr);
-                Date endDate = sdf.parse(endDateStr);
-                
-                // Calculer le nombre de jours
-                long diffInMillies = Math.abs(endDate.getTime() - startDate.getTime());
-                long diffInDays = diffInMillies / (24 * 60 * 60 * 1000);
-                
-                // Calculer le prix total
-                float pricePerDay = selectedCarItem.getCar().getPriceday();
-                float totalPrice = pricePerDay * diffInDays;
-                
-                // Mettre à jour le champ de prix
-                priceField.setText(String.format("%.2f", totalPrice));
-            } catch (ParseException e) {
-                // Ne rien faire en cas d'erreur de parsing
-            }
-        }
-    }
-    
-    /**
      * Affiche un sélecteur de date pour le champ spécifié
      * @param textField Le champ de texte à mettre à jour
      */
@@ -409,10 +416,10 @@ public class ModifyLocationForm {
         String dateStr = textField.getText().trim();
         if (!dateStr.isEmpty()) {
             try {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date date = sdf.parse(dateStr);
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate date = LocalDate.parse(dateStr, dateFormatter);
                 calendar.setDate(date);
-            } catch (ParseException e) {
+            } catch (DateTimeParseException e) {
                 // Ignorer l'erreur et utiliser la date actuelle
             }
         }
@@ -426,9 +433,9 @@ public class ModifyLocationForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Formater la date sélectionnée
-                Date selectedDate = calendar.getDate();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                textField.setText(sdf.format(selectedDate));
+                LocalDate selectedDate = calendar.getDate();
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                textField.setText(dateFormatter.format(selectedDate));
                 
                 // Fermer la boîte de dialogue
                 Window window = SwingUtilities.getWindowAncestor(panel);
@@ -509,11 +516,11 @@ public class ModifyLocationForm {
         private JComboBox<String> monthComboBox;
         private JSpinner yearSpinner;
         private JPanel daysPanel;
-        private Calendar calendar;
+        private LocalDate date;
         
         public JCalendar() {
             setLayout(new BorderLayout());
-            calendar = Calendar.getInstance();
+            date = LocalDate.now();
             
             // Panneau supérieur pour le mois et l'année
             JPanel topPanel = new JPanel(new BorderLayout());
@@ -522,7 +529,7 @@ public class ModifyLocationForm {
             String[] months = {"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", 
                               "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"};
             monthComboBox = new JComboBox<>(months);
-            monthComboBox.setSelectedIndex(calendar.get(Calendar.MONTH));
+            monthComboBox.setSelectedIndex(date.getMonthValue() - 1);
             monthComboBox.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -531,7 +538,7 @@ public class ModifyLocationForm {
             });
             
             // Spinner pour l'année
-            yearSpinner = new JSpinner(new SpinnerNumberModel(calendar.get(Calendar.YEAR), 1900, 2100, 1));
+            yearSpinner = new JSpinner(new SpinnerNumberModel(date.getYear(), 1900, 2100, 1));
             yearSpinner.addChangeListener(e -> updateCalendar());
             
             topPanel.add(monthComboBox, BorderLayout.WEST);
@@ -553,8 +560,7 @@ public class ModifyLocationForm {
             daysPanel.removeAll();
             
             // Mettre à jour le calendrier avec le mois et l'année sélectionnés
-            calendar.set(Calendar.MONTH, monthComboBox.getSelectedIndex());
-            calendar.set(Calendar.YEAR, (Integer) yearSpinner.getValue());
+            date = date.withMonth(monthComboBox.getSelectedIndex() + 1).withYear((Integer) yearSpinner.getValue());
             
             // Ajouter les en-têtes des jours de la semaine
             String[] dayNames = {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"};
@@ -565,8 +571,8 @@ public class ModifyLocationForm {
             }
             
             // Déterminer le premier jour du mois
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1; // 0 = dimanche
+            LocalDate firstDayOfMonth = date.withDayOfMonth(1);
+            int firstDayOfWeek = firstDayOfMonth.getDayOfWeek().getValue() - 1; // 1 = lundi
             
             // Ajouter des cases vides pour les jours avant le premier jour du mois
             for (int i = 0; i < firstDayOfWeek; i++) {
@@ -574,7 +580,7 @@ public class ModifyLocationForm {
             }
             
             // Ajouter les jours du mois
-            int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            int daysInMonth = date.lengthOfMonth();
             for (int day = 1; day <= daysInMonth; day++) {
                 final int currentDay = day;
                 JButton dayButton = new JButton(String.valueOf(day));
@@ -582,10 +588,7 @@ public class ModifyLocationForm {
                 dayButton.setFocusPainted(false);
                 
                 // Mettre en évidence le jour actuel
-                Calendar today = Calendar.getInstance();
-                if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
-                    calendar.get(Calendar.MONTH) == today.get(Calendar.MONTH) &&
-                    day == today.get(Calendar.DAY_OF_MONTH)) {
+                if (date.getDayOfMonth() == day) {
                     dayButton.setBackground(new Color(80, 90, 170));
                     dayButton.setForeground(Color.WHITE);
                 }
@@ -594,7 +597,7 @@ public class ModifyLocationForm {
                 dayButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        calendar.set(Calendar.DAY_OF_MONTH, currentDay);
+                        date = date.withDayOfMonth(currentDay);
                     }
                 });
                 
@@ -609,18 +612,18 @@ public class ModifyLocationForm {
          * Récupère la date sélectionnée
          * @return La date sélectionnée
          */
-        public Date getDate() {
-            return calendar.getTime();
+        public LocalDate getDate() {
+            return date;
         }
         
         /**
          * Définit la date à afficher
          * @param date La date à afficher
          */
-        public void setDate(Date date) {
-            calendar.setTime(date);
-            monthComboBox.setSelectedIndex(calendar.get(Calendar.MONTH));
-            yearSpinner.setValue(calendar.get(Calendar.YEAR));
+        public void setDate(LocalDate date) {
+            this.date = date;
+            monthComboBox.setSelectedIndex(date.getMonthValue() - 1);
+            yearSpinner.setValue(date.getYear());
             updateCalendar();
         }
     }

@@ -1,6 +1,8 @@
 package org.example.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -8,6 +10,7 @@ import java.time.LocalDate;
  * Classe représentant un client de l'application de location de véhicules.
  */
 public class Client implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     
     @JsonProperty("idClient")

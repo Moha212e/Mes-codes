@@ -8,7 +8,6 @@ public abstract class LoginTemplate {
         return authenticate(username, encryptedPassword);
     }
 
-    protected abstract boolean checkCredentials(String username, String password);
 
     // Méthodes à spécialiser
     protected abstract String encryptPassword(String password);

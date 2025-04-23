@@ -239,10 +239,27 @@ public class AddCarForm {
             int year = Integer.parseInt(yearField.getText().trim());
             float priceday = Float.parseFloat(pricedayField.getText().trim());
             
+            // Vérifier que le prix est positif
+            if (priceday <= 0) {
+                JOptionPane.showMessageDialog(parent, 
+                    "Le prix par jour doit être positif", 
+                    "Erreur de saisie", 
+                    JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+            
             // Valeurs par défaut pour les champs optionnels
             int mileage = 0;
             if (!mileageField.getText().trim().isEmpty()) {
                 mileage = Integer.parseInt(mileageField.getText().trim());
+                // Vérifier que le kilométrage est positif
+                if (mileage < 0) {
+                    JOptionPane.showMessageDialog(parent, 
+                        "Le kilométrage doit être positif ou nul", 
+                        "Erreur de saisie", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
             }
             
             String fuelType = (String) fuelTypeComboBox.getSelectedItem();
@@ -251,6 +268,14 @@ public class AddCarForm {
             int seats = 5; // Valeur par défaut
             if (!seatsField.getText().trim().isEmpty()) {
                 seats = Integer.parseInt(seatsField.getText().trim());
+                // Vérifier que le nombre de places est positif
+                if (seats <= 0) {
+                    JOptionPane.showMessageDialog(parent, 
+                        "Le nombre de places doit être positif", 
+                        "Erreur de saisie", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return null;
+                }
             }
             
             boolean available = availableCheckBox.isSelected();

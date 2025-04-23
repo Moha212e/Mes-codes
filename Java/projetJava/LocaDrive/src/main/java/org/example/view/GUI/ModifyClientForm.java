@@ -19,7 +19,7 @@ public class ModifyClientForm extends JDialog {
     // Composants du formulaire
     private JTextField nomField;
     private JTextField prenomField;
-    private JTextField adresseField;
+    private JTextField licenseNumberField;
     private JTextField telephoneField;
     private JTextField emailField;
 
@@ -60,7 +60,7 @@ public class ModifyClientForm extends JDialog {
         // Création des champs de saisie
         nomField = new JTextField(20);
         prenomField = new JTextField(20);
-        adresseField = new JTextField(20);
+        licenseNumberField = new JTextField(20);
         telephoneField = new JTextField(20);
         emailField = new JTextField(20);
         
@@ -69,8 +69,8 @@ public class ModifyClientForm extends JDialog {
         fieldsPanel.add(nomField);
         fieldsPanel.add(new JLabel("Prénom :"));
         fieldsPanel.add(prenomField);
-        fieldsPanel.add(new JLabel("Adresse :"));
-        fieldsPanel.add(adresseField);
+        fieldsPanel.add(new JLabel("Numéro de licence :"));
+        fieldsPanel.add(licenseNumberField);
         fieldsPanel.add(new JLabel("Téléphone :"));
         fieldsPanel.add(telephoneField);
         fieldsPanel.add(new JLabel("Email :"));
@@ -118,7 +118,7 @@ public class ModifyClientForm extends JDialog {
         if (client != null) {
             nomField.setText(client.getName());
             prenomField.setText(client.getSurname());
-            adresseField.setText(client.getAddress());
+            licenseNumberField.setText(client.getLicenseNumber());
             telephoneField.setText(client.getPhoneNumber());
             emailField.setText(client.getEmail());
         }
@@ -131,7 +131,7 @@ public class ModifyClientForm extends JDialog {
         // Vérification des champs obligatoires
         if (nomField.getText().trim().isEmpty() || 
             prenomField.getText().trim().isEmpty() || 
-            adresseField.getText().trim().isEmpty() || 
+            licenseNumberField.getText().trim().isEmpty() || 
             telephoneField.getText().trim().isEmpty() || 
             emailField.getText().trim().isEmpty()) {
             
@@ -151,8 +151,11 @@ public class ModifyClientForm extends JDialog {
                 emailField.getText().trim(),
                 originalClient.getBirthDate(),
                 telephoneField.getText().trim(),
-                adresseField.getText().trim()
+                originalClient.getAddress()
             );
+            
+            // Définir le numéro de licence
+            modifiedClient.setLicenseNumber(licenseNumberField.getText().trim());
             
             // Mise à jour du client dans le modèle
             controller.updateClient(modifiedClient);

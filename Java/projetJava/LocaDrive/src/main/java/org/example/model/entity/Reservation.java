@@ -20,8 +20,8 @@ public class Reservation implements Serializable {
     @JsonIgnore
     private transient Client client;
     
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private String responsable;
     private String notes;
     private float price;
@@ -49,7 +49,7 @@ public class Reservation implements Serializable {
         this.carRegistration = "";
     }
 
-    public Reservation(int idReservation, Date startDate, Date endDate, String responsable, String notes, float price) {
+    public Reservation(int idReservation, LocalDate startDate, LocalDate endDate, String responsable, String notes, float price) {
         this.idReservation = idReservation;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -64,8 +64,8 @@ public class Reservation implements Serializable {
         this.idReservation = idReservation;
         this.car = car;
         this.client = client;
-        this.startDate = Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        this.endDate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.responsable = responsable;
         this.notes = notes;
         this.price = price;
@@ -125,19 +125,19 @@ public class Reservation implements Serializable {
         }
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -221,6 +221,6 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return STR."Reservation{idReservation=\{idReservation}, startDate=\{startDate}, endDate=\{endDate}, responsable='\{responsable}', notes='\{notes}', price=\{price}, clientFullName='\{clientFullName}', carRegistration='\{carRegistration}'}";
+        return "Reservation{idReservation=" + idReservation + ", startDate=" + startDate + ", endDate=" + endDate + ", responsable='" + responsable + '\'' + ", notes='" + notes + '\'' + ", price=" + price + ", clientFullName='" + clientFullName + '\'' + ", carRegistration='" + carRegistration + '\'' + '}';
     }
 }

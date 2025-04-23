@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -324,7 +325,7 @@ public class AddContratForm {
         this.availableReservations = reservations;
         reservationComboBox.removeAllItems();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         for (Reservation reservation : reservations) {
             // Afficher les informations pertinentes de la réservation dans le ComboBox
@@ -334,7 +335,7 @@ public class AddContratForm {
                     reservation.getCar().getBrand() + " " + reservation.getCar().getModel() : "Véhicule inconnu";
             String dates = "";
             if (reservation.getStartDate() != null && reservation.getEndDate() != null) {
-                dates = dateFormat.format(reservation.getStartDate()) + " - " + dateFormat.format(reservation.getEndDate());
+                dates = reservation.getStartDate().format(dateFormat) + " - " + reservation.getEndDate().format(dateFormat);
             }
 
             String displayText = "#" + reservation.getIdReservation() + ": " + clientName + " - " + carModel + " (" + dates + ") - " + reservation.getPrice() + "€";

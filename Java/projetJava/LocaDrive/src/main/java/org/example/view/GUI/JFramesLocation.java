@@ -104,8 +104,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
         importClients.addActionListener(controller);
         
+        JMenuItem importContracts = new JMenuItem("Contrats");
+        importContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        importContracts.setActionCommand(ControllerActions.IMPORT_CONTRACTS);
+        importContracts.addActionListener(controller);
+        
+        JMenuItem importReservations = new JMenuItem("Réservations");
+        importReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        importReservations.setActionCommand(ControllerActions.IMPORT_RESERVATIONS);
+        importReservations.addActionListener(controller);
+        
         importMenu.add(importCars);
         importMenu.add(importClients);
+        importMenu.add(importContracts);
+        importMenu.add(importReservations);
         
         // Sous-menu Exporter
         JMenu exportMenu = new JMenu("Exporter");
@@ -121,8 +133,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
         exportClients.addActionListener(controller);
         
+        JMenuItem exportContracts = new JMenuItem("Contrats");
+        exportContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exportContracts.setActionCommand(ControllerActions.EXPORT_CONTRACTS);
+        exportContracts.addActionListener(controller);
+        
+        JMenuItem exportReservations = new JMenuItem("Réservations");
+        exportReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exportReservations.setActionCommand(ControllerActions.EXPORT_RESERVATIONS);
+        exportReservations.addActionListener(controller);
+        
         exportMenu.add(exportCars);
         exportMenu.add(exportClients);
+        exportMenu.add(exportContracts);
+        exportMenu.add(exportReservations);
         
         fileMenu.add(importMenu);
         fileMenu.add(exportMenu);
@@ -920,31 +944,31 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         // Vider le panel avant d'ajouter les nouvelles images
         panel4.removeAll();
 
-        // Utiliser un JScrollPane pour permettre le défilement
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new WrapLayout(FlowLayout.LEFT, 15, 15));
+        // Utiliser un GridLayout pour organiser les voitures en deux colonnes
+        JPanel contentPanel = new JPanel(new GridLayout(0, 2, 20, 20));
         contentPanel.setBackground(new Color(245, 247, 250));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         for (Car car : cars) {
             // Créer un panel pour chaque voiture avec un effet de carte moderne
-            JPanel carPanel = new JPanel(new BorderLayout());
+            JPanel carPanel = new JPanel(new BorderLayout(0, 10));
             carPanel.setBackground(Color.WHITE);
             carPanel.setBorder(BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true));
-            carPanel.setPreferredSize(new Dimension(250, 280));
+            carPanel.setPreferredSize(new Dimension(400, 350));
 
             // Ajouter un effet d'ombre (simulation avec des bordures)
             carPanel.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
                     BorderFactory.createCompoundBorder(
                             BorderFactory.createLineBorder(new Color(240, 242, 245), 2, true),
-                            BorderFactory.createEmptyBorder(8, 8, 8, 8)
+                            BorderFactory.createEmptyBorder(10, 10, 10, 10)
                     )
             ));
 
             // Créer un label pour l'image
             JLabel imageLabel = new JLabel();
             imageLabel.setHorizontalAlignment(JLabel.CENTER);
-            imageLabel.setPreferredSize(new Dimension(230, 150));
+            imageLabel.setPreferredSize(new Dimension(380, 220));
             imageLabel.setBackground(new Color(248, 249, 250));
             imageLabel.setOpaque(true);
 
@@ -955,93 +979,83 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                     // Charger l'image depuis le chemin
                     ImageIcon originalIcon = new ImageIcon(imagePath);
 
-                    // Redimensionner l'image pour qu'elle s'adapte au panel
+                    // Redimensionner l'image pour qu'elle s'adapte au panel avec une meilleure qualité
                     Image originalImage = originalIcon.getImage();
-                    Image resizedImage = originalImage.getScaledInstance(230, 150, Image.SCALE_SMOOTH);
+                    Image resizedImage = originalImage.getScaledInstance(380, 220, Image.SCALE_AREA_AVERAGING);
                     ImageIcon resizedIcon = new ImageIcon(resizedImage);
 
                     imageLabel.setIcon(resizedIcon);
                 } catch (Exception e) {
                     imageLabel.setText("Image non disponible");
                     System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                    e.printStackTrace(); // Ajouter cette ligne pour afficher la trace complète de l'erreur
                 }
             } else {
                 imageLabel.setText("Pas d'image");
             }
 
-            // Créer un panel pour les informations de la voiture
+            // Créer un panel pour les informations essentielles sous l'image
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
             infoPanel.setBackground(Color.WHITE);
-
+            
             // Titre (marque et modèle)
-            JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel());
+            JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
             titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-            // Créer un tableau pour afficher toutes les informations
-            String[][] data = {
-                    {"Immatriculation", car.getIdCar()},
-                    {"Année", String.valueOf(car.getYear())},
-                    {"Prix par jour", car.getPriceday() + " €"},
-                    {"Kilométrage", String.valueOf(car.getMileage()) + " km"},
-                    {"Carburant", car.getFuelType()},
-                    {"Transmission", car.getTransmission()},
-                    {"Nombre de places", String.valueOf(car.getSeats())},
-                    {"Disponibilité", car.isAvailable() ? "Disponible" : "Non disponible"}
-            };
-
-            // Panel pour contenir les informations
-            JPanel infoContentPanel = new JPanel(new GridLayout(data.length, 2, 10, 10));
-            infoContentPanel.setBackground(Color.WHITE);
-
-            // Ajouter les informations au panel
-            for (String[] row : data) {
-                JLabel keyLabel = new JLabel(row[0] + ":");
-                keyLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-
-                JLabel valueLabel = new JLabel(row[1]);
-                valueLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-                infoContentPanel.add(keyLabel);
-                infoContentPanel.add(valueLabel);
+            
+            // Disponibilité
+            JLabel availabilityLabel = new JLabel("Disponibilité: " + (car.isAvailable() ? "Disponible" : "Non disponible"));
+            availabilityLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            if (car.isAvailable()) {
+                availabilityLabel.setForeground(new Color(46, 204, 113)); // Vert pour disponible
+            } else {
+                availabilityLabel.setForeground(new Color(231, 76, 60)); // Rouge pour non disponible
             }
-
-            // Ajouter les composants au panel d'informations
+            
+            // Plaque d'immatriculation
+            JLabel plateLabel = new JLabel("Immatriculation: " + car.getIdCar());
+            plateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            
+            // Prix
+            JLabel priceLabel = new JLabel("Prix: " + car.getPriceday() + " €/jour");
+            priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            priceLabel.setForeground(new Color(52, 152, 219)); // Bleu pour le prix
+            
+            // Ajouter les informations au panel
             infoPanel.add(Box.createVerticalStrut(5));
             infoPanel.add(titleLabel);
             infoPanel.add(Box.createVerticalStrut(10));
-            infoPanel.add(infoContentPanel);
+            infoPanel.add(availabilityLabel);
+            infoPanel.add(plateLabel);
+            infoPanel.add(priceLabel);
 
             // Ajouter les composants au panel de la voiture
-            carPanel.add(imageLabel, BorderLayout.NORTH);
-            carPanel.add(infoPanel, BorderLayout.CENTER);
+            carPanel.add(imageLabel, BorderLayout.CENTER);
+            carPanel.add(infoPanel, BorderLayout.SOUTH);
 
             // Créer un bouton invisible pour gérer l'action via le contrôleur
-            JButton actionButton = new JButton();
-            actionButton.setVisible(false);
-            actionButton.setActionCommand(ControllerActions.SHOW_CAR_DETAILS);
-            actionButton.putClientProperty("car", car);
-            actionButton.addActionListener(controller);
-            carPanel.add(actionButton);
+            JButton detailsButton = new JButton();
+            detailsButton.setOpaque(false);
+            detailsButton.setContentAreaFilled(false);
+            detailsButton.setBorderPainted(false);
+            detailsButton.setActionCommand(ControllerActions.SHOW_CAR_DETAILS);
+            detailsButton.putClientProperty("car", car);
+            detailsButton.addActionListener(controller);
 
-            // Ajouter un effet de survol
+            // Ajouter un écouteur pour changer le curseur quand la souris passe sur le panel
             carPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     carPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
                     carPanel.setBackground(new Color(250, 250, 255));
-                    infoPanel.setBackground(new Color(250, 250, 255));
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
                     carPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     carPanel.setBackground(Color.WHITE);
-                    infoPanel.setBackground(Color.WHITE);
                 }
 
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    // Déclencher l'action via le bouton invisible pour que le contrôleur la gère
-                    actionButton.doClick();
+                    detailsButton.doClick();
                 }
             });
 
@@ -1049,16 +1063,15 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             contentPanel.add(carPanel);
         }
 
-        // Ajouter le panel de contenu au JScrollPane
+        // Ajouter le panel de contenu à un JScrollPane
         JScrollPane scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Vitesse de défilement
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBackground(new Color(245, 247, 250));
 
         // Ajouter le JScrollPane au panel principal
         panel4.setLayout(new BorderLayout());
         panel4.add(scrollPane, BorderLayout.CENTER);
-
-        // Rafraîchir l'affichage
         panel4.revalidate();
         panel4.repaint();
     }
@@ -1111,19 +1124,23 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                 // Charger l'image depuis le chemin
                 ImageIcon originalIcon = new ImageIcon(imagePath);
 
-                // Redimensionner l'image pour qu'elle s'adapte au panel
+                // Redimensionner l'image pour qu'elle s'adapte au panel avec une meilleure qualité
                 Image originalImage = originalIcon.getImage();
-                Image resizedImage = originalImage.getScaledInstance(330, 250, Image.SCALE_SMOOTH);
+                Image resizedImage = originalImage.getScaledInstance(330, 250, Image.SCALE_AREA_AVERAGING);
                 ImageIcon resizedIcon = new ImageIcon(resizedImage);
 
                 imageLabel.setIcon(resizedIcon);
             } catch (Exception e) {
                 imageLabel.setText("Image non disponible");
                 System.out.println("Erreur lors du chargement de l'image: " + e.getMessage());
+                e.printStackTrace(); // Ajouter cette ligne pour afficher la trace complète de l'erreur
             }
         } else {
             imageLabel.setText("Pas d'image");
         }
+
+        // Ajouter le label d'image au panel gauche
+        leftPanel.add(imageLabel, BorderLayout.CENTER);
 
         // Créer un panel pour les informations de la voiture
         JPanel infoPanel = new JPanel();

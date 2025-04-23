@@ -194,7 +194,7 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return "Car{idCar='" + idCar + "', brand='" + brand + "', model='" + model + "', year=" + year + ", priceday=" + priceday + ", mileage=" + mileage + ", fuelType='" + fuelType + "', transmission='" + transmission + "', seats=" + seats + ", available=" + available + ", image='" + image + "'}";
+        return STR."Car{idCar='\{idCar}', brand='\{brand}', model='\{model}', year=\{year}, priceday=\{priceday}, mileage=\{mileage}, fuelType='\{fuelType}', transmission='\{transmission}', seats=\{seats}, available=\{available}, image='\{image}'}";
     }
     @Override
     public boolean equals(Object o) {
@@ -204,7 +204,7 @@ public class Car implements Serializable {
         return idCar.equals(car.idCar);
     }
 
-    public Object getType() {
+    public String getType() {
         return transmission;
     }
 
