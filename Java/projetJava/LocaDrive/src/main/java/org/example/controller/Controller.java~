@@ -136,7 +136,6 @@ public final class Controller implements ActionListener {
                 }
                 break;
             case ControllerActions.CLOSE_DETAILS:
-                // Cette action sera gérée par la vue
                 break;
             default:
                 System.out.println(STR."Commande non reconnue: \{command}");
@@ -520,16 +519,12 @@ public final class Controller implements ActionListener {
         
         try {
             // Exécuter le diagnostic des collections avant l'exportation
-            if (model instanceof org.example.model.dao.DAOLocation) {
-                org.example.model.dao.DAOLocation daoLocation = (org.example.model.dao.DAOLocation) model;
-                String diagnosticReport = daoLocation.diagnosticCollections();
+            String diagnosticReport = runDiagnosticIfPossible(model);
+            if (diagnosticReport != null) {
                 System.out.println(diagnosticReport);
                 
-                // Si le diagnostic indique qu'il n'y a pas de données à exporter, informer l'utilisateur
-                if ((type.equals("voitures") && daoLocation.getAllCars().isEmpty()) ||
-                    (type.equals("clients") && daoLocation.getAllClients().isEmpty()) ||
-                    (type.equals("contrats") && daoLocation.getAllContracts().isEmpty()) ||
-                    (type.equals("réservations") && daoLocation.getAllReservations().isEmpty())) {
+                // Vérifier s'il y a des données à exporter
+                if (isCollectionEmpty(type)) {
                     view.showMessage("Aucune donnée de type '" + type + "' à exporter. Veuillez d'abord ajouter des données.");
                     return;
                 }
@@ -595,18 +590,16 @@ public final class Controller implements ActionListener {
     
     /**
      * Méthode pour charger les données du modèle
-     * Cette méthode évite le cast direct et la vérification de type
+     * Cette méthode utilise directement l'interface DataAccessLayer
      */
     private void loadModelData() {
-        // Appeler une méthode générique pour charger les données
-        // Cette approche est plus abstraite et respecte mieux le principe OCP
         try {
-            // Utiliser la réflexion pour appeler la méthode loadData si elle existe
-            Method loadDataMethod = model.getClass().getMethod("loadData");
-            loadDataMethod.invoke(model);
+            // Appel direct de la méthode loadData de l'interface
+            model.loadData();
+            System.out.println("Données chargées avec succès");
         } catch (Exception e) {
-            // La méthode n'existe pas ou ne peut pas être appelée, ce n'est pas grave
-            System.out.println("Impossible de charger les données: " + e.getMessage());
+            System.out.println("Erreur lors du chargement des données: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -714,6 +707,65 @@ public final class Controller implements ActionListener {
         if (reservation != null) {
             model.updateReservation(reservation);
             updateAllTables();
+        }
+    }
+    
+    private String runDiagnosticIfPossible(DataAccessLayer model) {
+        // Créer un DiagnosticRunner approprié selon le type de modèle
+        DiagnosticRunner runner = createDiagnosticRunner();
+        // Exécuter le diagnostic sans vérification de type
+        return runner.runDiagnostic();
+    }
+    
+    // Factory method pour créer le bon type de DiagnosticRunner
+    private DiagnosticRunner createDiagnosticRunner() {
+        // Si on a un DAOLocation, on retourne un runner qui peut exécuter le diagnostic
+        if (model instanceof DAOLocation) {
+            return new DAOLocationDiagnosticRunner((DAOLocation) model);
+        }
+        // Sinon, on retourne un runner qui ne fait rien (Null Object Pattern)
+        return new NullDiagnosticRunner();
+    }
+    
+    // Interface pour les runners de diagnostic
+    private interface DiagnosticRunner {
+        String runDiagnostic();
+    }
+    
+    // Implémentation pour DAOLocation
+    private static class DAOLocationDiagnosticRunner implements DiagnosticRunner {
+        private final DAOLocation daoLocation;
+        
+        public DAOLocationDiagnosticRunner(DAOLocation daoLocation) {
+            this.daoLocation = daoLocation;
+        }
+        
+        @Override
+        public String runDiagnostic() {
+            return daoLocation.diagnosticCollections();
+        }
+    }
+    
+    // Implémentation qui ne fait rien (Null Object Pattern)
+    private class NullDiagnosticRunner implements DiagnosticRunner {
+        @Override
+        public String runDiagnostic() {
+            return null;
+        }
+    }
+    
+    private boolean isCollectionEmpty(String type) {
+        switch (type) {
+            case "voitures":
+                return model.getAllCars().isEmpty();
+            case "clients":
+                return model.getAllClients().isEmpty();
+            case "contrats":
+                return model.getAllContracts().isEmpty();
+            case "réservations":
+                return model.getAllReservations().isEmpty();
+            default:
+                return true;
         }
     }
 }

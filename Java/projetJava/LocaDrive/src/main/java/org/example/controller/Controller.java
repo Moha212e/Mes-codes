@@ -18,34 +18,34 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 public final class Controller implements ActionListener {
-    
+
     private DataAccessLayer model;
     private ViewLocation view;
     private LoginTemplate loginManager;
     private boolean isLoggedIn = false; // État de connexion
     private String currentUser = null; // Utilisateur actuellement connecté
-    
+
     public Controller() {
         // Constructeur par défaut
     }
-    
+
     public Controller(DataAccessLayer data, ViewLocation view) {
         this.model = data;
         this.view = view;
         this.view.setController(this);
-        
+
         // Initialiser le gestionnaire d'authentification avec PropertiesLogin
         // Utiliser un chemin absolu pour le fichier properties
         String propertiesFilePath = "C:/Users/pasch/Documents/Mes-codes/Java/projetJava/LocaDrive/data/users.properties";
         this.loginManager = new PropertiesLogin(propertiesFilePath);
-        
+
         // L'interface est verrouillée au démarrage
         view.lockInterface();
-        
+
         // Mettre à jour les tables au démarrage
         updateAllTables();
     }
-    
+
     public void run(){
         view.run();
     }
@@ -54,7 +54,7 @@ public final class Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         System.out.println("Action reçue: " + command);
-        
+
         switch (command) {
             case ControllerActions.SESSION:
                 handleSession();
@@ -142,19 +142,19 @@ public final class Controller implements ActionListener {
                 break;
         }
     }
-    
+
     // Méthodes de gestion des actions
     private void handleSession() {
         System.out.println("Gestion de la session");
         view.showSessionDialogFromController();
     }
-    
+
     private void handleAddCar() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour ajouter une voiture");
             return;
         }
-        
+
         Car a = view.promptAddCar();
         if(a != null){
             model.addCar(a);
@@ -162,13 +162,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Voiture ajoutée avec succès");
         }
     }
-    
+
     private void handleModifyCar() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour modifier une voiture");
             return;
         }
-        
+
         Car selectedCar = view.getSelectedCar();
         if (selectedCar != null) {
             view.showModifyCarFormFromController(selectedCar);
@@ -177,13 +177,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner une voiture à modifier");
         }
     }
-    
+
     private void handleDeleteCar() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour supprimer une voiture");
             return;
         }
-        
+
         Car selectedCar = view.getSelectedCar();
         if (selectedCar != null) {
             model.deleteCar(selectedCar);
@@ -193,13 +193,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner une voiture à supprimer");
         }
     }
-    
+
     private void handleAddClient() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour ajouter un client");
             return;
         }
-        
+
         Client client = view.promptAddClient();
         if (client != null) {
             model.addClient(client);
@@ -207,13 +207,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Client ajouté avec succès");
         }
     }
-    
+
     private void handleModifyClient() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour modifier un client");
             return;
         }
-        
+
         Client selectedClient = view.getSelectedClient();
         if (selectedClient != null) {
             view.showModifyClientFormFromController(selectedClient);
@@ -222,13 +222,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner un client à modifier");
         }
     }
-    
+
     private void handleDeleteClient() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour supprimer un client");
             return;
         }
-        
+
         Client selectedClient = view.getSelectedClient();
         if (selectedClient != null) {
             model.deleteClient(selectedClient);
@@ -238,13 +238,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner un client à supprimer");
         }
     }
-    
+
     private void handleAddLocation() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour ajouter une réservation");
             return;
         }
-        
+
         Reservation reservation = view.promptAddLocation();
         if (reservation != null) {
             model.addReservation(reservation);
@@ -252,13 +252,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Réservation ajoutée avec succès");
         }
     }
-    
+
     private void handleModifyLocation() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour modifier une réservation");
             return;
         }
-        
+
         Reservation selectedReservation = view.getSelectedReservation();
         if (selectedReservation != null) {
             view.showModifyLocationFormFromController(selectedReservation);
@@ -267,13 +267,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner une réservation à modifier");
         }
     }
-    
+
     private void handleDeleteLocation() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour supprimer une réservation");
             return;
         }
-        
+
         Reservation selectedReservation = view.getSelectedReservation();
         if (selectedReservation != null) {
             model.deleteReservation(selectedReservation);
@@ -283,13 +283,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner une réservation à supprimer");
         }
     }
-    
+
     private void handleAddContrat() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour ajouter un contrat");
             return;
         }
-        
+
         Contrat contrat = view.promptAddContrat();
         if (contrat != null) {
             model.addContract(contrat);
@@ -297,13 +297,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Contrat ajouté avec succès");
         }
     }
-    
+
     private void handleModifyContrat() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour modifier un contrat");
             return;
         }
-        
+
         Contrat selectedContrat = view.getSelectedContrat();
         if (selectedContrat != null) {
             view.showModifyContratFormFromController(selectedContrat);
@@ -312,13 +312,13 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner un contrat à modifier");
         }
     }
-    
+
     private void handleDeleteContrat() {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour supprimer un contrat");
             return;
         }
-        
+
         Contrat selectedContrat = view.getSelectedContrat();
         if (selectedContrat != null) {
             model.deleteContract(selectedContrat);
@@ -328,30 +328,30 @@ public final class Controller implements ActionListener {
             view.showMessage("Veuillez sélectionner un contrat à supprimer");
         }
     }
-    
+
     private void handleLogin() {
         // Récupérer les informations de connexion via l'interface ViewLocation
         String[] loginValues = view.getLoginValues();
-        
+
         if (loginValues != null && loginValues.length == 2) {
             String username = loginValues[0];
             String password = loginValues[1];
-            
+
             if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
                 // Utiliser login() au lieu de authenticate() qui est protégée
                 boolean success = loginManager.login(username, password);
-                
+
                 if (success) {
                     isLoggedIn = true;
                     currentUser = username;
                     view.unlockInterface();
-                    
+
                     // S'assurer que les données sont chargées avant de mettre à jour les tables
                     loadModelData();
-                    
+
                     // Mettre à jour les tables après la connexion
                     updateAllTables();
-                    
+
                     view.showMessage("Connexion réussie. Bienvenue, " + username + "!");
                     view.getSessionDialog().dispose();
                     updateLoginButtonText();
@@ -364,18 +364,18 @@ public final class Controller implements ActionListener {
             if (view.getSessionDialog() != null) {
                 String username = view.getSessionDialog().getEmail();
                 String password = view.getSessionDialog().getPassword();
-                
+
                 if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
                     boolean success = loginManager.login(username, password);
-                    
+
                     if (success) {
                         isLoggedIn = true;
                         currentUser = username;
                         view.unlockInterface();
-                        
+
                         loadModelData();
                         updateAllTables();
-                        
+
                         view.showMessage("Connexion réussie. Bienvenue, " + username + "!");
                         view.getSessionDialog().dispose();
                         updateLoginButtonText();
@@ -386,30 +386,30 @@ public final class Controller implements ActionListener {
             }
         }
     }
-    
+
     private void handleRegister() {
         // Récupérer les informations d'inscription via l'interface ViewLocation
         String[] registerValues = view.getRegisterValues();
-        
+
         if (registerValues != null && registerValues.length == 3) {
             String username = registerValues[0];
             String password = registerValues[1];
             String confirmPassword = registerValues[2];
-            
-            if (username != null && !username.isEmpty() && 
-                password != null && !password.isEmpty() &&
-                confirmPassword != null && !confirmPassword.isEmpty()) {
-                
+
+            if (username != null && !username.isEmpty() &&
+                    password != null && !password.isEmpty() &&
+                    confirmPassword != null && !confirmPassword.isEmpty()) {
+
                 if (!password.equals(confirmPassword)) {
                     view.showErrorMessage("Les mots de passe ne correspondent pas.");
                     return;
                 }
-                
+
                 // Comme LoginTemplate n'a pas de méthode register, nous devons vérifier le type
                 if (loginManager instanceof PropertiesLogin) {
                     PropertiesLogin propLogin = (PropertiesLogin) loginManager;
                     boolean success = propLogin.addUser(username, password, "user");
-                    
+
                     if (success) {
                         view.showMessage("Inscription réussie! Vous pouvez maintenant vous connecter.");
                     } else {
@@ -427,20 +427,20 @@ public final class Controller implements ActionListener {
                 String username = view.getSessionDialog().getEmail();
                 String password = view.getSessionDialog().getPassword();
                 String confirmPassword = view.getSessionDialog().getConfirmPassword();
-                
-                if (username != null && !username.isEmpty() && 
-                    password != null && !password.isEmpty() &&
-                    confirmPassword != null && !confirmPassword.isEmpty()) {
-                    
+
+                if (username != null && !username.isEmpty() &&
+                        password != null && !password.isEmpty() &&
+                        confirmPassword != null && !confirmPassword.isEmpty()) {
+
                     if (!password.equals(confirmPassword)) {
                         view.showErrorMessage("Les mots de passe ne correspondent pas.");
                         return;
                     }
-                    
+
                     if (loginManager instanceof PropertiesLogin) {
                         PropertiesLogin propLogin = (PropertiesLogin) loginManager;
                         boolean success = propLogin.addUser(username, password, "user");
-                        
+
                         if (success) {
                             view.showMessage("Inscription réussie! Vous pouvez maintenant vous connecter.");
                         } else {
@@ -455,7 +455,7 @@ public final class Controller implements ActionListener {
             }
         }
     }
-    
+
     private void handleLogout() {
         isLoggedIn = false;
         currentUser = null;
@@ -464,27 +464,27 @@ public final class Controller implements ActionListener {
         view.showMessage("Vous avez été déconnecté.");
         updateLoginButtonText();
     }
-    
+
     private void handleImport(String type) {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour importer des données");
             return;
         }
-        
+
         try {
             // Déléguer la sélection du fichier à la vue
             String filePath = view.promptForFilePath("Importer", "csv", "txt");
-            
+
             if (filePath == null || filePath.isEmpty()) {
                 return; // L'utilisateur a annulé
             }
-            
+
             // Vérifier si le fichier est au format CSV ou TXT
             if (!filePath.toLowerCase().endsWith(".csv") && !filePath.toLowerCase().endsWith(".txt")) {
                 view.showErrorMessage("Veuillez sélectionner un fichier CSV ou TXT.");
                 return;
             }
-            
+
             switch (type) {
                 case "voitures":
                     model.importCars(filePath);
@@ -502,7 +502,7 @@ public final class Controller implements ActionListener {
                     view.showErrorMessage("Type de données non reconnu pour l'importation.");
                     return;
             }
-            
+
             updateAllTables();
             view.showMessage("Importation des " + type + " réussie !");
         } catch (IOException e) {
@@ -510,42 +510,38 @@ public final class Controller implements ActionListener {
             e.printStackTrace();
         }
     }
-    
+
     private void handleExport(String type) {
         if (!isLoggedIn) {
             view.showMessage("Veuillez vous connecter pour exporter des données");
             return;
         }
-        
+
         try {
             // Exécuter le diagnostic des collections avant l'exportation
-            if (model instanceof org.example.model.dao.DAOLocation) {
-                org.example.model.dao.DAOLocation daoLocation = (org.example.model.dao.DAOLocation) model;
-                String diagnosticReport = daoLocation.diagnosticCollections();
+            String diagnosticReport = runDiagnosticIfPossible(model);
+            if (diagnosticReport != null) {
                 System.out.println(diagnosticReport);
-                
-                // Si le diagnostic indique qu'il n'y a pas de données à exporter, informer l'utilisateur
-                if ((type.equals("voitures") && daoLocation.getAllCars().isEmpty()) ||
-                    (type.equals("clients") && daoLocation.getAllClients().isEmpty()) ||
-                    (type.equals("contrats") && daoLocation.getAllContracts().isEmpty()) ||
-                    (type.equals("réservations") && daoLocation.getAllReservations().isEmpty())) {
+
+                // Vérifier s'il y a des données à exporter
+                if (isCollectionEmpty(type)) {
                     view.showMessage("Aucune donnée de type '" + type + "' à exporter. Veuillez d'abord ajouter des données.");
                     return;
                 }
             }
-            
+
             // Déléguer la sélection du fichier à la vue
             String filePath = view.promptForSaveFilePath("Exporter", "csv");
-            
+
             if (filePath == null || filePath.isEmpty()) {
                 return; // L'utilisateur a annulé
             }
-            
+
             // Ajouter l'extension .csv si elle n'est pas présente
             if (!filePath.toLowerCase().endsWith(".csv")) {
                 filePath += ".csv";
             }
-            
+
             switch (type) {
                 case "voitures":
                     model.exportCars(filePath);
@@ -563,24 +559,24 @@ public final class Controller implements ActionListener {
                     view.showErrorMessage("Type de données non reconnu pour l'exportation.");
                     return;
             }
-            
+
             view.showMessage(STR."Exportation des \{type} réussie !");
         } catch (IOException e) {
             view.showErrorMessage(STR."Erreur lors de l'exportation: \{e.getMessage()}");
             e.printStackTrace();
         }
     }
-    
+
     private void handleShowCarDetails(Car car) {
         view.showCarDetails(car);
     }
-    
+
     // Méthode pour mettre à jour le texte du bouton de connexion/déconnexion
     private void updateLoginButtonText() {
         // La vue s'occupera de gérer ce changement
         // La vue s'occupera de gérer ce changement
     }
-    
+
     // Méthode pour mettre à jour toutes les tables
     public void updateAllTables() {
         if (isLoggedIn) {
@@ -591,7 +587,7 @@ public final class Controller implements ActionListener {
             view.updateCarImages(model.getAllCars());
         }
     }
-    
+
     /**
      * Méthode pour charger les données du modèle
      * Cette méthode utilise directement l'interface DataAccessLayer
@@ -618,7 +614,7 @@ public final class Controller implements ActionListener {
         }
         return model.getAllCars();
     }
-    
+
     /**
      * Récupère une voiture par son identifiant
      * @param idCar L'identifiant de la voiture
@@ -631,7 +627,7 @@ public final class Controller implements ActionListener {
         }
         return model.getCarById(idCar);
     }
-    
+
     /**
      * Récupère tous les clients du modèle
      * @return Liste des clients
@@ -643,7 +639,7 @@ public final class Controller implements ActionListener {
         }
         return model.getAllClients();
     }
-    
+
     /**
      * Récupère toutes les réservations du modèle
      * @return Liste des réservations
@@ -655,7 +651,7 @@ public final class Controller implements ActionListener {
         }
         return model.getAllReservations();
     }
-    
+
     /**
      * Récupère tous les contrats du modèle
      * @return Liste des contrats
@@ -668,7 +664,7 @@ public final class Controller implements ActionListener {
         return model.getAllContracts();
     }
 
-    
+
     /**
      * Met à jour une voiture dans le modèle
      * @param car La voiture à mettre à jour
@@ -683,7 +679,7 @@ public final class Controller implements ActionListener {
             updateAllTables();
         }
     }
-    
+
     /**
      * Met à jour un client dans le modèle
      * @param client Le client à mettre à jour
@@ -698,7 +694,7 @@ public final class Controller implements ActionListener {
             updateAllTables();
         }
     }
-    
+
     /**
      * Met à jour une réservation dans le modèle
      * @param reservation La réservation à mettre à jour
@@ -711,6 +707,29 @@ public final class Controller implements ActionListener {
         if (reservation != null) {
             model.updateReservation(reservation);
             updateAllTables();
+        }
+    }
+
+    private String runDiagnosticIfPossible(DataAccessLayer model) {
+        if (model instanceof DAOLocation) {
+            DAOLocation daoLocation = (DAOLocation) model;
+            return daoLocation.diagnosticCollections();
+        }
+        return null;
+    }
+
+    private boolean isCollectionEmpty(String type) {
+        switch (type) {
+            case "voitures":
+                return model.getAllCars().isEmpty();
+            case "clients":
+                return model.getAllClients().isEmpty();
+            case "contrats":
+                return model.getAllContracts().isEmpty();
+            case "réservations":
+                return model.getAllReservations().isEmpty();
+            default:
+                return true;
         }
     }
 }
