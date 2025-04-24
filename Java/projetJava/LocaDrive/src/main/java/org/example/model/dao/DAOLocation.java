@@ -146,6 +146,10 @@ public class DAOLocation implements DataAccessLayer {
         }
     }
 
+    @Override
+    public void updateContrat(Contrat contrat) {
+
+    }
 
 
     public int addReservation(Reservation reservation) {
@@ -436,7 +440,24 @@ public class DAOLocation implements DataAccessLayer {
      * @return Liste de toutes les réservations
      */
     public List<Reservation> getAllReservations() {
-        return new ArrayList<>(reservations.values());
+        List<Reservation> result = new ArrayList<>(reservations.values());
+        
+        // S'assurer que chaque réservation a ses objets Client et Car correctement chargés
+        for (Reservation reservation : result) {
+            // Charger l'objet Client si on a un ID client
+            if (reservation.getClientId() > 0 && reservation.getClient() == null) {
+                Client client = clients.get(reservation.getClientId());
+                reservation.setClient(client);
+            }
+            
+            // Charger l'objet Car si on a un ID voiture
+            if (reservation.getCarId() != null && !reservation.getCarId().isEmpty() && reservation.getCar() == null) {
+                Car car = cars.get(reservation.getCarId());
+                reservation.setCar(car);
+            }
+        }
+        
+        return result;
     }
 
     public List<Car> getAllCars() {

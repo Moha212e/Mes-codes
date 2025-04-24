@@ -17,8 +17,6 @@ public interface ViewLocation {
     void showErrorMessage(String message);
     void showMessage(String message);
     void setController(Controller controller);
-    void showAddLocationFormFromController();
-    void showAddCarFormFromController();
     void showSessionDialogFromController();
     
     // Nouvelles méthodes pour mettre à jour les tables
@@ -73,9 +71,7 @@ public interface ViewLocation {
     
     // Méthode pour vider toutes les tables
     void clearAllTables();
-    
-    // Méthode pour obtenir la fenêtre principale
-    JFrame getFrame();
+
     
     /**
      * Récupère les valeurs de connexion (email, mot de passe)

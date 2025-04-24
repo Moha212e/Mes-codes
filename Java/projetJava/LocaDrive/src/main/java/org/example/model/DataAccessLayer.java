@@ -47,4 +47,6 @@ public interface DataAccessLayer {
     
     // Méthode pour charger les données
     void loadData();
+
+    void updateContrat(Contrat contrat);
 }

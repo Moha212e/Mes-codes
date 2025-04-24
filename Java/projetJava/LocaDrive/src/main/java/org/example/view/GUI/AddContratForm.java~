@@ -9,15 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModifyContratForm {
+public class AddContratForm {
     private JFrame parent;
     private Controller controller;
-    private JTextField idContratField;
     private JTextField cautionField;
     private JComboBox<String> typeAssuranceComboBox;
     private JCheckBox estSigneCheckBox;
@@ -27,7 +25,6 @@ public class ModifyContratForm {
     private JTextField newOptionField;
     private JDialog dialog;
     private Contrat result;
-    private Contrat originalContrat;
     private JComboBox<String> reservationComboBox;
     private List<Reservation> availableReservations;
     private Reservation selectedReservation;
@@ -36,28 +33,18 @@ public class ModifyContratForm {
     private JLabel clientInfoLabel;
     private JLabel carInfoLabel;
 
-    public ModifyContratForm(JFrame parent, Controller controller, Contrat contrat) {
+    public AddContratForm(JFrame parent, Controller controller) {
         this.parent = parent;
         this.controller = controller;
-        this.originalContrat = contrat;
     }
 
     public void showForm() {
-        // Création du panel principal avec un espacement réduit entre les composants
-        JPanel panel = new JPanel(new GridLayout(11, 2, 8, 8));
+        // Création du panel principal avec un espacement entre les composants
+        JPanel panel = new JPanel(new GridLayout(10, 2, 16, 16));
         panel.setBackground(new Color(245, 247, 250));
-        panel.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
-        Font labelFont = new Font("Segoe UI", Font.BOLD, 14);
-        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 14);
-
-        // Champ ID Contrat (en lecture seule car c'est une modification)
-        JLabel idContratLabel = new JLabel("ID Contrat :");
-        idContratLabel.setFont(labelFont);
-        idContratField = new JTextField();
-        idContratField.setFont(fieldFont);
-        idContratField.setEditable(false); // ID non modifiable
-        panel.add(idContratLabel);
-        panel.add(idContratField);
+        panel.setBorder(BorderFactory.createEmptyBorder(24, 32, 24, 32));
+        Font labelFont = new Font("Segoe UI", Font.BOLD, 15);
+        Font fieldFont = new Font("Segoe UI", Font.PLAIN, 15);
 
         // Champ Réservation
         JLabel reservationLabel = new JLabel("Réservation :");
@@ -106,6 +93,7 @@ public class ModifyContratForm {
         prixAssuranceField = new JTextField();
         prixAssuranceField.setFont(fieldFont);
         prixAssuranceField.setEditable(false);
+        prixAssuranceField.setText("150.00"); // Valeur par défaut pour "Tous risques"
         panel.add(prixAssuranceLabel);
         panel.add(prixAssuranceField);
 
@@ -115,6 +103,7 @@ public class ModifyContratForm {
         prixTotalField = new JTextField();
         prixTotalField.setFont(fieldFont);
         prixTotalField.setEditable(false);
+        prixTotalField.setText("0.00");
         panel.add(prixTotalLabel);
         panel.add(prixTotalField);
 
@@ -131,6 +120,7 @@ public class ModifyContratForm {
         statutContratLabel.setFont(labelFont);
         statutContratComboBox = new JComboBox<>(StatutContrat.values());
         statutContratComboBox.setFont(fieldFont);
+        statutContratComboBox.setSelectedItem(StatutContrat.EN_ATTENTE);
         panel.add(statutContratLabel);
         panel.add(statutContratComboBox);
 
@@ -189,7 +179,7 @@ public class ModifyContratForm {
         optionsList = new JList<>(optionsListModel);
         optionsList.setFont(fieldFont);
         JScrollPane optionsScrollPane = new JScrollPane(optionsList);
-        optionsScrollPane.setPreferredSize(new Dimension(200, 80));
+        optionsScrollPane.setPreferredSize(new Dimension(200, 100));
 
         // Panel pour ajouter/supprimer des options
         JPanel optionsButtonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -237,18 +227,18 @@ public class ModifyContratForm {
         optionsPanel.add(optionsScrollPane, BorderLayout.CENTER);
         optionsPanel.add(optionsButtonPanel, BorderLayout.SOUTH);
 
-        // Bouton de modification
-        JButton modifyButton = new JButton("Modifier");
-        modifyButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        modifyButton.setBackground(new Color(241, 196, 15));
-        modifyButton.setForeground(Color.WHITE);
-        modifyButton.setFocusPainted(false);
-        modifyButton.setBorder(BorderFactory.createEmptyBorder(10, 24, 10, 24));
-        modifyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        modifyButton.setOpaque(true);
+        // Bouton d'ajout
+        JButton addButton = new JButton("Ajouter");
+        addButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        addButton.setBackground(new Color(46, 204, 113));
+        addButton.setForeground(Color.WHITE);
+        addButton.setFocusPainted(false);
+        addButton.setBorder(BorderFactory.createEmptyBorder(10, 24, 10, 24));
+        addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addButton.setOpaque(true);
 
-        // Action du bouton modifier
-        modifyButton.addActionListener(new ActionListener() {
+        // Action du bouton ajouter
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 validateAndSave();
@@ -257,7 +247,7 @@ public class ModifyContratForm {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonPanel.setBackground(new Color(245, 247, 250));
-        buttonPanel.add(modifyButton);
+        buttonPanel.add(addButton);
 
         // Panel principal
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -267,15 +257,10 @@ public class ModifyContratForm {
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
         // Création de la boîte de dialogue
-        dialog = new JDialog(parent, "Modifier un contrat", true);
+        dialog = new JDialog(parent, "Ajouter un contrat", true);
         dialog.setContentPane(mainPanel);
-        
-        // Définir une taille fixe plus petite au lieu d'utiliser pack()
-        dialog.setSize(600, 650);
+        dialog.pack();
         dialog.setLocationRelativeTo(parent);
-        
-        // Remplir le formulaire avec les données du contrat existant
-        fillFormWithContrat(originalContrat);
     }
 
     /**
@@ -339,7 +324,7 @@ public class ModifyContratForm {
         this.availableReservations = reservations;
         reservationComboBox.removeAllItems();
 
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         for (Reservation reservation : reservations) {
             // Afficher les informations pertinentes de la réservation dans le ComboBox
@@ -349,18 +334,15 @@ public class ModifyContratForm {
                     reservation.getCar().getBrand() + " " + reservation.getCar().getModel() : "Véhicule inconnu";
             String dates = "";
             if (reservation.getStartDate() != null && reservation.getEndDate() != null) {
-                dates = reservation.getStartDate().format(dateFormat) + " - " + reservation.getEndDate().format(dateFormat);
+                dates = dateFormat.format(reservation.getStartDate()) + " - " + dateFormat.format(reservation.getEndDate());
             }
 
             String displayText = "#" + reservation.getIdReservation() + ": " + clientName + " - " + carModel + " (" + dates + ") - " + reservation.getPrice() + "€";
             reservationComboBox.addItem(displayText);
         }
 
-        // Si le contrat a déjà une réservation associée, la sélectionner
-        if (originalContrat != null && originalContrat.getReservation() != null) {
-            selectReservation(originalContrat.getReservation());
-        } else if (!reservations.isEmpty()) {
-            // Sinon, sélectionner la première réservation si disponible
+        // Sélectionner la première réservation si disponible
+        if (!reservations.isEmpty()) {
             reservationComboBox.setSelectedIndex(0);
             selectedReservation = reservations.get(0);
             updatePrixTotal();
@@ -369,14 +351,12 @@ public class ModifyContratForm {
     }
 
     /**
-     * Valide les données du formulaire, met à jour l'objet Contrat et ferme le dialogue
+     * Valide les données du formulaire, crée l'objet Contrat et ferme le dialogue
      */
     private void validateAndSave() {
-        result = updateContratFromForm();
+        result = createContratFromForm();
         if (result != null) {
-            // Appel au contrôleur pour mettre à jour le contrat dans le modèle
-            controller.updateContrat(result);
-            // Si le contrat a été mis à jour avec succès, on ferme le formulaire
+            // Si le contrat a été créé avec succès, on ferme le formulaire
             dialog.dispose();
         }
     }
@@ -402,13 +382,12 @@ public class ModifyContratForm {
     }
 
     /**
-     * Met à jour l'objet Contrat existant à partir des valeurs saisies dans le formulaire
+     * Crée et retourne un objet Contrat à partir des valeurs saisies dans le formulaire
      *
-     * @return l'objet Contrat mis à jour ou null si les données sont invalides
+     * @return un nouvel objet Contrat ou null si les données sont invalides
      */
-    private Contrat updateContratFromForm() {
+    private Contrat createContratFromForm() {
         try {
-            // L'ID du contrat n'est pas modifiable
             double caution;
             try {
                 caution = Double.parseDouble(cautionField.getText().trim().replace(',', '.'));
@@ -424,50 +403,36 @@ public class ModifyContratForm {
             boolean estSigne = estSigneCheckBox.isSelected();
             StatutContrat statutContrat = (StatutContrat) statutContratComboBox.getSelectedItem();
 
-            // Mise à jour du contrat existant
-            originalContrat.setCaution(caution);
-            originalContrat.setTypeAssurance(typeAssurance);
-            originalContrat.setEstSigne(estSigne);
-            originalContrat.setStatutContrat(statutContrat);
+            // Création du contrat
+            Contrat contrat = new Contrat(caution, typeAssurance, estSigne, statutContrat);
 
-            // Mise à jour des options
+            // Ajout des options
             List<String> options = new ArrayList<>();
             for (int i = 0; i < optionsListModel.size(); i++) {
                 options.add(optionsListModel.getElementAt(i));
             }
-            originalContrat.setOptions(options);
+            contrat.setOptions(options);
 
-            // Mise à jour de l'association avec la réservation
+            // Association du contrat à la réservation sélectionnée
             if (selectedReservation != null) {
-                // Si la réservation a changé
-                if (originalContrat.getReservation() == null || 
-                    originalContrat.getReservation().getIdReservation() != selectedReservation.getIdReservation()) {
-                    
-                    // Détacher de l'ancienne réservation si nécessaire
-                    if (originalContrat.getReservation() != null) {
-                        originalContrat.getReservation().setContrat(null);
-                    }
-                    
-                    // Attacher à la nouvelle réservation
-                    selectedReservation.setContrat(originalContrat);
-                    originalContrat.setReservation(selectedReservation);
-                }
+                selectedReservation.setContrat(contrat);
+                contrat.setReservation(selectedReservation);
             }
 
-            // Recalculer le prix total
-            originalContrat.calculerPrixTotal();
+            // Mise à jour du prix total
+            contrat.calculerPrixTotal();
 
-            return originalContrat;
+            return contrat;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(dialog, "Erreur lors de la modification du contrat: " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(dialog, "Erreur lors de la création du contrat: " + e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
 
     /**
-     * Retourne le contrat modifié par le formulaire
+     * Retourne le contrat créé par le formulaire
      *
-     * @return l'objet Contrat modifié ou null si aucune modification n'a été effectuée
+     * @return l'objet Contrat créé ou null si aucun contrat n'a été créé
      */
     public Contrat getContrat() {
         return result;
@@ -489,7 +454,6 @@ public class ModifyContratForm {
      */
     public void fillFormWithContrat(Contrat contrat) {
         if (contrat != null) {
-            idContratField.setText(contrat.getIdContrat());
             cautionField.setText(String.valueOf(contrat.getCaution()));
             typeAssuranceComboBox.setSelectedItem(contrat.getTypeAssurance());
             estSigneCheckBox.setSelected(contrat.isEstSigne());
@@ -505,8 +469,7 @@ public class ModifyContratForm {
 
             // Sélectionner la réservation associée si elle existe
             if (contrat.getReservation() != null) {
-                selectedReservation = contrat.getReservation();
-                updateClientAndCarInfo();
+                selectReservation(contrat.getReservation());
             }
         }
     }

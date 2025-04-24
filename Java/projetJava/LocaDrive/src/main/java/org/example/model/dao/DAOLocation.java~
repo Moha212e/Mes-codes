@@ -1242,7 +1242,6 @@ public class DAOLocation implements DataAccessLayer {
         return null; // Aucun format ne correspond
     }
 
-
     /**
      * Génère un identifiant unique pour une voiture au format "XX-XXX-XXX"
      * @return Un identifiant unique

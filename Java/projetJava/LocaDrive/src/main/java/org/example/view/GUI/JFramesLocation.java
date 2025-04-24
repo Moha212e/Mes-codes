@@ -1,5 +1,8 @@
 package org.example.view.GUI;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatIconColors;
+import com.formdev.flatlaf.FlatLightLaf;
 import org.example.controller.Controller;
 import org.example.controller.ControllerActions;
 import org.example.model.entity.Contrat;
@@ -326,7 +329,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         // S'assurer que tous les composants sont correctement initialisés avant d'afficher la fenêtre
         SwingUtilities.invokeLater(() -> {
             this.setVisible(true);
-
         });
     }
 
@@ -395,36 +397,9 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public void showSessionDialogFromController() {
         sessionDialog.showDialog();
     }
-
-    public void showAddCarFormFromController() {
-        addCarForm.showForm();
-    }
-
-    public void showAddClientFormFromController() {
-        addClientForm.showForm();
-    }
-
-    public void showAddLocationFormFromController() {
-        addLocationForm.showForm();
-    }
-
     // Implémentation des méthodes pour mettre à jour les tables
     @Override
     public void updateCarTable(List<Car> cars) {
-        // Créer un nouveau modèle de table avec les données des voitures
-        if (cars == null || cars.isEmpty()) {
-            // Si la liste est vide ou null, vider la table
-            String[] columns = {"ID Car", "Marque", "Modèle", "Année", "Prix/jour", "Kilometrages", "Carburant", "Transmission", "Places", "Disponibilité"};
-            table1.setModel(new javax.swing.table.DefaultTableModel(new Object[0][10], columns));
-            System.out.println("Table des voitures vidée (utilisateur déconnecté ou aucune voiture disponible)");
-
-            // Vider également les images
-            panel4.removeAll();
-            panel4.revalidate();
-            panel4.repaint();
-            return;
-        }
-
         // Créer un nouveau modèle de table avec les données des voitures
         Object[][] data = new Object[cars.size()][10];
         int i = 0;
@@ -479,7 +454,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     @Override
     public void updateReservationTable(List<Reservation> reservations) {
         // Créer un nouveau modèle de table avec les données des réservations
-        Object[][] data = new Object[reservations.size()][8]; // Augmenter le nombre de colonnes pour inclure les nouveaux attributs
+        Object[][] data = new Object[reservations.size()][8];
         int i = 0;
         for (Reservation reservation : reservations) {
             data[i][0] = reservation.getIdReservation();
@@ -505,8 +480,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         table3.setModel(new javax.swing.table.DefaultTableModel(data, columns));
         System.out.println("Table des réservations mise à jour avec " + i + " réservations");
     }
-
-
 
     /**
      * Récupère la voiture sélectionnée dans la table des voitures
@@ -547,7 +520,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public Car promptAddCar() {
         // Créer une nouvelle instance du formulaire pour éviter les problèmes de données
         addCarForm = new AddCarForm(this, controller);
-        addCarForm.showForm();
+        addCarForm.showForm(); // Afficher le formulaire
         addCarForm.setVisible(true);
         Car car = addCarForm.getCar();
         return car;
@@ -664,32 +637,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public Contrat getSelectedContrat() {
         int selectedRow = table4.getSelectedRow();
         if (selectedRow >= 0) {
-            try {
-                // Récupérer l'ID du contrat sélectionné
-                String idContrat = table4.getValueAt(selectedRow, 0).toString();
+            // Récupérer l'ID du contrat sélectionné
+            String idContrat = table4.getValueAt(selectedRow, 0).toString();
 
-                // Afficher des informations de débogage
-                System.out.println("Contrat sélectionné : ID = " + idContrat);
-
-                // Demander au contrôleur de récupérer le contrat complet
-                List<Contrat> contrats = controller.getAllContracts();
-                System.out.println("Nombre de contrats récupérés : " + contrats.size());
-
-                for (Contrat contrat : contrats) {
-                    System.out.println("Comparaison avec contrat ID : " + contrat.getIdContrat());
-                    if (contrat.getIdContrat().equals(idContrat)) {
-                        return contrat;
-                    }
-                }
-
-                // Si on arrive ici, c'est qu'on n'a pas trouvé le contrat
-                System.out.println("Contrat non trouvé avec ID : " + idContrat);
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la récupération du contrat sélectionné : " + e.getMessage());
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Aucune ligne sélectionnée dans la table des contrats");
+            // Demander au contrôleur de récupérer le contrat complet
+            return controller.getContratById(idContrat);
         }
         return null;
     }
@@ -702,9 +654,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         if (contrat != null) {
             // Créer une instance du formulaire de modification
             ModifyContratForm modifyContratForm = new ModifyContratForm(this, controller, contrat);
+
+            // Initialiser le formulaire d'abord pour que les composants soient créés
             modifyContratForm.showForm();
 
-            // Récupérer les réservations et les charger dans le formulaire
+            // Récupérer les réservations et les charger dans le formulaire après l'initialisation
             List<Reservation> reservations = controller.getAllReservations();
             modifyContratForm.loadReservations(reservations);
 
@@ -717,7 +671,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             // Si un contrat a été modifié, mettre à jour la réservation associée
             if (modifiedContrat != null && modifyContratForm.getSelectedReservation() != null) {
                 Reservation selectedReservation = modifyContratForm.getSelectedReservation();
-                controller.updateReservation(selectedReservation);
+                controller.updateContrat(modifiedContrat);
             }
         }
     }
@@ -851,11 +805,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         return clients;
     }
 
-    // --- UTILITAIRE : Création de boutons modernes ---
-    private JButton createModernButton(String text, Color bg, Color fg, Color hover) {
-        return createModernButton(text, bg, fg, hover, null);
-    }
-
     private JButton createModernButton(String text, Color bg, Color fg, Color hover, String iconName) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -981,7 +930,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                 imageLabel.setText("Pas d'image");
             }
 
-            // Créer un panel pour les informations essentielles sous l'image
+            // Créer un panel pour les informations de la voiture
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
             infoPanel.setBackground(Color.WHITE);
@@ -990,31 +939,39 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
             titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
-            // Disponibilité
-            JLabel availabilityLabel = new JLabel("Disponibilité: " + (car.isAvailable() ? "Disponible" : "Non disponible"));
-            availabilityLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            if (car.isAvailable()) {
-                availabilityLabel.setForeground(new Color(46, 204, 113)); // Vert pour disponible
-            } else {
-                availabilityLabel.setForeground(new Color(231, 76, 60)); // Rouge pour non disponible
-            }
+            // Créer un tableau pour afficher toutes les informations
+            String[][] data = {
+                    {"Immatriculation", car.getIdCar()},
+                    {"Année", String.valueOf(car.getYear())},
+                    {"Prix par jour", car.getPriceday() + " €"},
+                    {"Kilométrage", String.valueOf(car.getMileage()) + " km"},
+                    {"Carburant", car.getFuelType()},
+                    {"Transmission", car.getTransmission()},
+                    {"Nombre de places", String.valueOf(car.getSeats())},
+                    {"Disponibilité", car.isAvailable() ? "Disponible" : "Non disponible"}
+            };
 
-            // Plaque d'immatriculation
-            JLabel plateLabel = new JLabel("Immatriculation: " + car.getIdCar());
-            plateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-
-            // Prix
-            JLabel priceLabel = new JLabel("Prix: " + car.getPriceday() + " €/jour");
-            priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            priceLabel.setForeground(new Color(52, 152, 219)); // Bleu pour le prix
+            // Panel pour contenir les informations
+            JPanel infoContentPanel = new JPanel(new GridLayout(data.length, 2, 10, 10));
+            infoContentPanel.setBackground(Color.WHITE);
 
             // Ajouter les informations au panel
+            for (String[] row : data) {
+                JLabel keyLabel = new JLabel(row[0] + ":");
+                keyLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+                JLabel valueLabel = new JLabel(row[1]);
+                valueLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+
+                infoContentPanel.add(keyLabel);
+                infoContentPanel.add(valueLabel);
+            }
+
+            // Ajouter les composants au panel d'informations
             infoPanel.add(Box.createVerticalStrut(5));
             infoPanel.add(titleLabel);
             infoPanel.add(Box.createVerticalStrut(10));
-            infoPanel.add(availabilityLabel);
-            infoPanel.add(plateLabel);
-            infoPanel.add(priceLabel);
+            infoPanel.add(infoContentPanel);
 
             // Ajouter les composants au panel de la voiture
             carPanel.add(imageLabel, BorderLayout.CENTER);
@@ -1093,7 +1050,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                 BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createLineBorder(new Color(240, 242, 245), 2, true),
-                        BorderFactory.createEmptyBorder(8, 8, 8, 8)
+                        BorderFactory.createEmptyBorder(10, 10, 10, 10)
                 )
         ));
 
@@ -1126,18 +1083,14 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             imageLabel.setText("Pas d'image");
         }
 
-        // Ajouter le label d'image au panel gauche
-        leftPanel.add(imageLabel, BorderLayout.CENTER);
-
         // Créer un panel pour les informations de la voiture
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setBackground(Color.WHITE);
 
         // Titre (marque et modèle)
-        JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel());
+        JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Créer un tableau pour afficher toutes les informations
         String[][] data = {
@@ -1198,32 +1151,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public Client getSelectedClient() {
         int selectedRow = table2.getSelectedRow();
         if (selectedRow >= 0) {
-            try {
-                // Récupérer l'ID du client sélectionné
-                int idClient = Integer.parseInt(table2.getValueAt(selectedRow, 0).toString());
+            // Récupérer l'ID du client sélectionné
+            int idClient = Integer.parseInt(table2.getValueAt(selectedRow, 0).toString());
 
-                // Afficher des informations de débogage
-                System.out.println("Client sélectionné : ID = " + idClient);
-
-                // Demander au contrôleur de récupérer le client complet
-                List<Client> clients = controller.getAllClients();
-                System.out.println("Nombre de clients récupérés : " + clients.size());
-
-                for (Client client : clients) {
-                    System.out.println("Comparaison avec client ID : " + client.getIdClient());
-                    if (client.getIdClient() == idClient) {
-                        return client;
-                    }
-                }
-
-                // Si on arrive ici, c'est qu'on n'a pas trouvé le client
-                System.out.println("Client non trouvé avec ID : " + idClient);
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la récupération du client sélectionné : " + e.getMessage());
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Aucune ligne sélectionnée dans la table des clients");
+            // Demander au contrôleur de récupérer le client complet
+            return controller.getClientById(idClient);
         }
         return null;
     }
@@ -1236,32 +1168,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public Reservation getSelectedReservation() {
         int selectedRow = table3.getSelectedRow();
         if (selectedRow >= 0) {
-            try {
-                // Récupérer l'ID de la réservation sélectionnée
-                int idReservation = Integer.parseInt(table3.getValueAt(selectedRow, 0).toString());
+            // Récupérer l'ID de la réservation sélectionnée
+            int idReservation = Integer.parseInt(table3.getValueAt(selectedRow, 0).toString());
 
-                // Afficher des informations de débogage
-                System.out.println("Réservation sélectionnée : ID = " + idReservation);
-
-                // Demander au contrôleur de récupérer la réservation complète
-                List<Reservation> reservations = controller.getAllReservations();
-                System.out.println("Nombre de réservations récupérées : " + reservations.size());
-
-                for (Reservation reservation : reservations) {
-                    System.out.println("Comparaison avec réservation ID : " + reservation.getIdReservation());
-                    if (reservation.getIdReservation() == idReservation) {
-                        return reservation;
-                    }
-                }
-
-                // Si on arrive ici, c'est qu'on n'a pas trouvé la réservation
-                System.out.println("Réservation non trouvée avec ID : " + idReservation);
-            } catch (Exception e) {
-                System.err.println("Erreur lors de la récupération de la réservation sélectionnée : " + e.getMessage());
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Aucune ligne sélectionnée dans la table des réservations");
+            // Demander au contrôleur de récupérer la réservation complète
+            return controller.getReservationById(idReservation);
         }
         return null;
     }
@@ -1379,16 +1290,19 @@ public class JFramesLocation extends JFrame implements ViewLocation {
      * Cette méthode est appelée après l'initialisation du controller
      */
     private void updateMenuListeners() {
+        // Vérifier si le controller est disponible
         if (controller == null) return;
 
-        // Parcourir tous les menus pour trouver les éléments d'export et d'import
+        // Récupérer la barre de menu
         JMenuBar menuBar = getJMenuBar();
-        if (menuBar != null) {
-            for (int i = 0; i < menuBar.getMenuCount(); i++) {
-                JMenu menu = menuBar.getMenu(i);
-                if (menu != null) {
-                    updateMenuItemListeners(menu);
-                }
+        if (menuBar == null) return;
+
+        // Parcourir tous les menus et sous-menus pour trouver les éléments d'import/export
+        for (int i = 0; i < menuBar.getMenuCount(); i++) {
+            JMenu menu = menuBar.getMenu(i);
+            if (menu != null) {
+                // Traiter chaque menu de façon récursive
+                attachListenersToMenu(menu);
             }
         }
 
@@ -1396,37 +1310,30 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     }
 
     /**
-     * Met à jour récursivement les listeners des éléments de menu
+     * Attache les listeners aux éléments de menu d'import/export
      */
-    private void updateMenuItemListeners(JMenu menu) {
+    private void attachListenersToMenu(JMenu menu) {
+        // Parcourir tous les éléments du menu
         for (int i = 0; i < menu.getItemCount(); i++) {
             JMenuItem item = menu.getItem(i);
 
+            // Ignorer les éléments null
+            if (item == null) continue;
+
+            // Traiter les sous-menus récursivement
             if (item instanceof JMenu) {
-                // Si c'est un sous-menu, appel récursif
-                updateMenuItemListeners((JMenu) item);
-            } else if (item != null) {
-                // Si le nom de commande commence par "EXPORT_" ou "IMPORT_", mettre à jour le listener
-                String actionCommand = item.getActionCommand();
-                if (actionCommand != null &&
-                        (actionCommand.startsWith("EXPORT_") || actionCommand.startsWith("IMPORT_"))) {
-
-                    // Supprimer les anciens listeners
-                    for (ActionListener listener : item.getActionListeners()) {
-                        item.removeActionListener(listener);
-                    }
-
+                attachListenersToMenu((JMenu) item);
+            }
+            // Traiter les éléments d'import/export
+            else {
+                String cmd = item.getActionCommand();
+                if (cmd != null && (cmd.startsWith("EXPORT_") || cmd.startsWith("IMPORT_"))) {
                     // Ajouter le controller comme listener
                     item.addActionListener(controller);
-                    System.out.println("Listener ajouté pour: " + actionCommand);
+                    System.out.println("Listener ajouté pour: " + cmd);
                 }
             }
         }
-    }
-
-    @Override
-    public JFrame getFrame() {
-        return this;
     }
 
     /**
@@ -1534,10 +1441,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         try {
             if ("dark".equals(themeName)) {
                 // Appliquer le thème Dracula (sombre)
-                com.formdev.flatlaf.FlatDarkLaf.setup();
+                FlatDarculaLaf.setup();
             } else {
                 // Appliquer le thème clair (par défaut)
-                com.formdev.flatlaf.FlatLightLaf.setup();
+                FlatLightLaf.setup();
+                FlatIconColors.values();
             }
 
             // Mettre à jour tous les composants de l'interface

@@ -130,7 +130,7 @@ public final class Controller implements ActionListener {
                 }
                 break;
             default:
-                System.out.println(STR."Commande non reconnue: \{command}");
+                System.out.println("Commande non reconnue: " + command);
                 break;
         }
     }
@@ -438,7 +438,7 @@ public final class Controller implements ActionListener {
                     model.importReservations(filePath);
                     break;
                 default:
-                    view.showErrorMessage(STR."Type de données non reconnu pour l'importation.\{type}");
+                    view.showErrorMessage("Type de données non reconnu pour l'importation." + type);
                     return;
             }
 
@@ -487,9 +487,9 @@ public final class Controller implements ActionListener {
                     return;
             }
 
-            view.showMessage(STR."Exportation des \{type} réussie !");
+            view.showMessage("Exportation des " + type + " réussie !");
         } catch (IOException e) {
-            view.showErrorMessage(STR."Erreur lors de l'exportation: \{e.getMessage()}");
+            view.showErrorMessage("Erreur lors de l'exportation: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -568,6 +568,25 @@ public final class Controller implements ActionListener {
     }
 
     /**
+     * Récupère un client par son identifiant
+     * @param idClient L'identifiant du client
+     * @return Le client correspondant ou null si non trouvé
+     */
+    public Client getClientById(int idClient) {
+        if (!isLoggedIn) {
+            view.showMessage("Veuillez vous connecter pour accéder aux données des clients");
+            return null;
+        }
+        List<Client> clients = model.getAllClients();
+        for (Client client : clients) {
+            if (client.getIdClient() == idClient) {
+                return client;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Récupère toutes les réservations du modèle
      * @return Liste des réservations
      */
@@ -577,6 +596,25 @@ public final class Controller implements ActionListener {
             return null;
         }
         return model.getAllReservations();
+    }
+
+    /**
+     * Récupère une réservation par son identifiant
+     * @param idReservation L'identifiant de la réservation
+     * @return La réservation correspondante ou null si non trouvée
+     */
+    public Reservation getReservationById(int idReservation) {
+        if (!isLoggedIn) {
+            view.showMessage("Veuillez vous connecter pour accéder aux données des réservations");
+            return null;
+        }
+        List<Reservation> reservations = model.getAllReservations();
+        for (Reservation reservation : reservations) {
+            if (reservation.getIdReservation() == idReservation) {
+                return reservation;
+            }
+        }
+        return null;
     }
 
     /**
@@ -591,6 +629,24 @@ public final class Controller implements ActionListener {
         return model.getAllContracts();
     }
 
+    /**
+     * Récupère un contrat par son identifiant
+     * @param idContrat L'identifiant du contrat
+     * @return Le contrat correspondant ou null si non trouvé
+     */
+    public Contrat getContratById(String idContrat) {
+        if (!isLoggedIn) {
+            view.showMessage("Veuillez vous connecter pour accéder aux données des contrats");
+            return null;
+        }
+        List<Contrat> contrats = model.getAllContracts();
+        for (Contrat contrat : contrats) {
+            if (contrat.getIdContrat().equals(idContrat)) {
+                return contrat;
+            }
+        }
+        return null;
+    }
 
     /**
      * Met à jour une voiture dans le modèle
@@ -633,6 +689,21 @@ public final class Controller implements ActionListener {
         }
         if (reservation != null) {
             model.updateReservation(reservation);
+            updateAllTables();
+        }
+    }
+
+    /**
+     * Met à jour un contrat dans le modèle
+     * @param contrat Le contrat à mettre à jour
+     */
+    public void updateContrat(Contrat contrat) {
+        if (!isLoggedIn) {
+            view.showMessage("Veuillez vous connecter pour modifier un contrat");
+            return;
+        }
+        if (contrat != null) {
+            model.updateContract(contrat);
             updateAllTables();
         }
     }

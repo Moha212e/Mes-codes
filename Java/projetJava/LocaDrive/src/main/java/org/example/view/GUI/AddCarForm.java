@@ -123,11 +123,11 @@ public class AddCarForm {
         imageLabel.setFont(labelFont);
         JPanel imagePanel = new JPanel(new BorderLayout(5, 0));
         imagePanel.setBackground(new Color(245, 247, 250));
-        
+
         imageField = new JTextField();
         imageField.setFont(fieldFont);
         imageField.setEditable(false);
-        
+
         JButton browseButton = new JButton("Parcourir...");
         browseButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         browseButton.setBackground(new Color(52, 152, 219));
@@ -136,17 +136,17 @@ public class AddCarForm {
         browseButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         browseButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         browseButton.setOpaque(true);
-        
+
         browseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 selectImage();
             }
         });
-        
+
         imagePanel.add(imageField, BorderLayout.CENTER);
         imagePanel.add(browseButton, BorderLayout.EAST);
-        
+
         panel.add(imageLabel);
         panel.add(imagePanel);
 
@@ -158,7 +158,7 @@ public class AddCarForm {
         addButton.setBorder(BorderFactory.createEmptyBorder(10, 24, 10, 24));
         addButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         addButton.setOpaque(true);
-        
+
         // Modification ici : le bouton ajouter valide le formulaire et le ferme
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -181,7 +181,7 @@ public class AddCarForm {
         dialog.pack();
         dialog.setLocationRelativeTo(parent);
     }
-    
+
     /**
      * Valide les données du formulaire, crée l'objet Car et ferme le dialogue
      */
@@ -215,138 +215,109 @@ public class AddCarForm {
 
     /**
      * Crée et retourne un objet Car à partir des valeurs saisies dans le formulaire
+     *
      * @return un nouvel objet Car ou null si les données sont invalides
      */
     private Car createCarFromForm() {
         try {
             // Vérification que les champs obligatoires sont remplis
             if (idCarField.getText().trim().isEmpty() ||
-                brandField.getText().trim().isEmpty() ||
-                modelField.getText().trim().isEmpty() ||
-                yearField.getText().trim().isEmpty() ||
-                pricedayField.getText().trim().isEmpty()) {
-                
-                JOptionPane.showMessageDialog(parent, 
-                    "Veuillez remplir tous les champs obligatoires (immatriculation, marque, modèle, année, prix)", 
-                    "Champs incomplets", 
-                    JOptionPane.WARNING_MESSAGE);
+                    brandField.getText().trim().isEmpty() ||
+                    modelField.getText().trim().isEmpty() ||
+                    yearField.getText().trim().isEmpty() ||
+                    pricedayField.getText().trim().isEmpty()) {
+
+                JOptionPane.showMessageDialog(parent,
+                        "Veuillez remplir tous les champs obligatoires (immatriculation, marque, modèle, année, prix)",
+                        "Champs incomplets",
+                        JOptionPane.WARNING_MESSAGE);
                 return null;
             }
-            
+
             String idCar = idCarField.getText().trim();
             String brand = brandField.getText().trim();
             String model = modelField.getText().trim();
             int year = Integer.parseInt(yearField.getText().trim());
             float priceday = Float.parseFloat(pricedayField.getText().trim());
-            
+
             // Vérifier que le prix est positif
             if (priceday <= 0) {
-                JOptionPane.showMessageDialog(parent, 
-                    "Le prix par jour doit être positif", 
-                    "Erreur de saisie", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(parent,
+                        "Le prix par jour doit être positif",
+                        "Erreur de saisie",
+                        JOptionPane.ERROR_MESSAGE);
                 return null;
             }
-            
+
             // Valeurs par défaut pour les champs optionnels
             int mileage = 0;
             if (!mileageField.getText().trim().isEmpty()) {
                 mileage = Integer.parseInt(mileageField.getText().trim());
                 // Vérifier que le kilométrage est positif
                 if (mileage < 0) {
-                    JOptionPane.showMessageDialog(parent, 
-                        "Le kilométrage doit être positif ou nul", 
-                        "Erreur de saisie", 
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent,
+                            "Le kilométrage doit être positif ou nul",
+                            "Erreur de saisie",
+                            JOptionPane.ERROR_MESSAGE);
                     return null;
                 }
             }
-            
+
             String fuelType = (String) fuelTypeComboBox.getSelectedItem();
             String transmission = (String) transmissionComboBox.getSelectedItem();
-            
+
             int seats = 5; // Valeur par défaut
             if (!seatsField.getText().trim().isEmpty()) {
                 seats = Integer.parseInt(seatsField.getText().trim());
                 // Vérifier que le nombre de places est positif
                 if (seats <= 0) {
-                    JOptionPane.showMessageDialog(parent, 
-                        "Le nombre de places doit être positif", 
-                        "Erreur de saisie", 
-                        JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parent,
+                            "Le nombre de places doit être positif",
+                            "Erreur de saisie",
+                            JOptionPane.ERROR_MESSAGE);
                     return null;
                 }
             }
-            
+
             boolean available = availableCheckBox.isSelected();
             String image = imageField.getText().trim();
 
-            Car car = new Car(idCar, brand, model, year, priceday, 
-                             mileage, fuelType, transmission, seats, 
-                             available, image);
-            
+            Car car = new Car(idCar, brand, model, year, priceday,
+                    mileage, fuelType, transmission, seats,
+                    available, image);
+
             return car;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(parent, 
-                "Veuillez vérifier les valeurs numériques (année, prix, kilométrage, places)", 
-                "Erreur de saisie", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(parent,
+                    "Veuillez vérifier les valeurs numériques (année, prix, kilométrage, places)",
+                    "Erreur de saisie",
+                    JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
-    
+
     /**
      * Retourne la voiture créée par le formulaire
+     *
      * @return l'objet Car créé ou null si aucune voiture n'a été créée
      */
     public Car getCar() {
         return result;
     }
-    
+
     // Getters pour accéder aux valeurs des champs
     public String getIdCar() {
         return idCarField.getText().trim();
     }
-    
+
     public String getBrand() {
         return brandField.getText().trim();
     }
-    
+
     public String getModel() {
         return modelField.getText().trim();
     }
-    
-    public String getYear() {
-        return yearField.getText().trim();
-    }
-    
-    public String getPriceday() {
-        return pricedayField.getText().trim();
-    }
-    
-    public String getMileage() {
-        return mileageField.getText().trim();
-    }
-    
-    public String getFuelType() {
-        return (String) fuelTypeComboBox.getSelectedItem();
-    }
-    
-    public String getTransmission() {
-        return (String) transmissionComboBox.getSelectedItem();
-    }
-    
-    public String getSeats() {
-        return seatsField.getText().trim();
-    }
-    
-    public boolean isAvailable() {
-        return availableCheckBox.isSelected();
-    }
-    
-    public String getImage() {
-        return imageField.getText().trim();
-    }
+
 
     /**
      * Ouvre un sélecteur de fichier pour choisir une image et la copie dans le dossier des images
@@ -354,7 +325,7 @@ public class AddCarForm {
     private void selectImage() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Sélectionner une image");
-        
+
         // Filtre pour n'afficher que les images
         fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
             @Override
@@ -363,22 +334,22 @@ public class AddCarForm {
                     return true;
                 }
                 String name = f.getName().toLowerCase();
-                return name.endsWith(".jpg") || name.endsWith(".jpeg") || 
-                       name.endsWith(".png") || name.endsWith(".gif") || 
-                       name.endsWith(".bmp");
+                return name.endsWith(".jpg") || name.endsWith(".jpeg") ||
+                        name.endsWith(".png") || name.endsWith(".gif") ||
+                        name.endsWith(".bmp");
             }
-            
+
             @Override
             public String getDescription() {
                 return "Fichiers image (*.jpg, *.jpeg, *.png, *.gif, *.bmp)";
             }
         });
-        
+
         int result = fileChooser.showOpenDialog(dialog);
-        
+
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            
+
             try {
                 // Créer le dossier images s'il n'existe pas
                 String imagesDir = "images";
@@ -386,66 +357,32 @@ public class AddCarForm {
                 if (!Files.exists(imagesDirPath)) {
                     Files.createDirectories(imagesDirPath);
                 }
-                
+
                 // Générer un nom unique pour l'image
                 String originalFileName = selectedFile.getName();
                 String extension = originalFileName.substring(originalFileName.lastIndexOf('.'));
                 String newFileName = System.currentTimeMillis() + extension;
                 Path destinationPath = Paths.get(imagesDir, newFileName);
-                
+
                 // Copier le fichier vers le dossier images
                 Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                
+
                 // Mettre à jour le champ avec le chemin relatif
                 imageField.setText(destinationPath.toString());
-                
-                JOptionPane.showMessageDialog(dialog, 
-                    "Image importée avec succès !", 
-                    "Succès", 
-                    JOptionPane.INFORMATION_MESSAGE);
-                
+
+                JOptionPane.showMessageDialog(dialog,
+                        "Image importée avec succès !",
+                        "Succès",
+                        JOptionPane.INFORMATION_MESSAGE);
+
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(dialog, 
-                    "Erreur lors de l'importation de l'image : " + ex.getMessage(), 
-                    "Erreur", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(dialog,
+                        "Erreur lors de l'importation de l'image : " + ex.getMessage(),
+                        "Erreur",
+                        JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         }
     }
 
-    /**
-     * Remplit le formulaire avec les données d'une voiture existante
-     * @param car La voiture dont les données doivent être affichées dans le formulaire
-     */
-    public void fillFormWithCar(Car car) {
-        if (car != null) {
-            idCarField.setText(car.getIdCar());
-            brandField.setText(car.getBrand());
-            modelField.setText(car.getModel());
-            yearField.setText(String.valueOf(car.getYear()));
-            pricedayField.setText(String.valueOf(car.getPriceday()));
-            mileageField.setText(String.valueOf(car.getMileage()));
-            
-            // Sélectionner le type de carburant dans la liste déroulante
-            for (int i = 0; i < fuelTypeComboBox.getItemCount(); i++) {
-                if (fuelTypeComboBox.getItemAt(i).equals(car.getFuelType())) {
-                    fuelTypeComboBox.setSelectedIndex(i);
-                    break;
-                }
-            }
-            
-            // Sélectionner le type de transmission dans la liste déroulante
-            for (int i = 0; i < transmissionComboBox.getItemCount(); i++) {
-                if (transmissionComboBox.getItemAt(i).equals(car.getTransmission())) {
-                    transmissionComboBox.setSelectedIndex(i);
-                    break;
-                }
-            }
-            
-            seatsField.setText(String.valueOf(car.getSeats()));
-            availableCheckBox.setSelected(car.isAvailable());
-            imageField.setText(car.getImage());
-        }
-    }
 }
