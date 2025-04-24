@@ -84,131 +84,131 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Création de la barre de menu
         JMenuBar menuBar = new JMenuBar();
-        
+
         // Menu Fichier
         JMenu fileMenu = new JMenu("Fichier");
         fileMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         // Sous-menu Importer
         JMenu importMenu = new JMenu("Importer");
         importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem importCars = new JMenuItem("Voitures");
         importCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importCars.setActionCommand(ControllerActions.IMPORT_CARS);
         importCars.addActionListener(controller);
-        
+
         JMenuItem importClients = new JMenuItem("Clients");
         importClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
         importClients.addActionListener(controller);
-        
+
         JMenuItem importContracts = new JMenuItem("Contrats");
         importContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importContracts.setActionCommand(ControllerActions.IMPORT_CONTRACTS);
         importContracts.addActionListener(controller);
-        
+
         JMenuItem importReservations = new JMenuItem("Réservations");
         importReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importReservations.setActionCommand(ControllerActions.IMPORT_RESERVATIONS);
         importReservations.addActionListener(controller);
-        
+
         importMenu.add(importCars);
         importMenu.add(importClients);
         importMenu.add(importContracts);
         importMenu.add(importReservations);
-        
+
         // Sous-menu Exporter
         JMenu exportMenu = new JMenu("Exporter");
         exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem exportCars = new JMenuItem("Voitures");
         exportCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportCars.setActionCommand(ControllerActions.EXPORT_CARS);
         exportCars.addActionListener(controller);
-        
+
         JMenuItem exportClients = new JMenuItem("Clients");
         exportClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
         exportClients.addActionListener(controller);
-        
+
         JMenuItem exportContracts = new JMenuItem("Contrats");
         exportContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportContracts.setActionCommand(ControllerActions.EXPORT_CONTRACTS);
         exportContracts.addActionListener(controller);
-        
+
         JMenuItem exportReservations = new JMenuItem("Réservations");
         exportReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportReservations.setActionCommand(ControllerActions.EXPORT_RESERVATIONS);
         exportReservations.addActionListener(controller);
-        
+
         exportMenu.add(exportCars);
         exportMenu.add(exportClients);
         exportMenu.add(exportContracts);
         exportMenu.add(exportReservations);
-        
+
         fileMenu.add(importMenu);
         fileMenu.add(exportMenu);
         fileMenu.addSeparator();
-        
+
         JMenuItem exitItem = new JMenuItem("Quitter");
         exitItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exitItem.setActionCommand("EXIT");
         exitItem.addActionListener(e -> System.exit(0));
         fileMenu.add(exitItem);
-        
 
-        
+
+
         // Menu Thèmes
         JMenu themeMenu = new JMenu("Thèmes");
         themeMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
         lightThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         lightThemeItem.addActionListener(e -> changeTheme("light"));
-        
+
         JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
         darkThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         darkThemeItem.addActionListener(e -> changeTheme("dark"));
-        
+
         themeMenu.add(lightThemeItem);
         themeMenu.add(darkThemeItem);
-        
+
         // Menu Paramètres
         JMenu settingsMenu = new JMenu("Paramètres");
         settingsMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         // Sous-menu Format de date
         JMenu dateFormatMenu = new JMenu("Format de date");
         dateFormatMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem defaultFormatItem = new JMenuItem("Standard (dd/MM/yyyy)");
         defaultFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         defaultFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_DEFAULT));
-        
+
         JMenuItem isoFormatItem = new JMenuItem("ISO (yyyy-MM-dd)");
         isoFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         isoFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_ISO));
-        
+
         JMenuItem longFormatItem = new JMenuItem("Long (dd MMMM yyyy)");
         longFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         longFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_LONG));
-        
+
         JMenuItem shortFormatItem = new JMenuItem("Court (dd/MM/yy)");
         shortFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         shortFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_SHORT));
-        
+
         dateFormatMenu.add(defaultFormatItem);
         dateFormatMenu.add(isoFormatItem);
         dateFormatMenu.add(longFormatItem);
         dateFormatMenu.add(shortFormatItem);
-        
+
         settingsMenu.add(dateFormatMenu);
-        
+
         menuBar.add(fileMenu);
         menuBar.add(themeMenu);
         menuBar.add(settingsMenu);
-        
+
         setJMenuBar(menuBar);
 
         // Création du JTabbedPane
@@ -855,7 +855,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private JButton createModernButton(String text, Color bg, Color fg, Color hover) {
         return createModernButton(text, bg, fg, hover, null);
     }
-    
+
     private JButton createModernButton(String text, Color bg, Color fg, Color hover, String iconName) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -867,25 +867,25 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
         button.setBorder(BorderFactory.createLineBorder(bg.darker(), 2, true));
-        
+
         // Ajouter une icône si spécifiée
         if (iconName != null && !iconName.isEmpty()) {
             try {
                 String iconPath = "/icons/" + iconName + ".png";
                 ImageIcon originalIcon = new ImageIcon(getClass().getResource(iconPath));
-                
+
                 // Redimensionner l'icône pour qu'elle s'adapte au bouton
                 Image originalImage = originalIcon.getImage();
                 Image resizedImage = originalImage.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 ImageIcon resizedIcon = new ImageIcon(resizedImage);
-                
+
                 button.setIcon(resizedIcon);
                 button.setIconTextGap(10);
             } catch (Exception e) {
                 System.out.println("Erreur lors du chargement de l'icône " + iconName + ": " + e.getMessage());
             }
         }
-        
+
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(hover);
@@ -985,11 +985,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
             infoPanel.setBackground(Color.WHITE);
-            
+
             // Titre (marque et modèle)
             JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
             titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            
+
             // Disponibilité
             JLabel availabilityLabel = new JLabel("Disponibilité: " + (car.isAvailable() ? "Disponible" : "Non disponible"));
             availabilityLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -998,16 +998,16 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             } else {
                 availabilityLabel.setForeground(new Color(231, 76, 60)); // Rouge pour non disponible
             }
-            
+
             // Plaque d'immatriculation
             JLabel plateLabel = new JLabel("Immatriculation: " + car.getIdCar());
             plateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            
+
             // Prix
             JLabel priceLabel = new JLabel("Prix: " + car.getPriceday() + " €/jour");
             priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
             priceLabel.setForeground(new Color(52, 152, 219)); // Bleu pour le prix
-            
+
             // Ajouter les informations au panel
             infoPanel.add(Box.createVerticalStrut(5));
             infoPanel.add(titleLabel);
@@ -1424,33 +1424,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         }
     }
 
-    /**
-     * Crée la barre de menu avec les options Fichier, Importer et Exporter
-     */
-    private void createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(245, 247, 250));
-
-        // Menu Fichier
-        JMenu fileMenu = new JMenu("Fichier");
-        menuBar.add(fileMenu);
-
-        // Ajouter le menu Thèmes
-        JMenu themeMenu = new JMenu("Thèmes");
-        menuBar.add(themeMenu);
-
-        // Ajouter les options de thème
-        JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
-        lightThemeItem.addActionListener(e -> changeTheme("light"));
-        themeMenu.add(lightThemeItem);
-
-        JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
-        darkThemeItem.addActionListener(e -> changeTheme("dark"));
-        themeMenu.add(darkThemeItem);
-
-        setJMenuBar(menuBar);
-    }
-
     @Override
     public JFrame getFrame() {
         return this;
@@ -1566,26 +1539,26 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                 // Appliquer le thème clair (par défaut)
                 com.formdev.flatlaf.FlatLightLaf.setup();
             }
-            
+
             // Mettre à jour tous les composants de l'interface
             SwingUtilities.updateComponentTreeUI(this);
-            
+
             // Mettre à jour les dialogues s'ils sont ouverts
             if (sessionDialog != null) {
                 SwingUtilities.updateComponentTreeUI(sessionDialog);
             }
-            
+
             // Comme les formulaires ne sont pas des composants Swing directs,
             // nous devons recréer les formulaires si nécessaire lors de leur prochaine utilisation
-            
+
             // Informer l'utilisateur du changement de thème
-            JOptionPane.showMessageDialog(this, 
-                "Le thème " + (themeName.equals("dark") ? "Dracula" : "Clair") + " a été appliqué avec succès.",
-                "Changement de thème", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Le thème " + (themeName.equals("dark") ? "Dracula" : "Clair") + " a été appliqué avec succès.",
+                    "Changement de thème", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, 
-                "Erreur lors du changement de thème: " + ex.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors du changement de thème: " + ex.getMessage(),
+                    "Erreur", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1597,12 +1570,12 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private void changeDateFormat(String format) {
         // Changer le format dans la classe utilitaire
         DateFormatter.setDateFormat(format);
-        
+
         // Mettre à jour les tables pour refléter le nouveau format
         if (controller != null) {
             controller.updateAllTables();
         }
-        
+
         // Informer l'utilisateur
         showMessage("Format de date changé en : " + format);
     }

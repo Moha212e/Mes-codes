@@ -19,10 +19,13 @@ public class Main {
             FlatLightLaf.setup();
             
             // Personnalisation supplémentaire (optionnel)
+            /*
             UIManager.put("Button.arc", 10);
             UIManager.put("Component.arc", 10);
             UIManager.put("ProgressBar.arc", 10);
             UIManager.put("TextComponent.arc", 10);
+            */
+
         } catch (Exception ex) {
             System.err.println(STR."Erreur lors de l'initialisation de FlatLaf: \{ex}");
         }

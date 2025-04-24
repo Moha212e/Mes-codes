@@ -49,33 +49,33 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         super("LocaDrive");
         UIManager.put("control", new Color(245, 247, 250));
         UIManager.put("info", new Color(245, 247, 250));
-        UIManager.put("nimbusBase", new Color(80, 90, 170));
-        UIManager.put("nimbusBlueGrey", new Color(100, 110, 180));
+        UIManager.put("nimbusBase", new Color(42, 58, 80));
+        UIManager.put("nimbusBlueGrey", new Color(60, 75, 100));
         UIManager.put("nimbusLightBackground", Color.WHITE);
         UIManager.put("text", new Color(40, 40, 40));
-        UIManager.put("Table.alternateRowColor", new Color(240, 242, 250));
+        UIManager.put("Table.alternateRowColor", new Color(240, 245, 250));
         UIManager.put("Table.font", new Font("Segoe UI", Font.PLAIN, 15));
         UIManager.put("TableHeader.font", new Font("Segoe UI", Font.BOLD, 16));
-        UIManager.put("TableHeader.background", new Color(80, 90, 170));
+        UIManager.put("TableHeader.background", new Color(42, 58, 80));
         UIManager.put("TableHeader.foreground", Color.WHITE);
         UIManager.put("Button.font", new Font("Segoe UI", Font.BOLD, 15));
-        UIManager.put("TabbedPane.selected", new Color(80, 90, 170));
-        UIManager.put("TabbedPane.background", new Color(230, 232, 240));
-        UIManager.put("TabbedPane.foreground", new Color(80, 90, 170));
+        UIManager.put("TabbedPane.selected", new Color(42, 58, 80));
+        UIManager.put("TabbedPane.background", new Color(230, 235, 240));
+        UIManager.put("TabbedPane.foreground", new Color(42, 58, 80));
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         // --- BARRE SUPERIEURE MODERNE ---
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(80, 90, 170));
+        topPanel.setBackground(new Color(42, 58, 80));
         JLabel titleLabel = new JLabel("LocaDrive", SwingConstants.LEFT);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
         topPanel.add(titleLabel, BorderLayout.WEST);
 
         // Bouton de session avec style moderne
-        sessionButton = createModernButton("Se connecter", new Color(80, 90, 170), Color.WHITE, new Color(120, 130, 200), "login");
+        sessionButton = createModernButton("Se connecter", new Color(42, 58, 80), Color.WHITE, new Color(60, 75, 100), "login");
         JPanel sessionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         sessionPanel.setOpaque(false);
         sessionPanel.add(sessionButton);
@@ -84,131 +84,131 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Création de la barre de menu
         JMenuBar menuBar = new JMenuBar();
-        
+
         // Menu Fichier
         JMenu fileMenu = new JMenu("Fichier");
         fileMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         // Sous-menu Importer
         JMenu importMenu = new JMenu("Importer");
         importMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem importCars = new JMenuItem("Voitures");
         importCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importCars.setActionCommand(ControllerActions.IMPORT_CARS);
         importCars.addActionListener(controller);
-        
+
         JMenuItem importClients = new JMenuItem("Clients");
         importClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
         importClients.addActionListener(controller);
-        
+
         JMenuItem importContracts = new JMenuItem("Contrats");
         importContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importContracts.setActionCommand(ControllerActions.IMPORT_CONTRACTS);
         importContracts.addActionListener(controller);
-        
+
         JMenuItem importReservations = new JMenuItem("Réservations");
         importReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importReservations.setActionCommand(ControllerActions.IMPORT_RESERVATIONS);
         importReservations.addActionListener(controller);
-        
+
         importMenu.add(importCars);
         importMenu.add(importClients);
         importMenu.add(importContracts);
         importMenu.add(importReservations);
-        
+
         // Sous-menu Exporter
         JMenu exportMenu = new JMenu("Exporter");
         exportMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem exportCars = new JMenuItem("Voitures");
         exportCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportCars.setActionCommand(ControllerActions.EXPORT_CARS);
         exportCars.addActionListener(controller);
-        
+
         JMenuItem exportClients = new JMenuItem("Clients");
         exportClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
         exportClients.addActionListener(controller);
-        
+
         JMenuItem exportContracts = new JMenuItem("Contrats");
         exportContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportContracts.setActionCommand(ControllerActions.EXPORT_CONTRACTS);
         exportContracts.addActionListener(controller);
-        
+
         JMenuItem exportReservations = new JMenuItem("Réservations");
         exportReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportReservations.setActionCommand(ControllerActions.EXPORT_RESERVATIONS);
         exportReservations.addActionListener(controller);
-        
+
         exportMenu.add(exportCars);
         exportMenu.add(exportClients);
         exportMenu.add(exportContracts);
         exportMenu.add(exportReservations);
-        
+
         fileMenu.add(importMenu);
         fileMenu.add(exportMenu);
         fileMenu.addSeparator();
-        
+
         JMenuItem exitItem = new JMenuItem("Quitter");
         exitItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exitItem.setActionCommand("EXIT");
         exitItem.addActionListener(e -> System.exit(0));
         fileMenu.add(exitItem);
-        
-        
-        
+
+
+
         // Menu Thèmes
         JMenu themeMenu = new JMenu("Thèmes");
         themeMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
         lightThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         lightThemeItem.addActionListener(e -> changeTheme("light"));
-        
+
         JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
         darkThemeItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         darkThemeItem.addActionListener(e -> changeTheme("dark"));
-        
+
         themeMenu.add(lightThemeItem);
         themeMenu.add(darkThemeItem);
-        
+
         // Menu Paramètres
         JMenu settingsMenu = new JMenu("Paramètres");
         settingsMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        
+
         // Sous-menu Format de date
         JMenu dateFormatMenu = new JMenu("Format de date");
         dateFormatMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        
+
         JMenuItem defaultFormatItem = new JMenuItem("Standard (dd/MM/yyyy)");
         defaultFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         defaultFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_DEFAULT));
-        
+
         JMenuItem isoFormatItem = new JMenuItem("ISO (yyyy-MM-dd)");
         isoFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         isoFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_ISO));
-        
+
         JMenuItem longFormatItem = new JMenuItem("Long (dd MMMM yyyy)");
         longFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         longFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_LONG));
-        
+
         JMenuItem shortFormatItem = new JMenuItem("Court (dd/MM/yy)");
         shortFormatItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         shortFormatItem.addActionListener(e -> changeDateFormat(DateFormatter.FORMAT_SHORT));
-        
+
         dateFormatMenu.add(defaultFormatItem);
         dateFormatMenu.add(isoFormatItem);
         dateFormatMenu.add(longFormatItem);
         dateFormatMenu.add(shortFormatItem);
-        
+
         settingsMenu.add(dateFormatMenu);
-        
+
         menuBar.add(fileMenu);
         menuBar.add(themeMenu);
         menuBar.add(settingsMenu);
-        
+
         setJMenuBar(menuBar);
 
         // Création du JTabbedPane
@@ -223,11 +223,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane1 = new JScrollPane(table1);
         JPanel buttonPanel1 = new JPanel(new FlowLayout(posBouton));
         buttonPanel1.setOpaque(false);
-        buttonAddCar = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonAddCar = createModernButton("Ajouter", new Color(52, 152, 104), Color.WHITE, new Color(44, 130, 88), "add");
         buttonAddCar.setActionCommand(ControllerActions.ADD_CAR);
-        buttonModifyCar = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyCar = createModernButton("Modifier", new Color(67, 148, 195), Color.WHITE, new Color(57, 126, 166), "edit");
         buttonModifyCar.setActionCommand(ControllerActions.MODIFY_CAR);
-        buttonDeleteCar = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteCar = createModernButton("Supprimer", new Color(180, 70, 70), Color.WHITE, new Color(150, 60, 60), "delete");
         buttonDeleteCar.setActionCommand(ControllerActions.DELETE_CAR);
         buttonPanel1.add(buttonAddCar);
         buttonPanel1.add(buttonModifyCar);
@@ -244,11 +244,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane2 = new JScrollPane(table2);
         JPanel buttonPanel2 = new JPanel(new FlowLayout(posBouton));
         buttonPanel2.setOpaque(false);
-        buttonAddClient = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonAddClient = createModernButton("Ajouter", new Color(52, 152, 104), Color.WHITE, new Color(44, 130, 88), "add");
         buttonAddClient.setActionCommand(ControllerActions.ADD_CLIENT);
-        buttonModifyClient = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyClient = createModernButton("Modifier", new Color(67, 148, 195), Color.WHITE, new Color(57, 126, 166), "edit");
         buttonModifyClient.setActionCommand(ControllerActions.MODIFY_CLIENT);
-        buttonDeleteClient = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteClient = createModernButton("Supprimer", new Color(180, 70, 70), Color.WHITE, new Color(150, 60, 60), "delete");
         buttonDeleteClient.setActionCommand(ControllerActions.DELETE_CLIENT);
         buttonPanel2.add(buttonAddClient);
         buttonPanel2.add(buttonModifyClient);
@@ -265,11 +265,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane3 = new JScrollPane(table3);
         JPanel buttonPanel3 = new JPanel(new FlowLayout(posBouton));
         buttonPanel3.setOpaque(false);
-        buttonAddLocation = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonAddLocation = createModernButton("Ajouter", new Color(52, 152, 104), Color.WHITE, new Color(44, 130, 88), "add");
         buttonAddLocation.setActionCommand(ControllerActions.ADD_LOCATION);
-        buttonModifyLocation = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyLocation = createModernButton("Modifier", new Color(67, 148, 195), Color.WHITE, new Color(57, 126, 166), "edit");
         buttonModifyLocation.setActionCommand(ControllerActions.MODIFY_LOCATION);
-        buttonDeleteLocation = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteLocation = createModernButton("Supprimer", new Color(180, 70, 70), Color.WHITE, new Color(150, 60, 60), "delete");
         buttonDeleteLocation.setActionCommand(ControllerActions.DELETE_LOCATION);
         buttonPanel3.add(buttonAddLocation);
         buttonPanel3.add(buttonModifyLocation);
@@ -291,11 +291,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane4 = new JScrollPane(table4);
         JPanel buttonPanel4 = new JPanel(new FlowLayout(posBouton));
         buttonPanel4.setOpaque(false);
-        buttonAddContrat = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonAddContrat = createModernButton("Ajouter", new Color(52, 152, 104), Color.WHITE, new Color(44, 130, 88), "add");
         buttonAddContrat.setActionCommand(ControllerActions.ADD_CONTRAT);
-        buttonModifyContrat = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyContrat = createModernButton("Modifier", new Color(67, 148, 195), Color.WHITE, new Color(57, 126, 166), "edit");
         buttonModifyContrat.setActionCommand(ControllerActions.MODIFY_CONTRAT);
-        buttonDeleteContrat = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteContrat = createModernButton("Supprimer", new Color(180, 70, 70), Color.WHITE, new Color(150, 60, 60), "delete");
         buttonDeleteContrat.setActionCommand(ControllerActions.DELETE_CONTRAT);
         buttonPanel4.add(buttonAddContrat);
         buttonPanel4.add(buttonModifyContrat);
@@ -855,7 +855,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private JButton createModernButton(String text, Color bg, Color fg, Color hover) {
         return createModernButton(text, bg, fg, hover, null);
     }
-    
+
     private JButton createModernButton(String text, Color bg, Color fg, Color hover, String iconName) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -867,25 +867,25 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
         button.setBorder(BorderFactory.createLineBorder(bg.darker(), 2, true));
-        
+
         // Ajouter une icône si spécifiée
         if (iconName != null && !iconName.isEmpty()) {
             try {
                 String iconPath = "/icons/" + iconName + ".png";
                 ImageIcon originalIcon = new ImageIcon(getClass().getResource(iconPath));
-                
+
                 // Redimensionner l'icône pour qu'elle s'adapte au bouton
                 Image originalImage = originalIcon.getImage();
                 Image resizedImage = originalImage.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 ImageIcon resizedIcon = new ImageIcon(resizedImage);
-                
+
                 button.setIcon(resizedIcon);
                 button.setIconTextGap(10);
             } catch (Exception e) {
                 System.out.println("Erreur lors du chargement de l'icône " + iconName + ": " + e.getMessage());
             }
         }
-        
+
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(hover);
@@ -902,8 +902,8 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(tailleBorder, tailleBorder, tailleBorder, tailleBorder),
-                BorderFactory.createLineBorder(new Color(230, 232, 240), 2, true)));
-        panel.setBackground(new Color(245, 247, 250));
+                BorderFactory.createLineBorder(new Color(220, 225, 235), 1, true)));
+        panel.setBackground(new Color(248, 250, 252));
         return panel;
     }
 
@@ -912,10 +912,10 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         table.setRowHeight(28);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        table.getTableHeader().setBackground(new Color(80, 90, 170));
+        table.getTableHeader().setBackground(new Color(42, 58, 80));
         table.getTableHeader().setForeground(Color.WHITE);
-        table.setGridColor(new Color(230, 232, 240));
-        table.setSelectionBackground(new Color(120, 130, 200));
+        table.setGridColor(new Color(220, 225, 235));
+        table.setSelectionBackground(new Color(70, 90, 115));
         table.setSelectionForeground(Color.WHITE);
         table.setShowHorizontalLines(true);
         table.setShowVerticalLines(false);
@@ -933,21 +933,21 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Utiliser un GridLayout pour organiser les voitures en deux colonnes
         JPanel contentPanel = new JPanel(new GridLayout(0, 2, 20, 20));
-        contentPanel.setBackground(new Color(245, 247, 250));
+        contentPanel.setBackground(new Color(248, 250, 252));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         for (Car car : cars) {
             // Créer un panel pour chaque voiture avec un effet de carte moderne
             JPanel carPanel = new JPanel(new BorderLayout(0, 10));
             carPanel.setBackground(Color.WHITE);
-            carPanel.setBorder(BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true));
+            carPanel.setBorder(BorderFactory.createLineBorder(new Color(220, 225, 235), 1, true));
             carPanel.setPreferredSize(new Dimension(400, 350));
 
             // Ajouter un effet d'ombre (simulation avec des bordures)
             carPanel.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
+                    BorderFactory.createLineBorder(new Color(220, 225, 235), 1, true),
                     BorderFactory.createCompoundBorder(
-                            BorderFactory.createLineBorder(new Color(240, 242, 245), 2, true),
+                            BorderFactory.createLineBorder(new Color(235, 240, 245), 2, true),
                             BorderFactory.createEmptyBorder(10, 10, 10, 10)
                     )
             ));
@@ -956,7 +956,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             JLabel imageLabel = new JLabel();
             imageLabel.setHorizontalAlignment(JLabel.CENTER);
             imageLabel.setPreferredSize(new Dimension(380, 220));
-            imageLabel.setBackground(new Color(248, 249, 250));
+            imageLabel.setBackground(new Color(250, 252, 255));
             imageLabel.setOpaque(true);
 
             // Charger l'image si elle existe
@@ -985,29 +985,29 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
             infoPanel.setBackground(Color.WHITE);
-            
+
             // Titre (marque et modèle)
             JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
             titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            
+
             // Disponibilité
             JLabel availabilityLabel = new JLabel("Disponibilité: " + (car.isAvailable() ? "Disponible" : "Non disponible"));
             availabilityLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             if (car.isAvailable()) {
-                availabilityLabel.setForeground(new Color(46, 204, 113)); // Vert pour disponible
+                availabilityLabel.setForeground(new Color(52, 152, 104)); // Vert plus professionnel
             } else {
-                availabilityLabel.setForeground(new Color(231, 76, 60)); // Rouge pour non disponible
+                availabilityLabel.setForeground(new Color(180, 70, 70)); // Rouge plus professionnel
             }
-            
+
             // Plaque d'immatriculation
             JLabel plateLabel = new JLabel("Immatriculation: " + car.getIdCar());
             plateLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            
+
             // Prix
             JLabel priceLabel = new JLabel("Prix: " + car.getPriceday() + " €/jour");
             priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            priceLabel.setForeground(new Color(52, 152, 219)); // Bleu pour le prix
-            
+            priceLabel.setForeground(new Color(67, 148, 195)); // Bleu plus professionnel
+
             // Ajouter les informations au panel
             infoPanel.add(Box.createVerticalStrut(5));
             infoPanel.add(titleLabel);
@@ -1033,7 +1033,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             carPanel.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     carPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    carPanel.setBackground(new Color(250, 250, 255));
+                    carPanel.setBackground(new Color(250, 252, 255));
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -1054,7 +1054,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setBackground(new Color(245, 247, 250));
+        scrollPane.setBackground(new Color(248, 250, 252));
 
         // Ajouter le JScrollPane au panel principal
         panel4.setLayout(new BorderLayout());
@@ -1079,20 +1079,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Panel principal avec un fond clair
         JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
-        mainPanel.setBackground(new Color(245, 247, 250));
+        mainPanel.setBackground(new Color(248, 250, 252));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Panel gauche pour l'image
         JPanel leftPanel = new JPanel(new BorderLayout());
         leftPanel.setBackground(Color.WHITE);
-        leftPanel.setBorder(BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true));
+        leftPanel.setBorder(BorderFactory.createLineBorder(new Color(220, 225, 235), 1, true));
         leftPanel.setPreferredSize(new Dimension(350, 300));
 
         // Ajouter un effet d'ombre (simulation avec des bordures)
         leftPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
+                BorderFactory.createLineBorder(new Color(220, 225, 235), 1, true),
                 BorderFactory.createCompoundBorder(
-                        BorderFactory.createLineBorder(new Color(240, 242, 245), 2, true),
+                        BorderFactory.createLineBorder(new Color(235, 240, 245), 2, true),
                         BorderFactory.createEmptyBorder(8, 8, 8, 8)
                 )
         ));
@@ -1101,7 +1101,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JLabel imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setPreferredSize(new Dimension(330, 250));
-        imageLabel.setBackground(new Color(248, 249, 250));
+        imageLabel.setBackground(new Color(250, 252, 255));
         imageLabel.setOpaque(true);
 
         // Charger l'image si elle existe
@@ -1179,7 +1179,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         // Panel pour les boutons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.setBackground(new Color(245, 247, 250));
+        buttonPanel.setBackground(new Color(248, 250, 252));
 
 
         // Ajouter le panel principal et le panel de boutons à la boîte de dialogue
@@ -1424,33 +1424,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         }
     }
 
-    /**
-     * Crée la barre de menu avec les options Fichier, Importer et Exporter
-     */
-    private void createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.setBackground(new Color(245, 247, 250));
-
-        // Menu Fichier
-        JMenu fileMenu = new JMenu("Fichier");
-        menuBar.add(fileMenu);
-
-        // Ajouter le menu Thèmes
-        JMenu themeMenu = new JMenu("Thèmes");
-        menuBar.add(themeMenu);
-
-        // Ajouter les options de thème
-        JMenuItem lightThemeItem = new JMenuItem("Thème Clair");
-        lightThemeItem.addActionListener(e -> changeTheme("light"));
-        themeMenu.add(lightThemeItem);
-
-        JMenuItem darkThemeItem = new JMenuItem("Thème Dracula");
-        darkThemeItem.addActionListener(e -> changeTheme("dark"));
-        themeMenu.add(darkThemeItem);
-
-        setJMenuBar(menuBar);
-    }
-
     @Override
     public JFrame getFrame() {
         return this;
@@ -1566,26 +1539,26 @@ public class JFramesLocation extends JFrame implements ViewLocation {
                 // Appliquer le thème clair (par défaut)
                 com.formdev.flatlaf.FlatLightLaf.setup();
             }
-            
+
             // Mettre à jour tous les composants de l'interface
             SwingUtilities.updateComponentTreeUI(this);
-            
+
             // Mettre à jour les dialogues s'ils sont ouverts
             if (sessionDialog != null) {
                 SwingUtilities.updateComponentTreeUI(sessionDialog);
             }
-            
+
             // Comme les formulaires ne sont pas des composants Swing directs,
             // nous devons recréer les formulaires si nécessaire lors de leur prochaine utilisation
-            
+
             // Informer l'utilisateur du changement de thème
-            JOptionPane.showMessageDialog(this, 
-                "Le thème " + (themeName.equals("dark") ? "Dracula" : "Clair") + " a été appliqué avec succès.",
-                "Changement de thème", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Le thème " + (themeName.equals("dark") ? "Dracula" : "Clair") + " a été appliqué avec succès.",
+                    "Changement de thème", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, 
-                "Erreur lors du changement de thème: " + ex.getMessage(),
-                "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Erreur lors du changement de thème: " + ex.getMessage(),
+                    "Erreur", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
@@ -1597,12 +1570,12 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private void changeDateFormat(String format) {
         // Changer le format dans la classe utilitaire
         DateFormatter.setDateFormat(format);
-        
+
         // Mettre à jour les tables pour refléter le nouveau format
         if (controller != null) {
             controller.updateAllTables();
         }
-        
+
         // Informer l'utilisateur
         showMessage("Format de date changé en : " + format);
     }
