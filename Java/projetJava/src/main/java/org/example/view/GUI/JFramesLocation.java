@@ -226,7 +226,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JScrollPane scrollPane1 = new JScrollPane(table1);
         JPanel buttonPanel1 = new JPanel(new FlowLayout(posBouton));
         buttonPanel1.setOpaque(false);
-        buttonAddCar = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonAddCar = createFlatButton("Ajouter", "add");
         buttonAddCar.setActionCommand(ControllerActions.ADD_CAR);
         buttonModifyCar = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
         buttonModifyCar.setActionCommand(ControllerActions.MODIFY_CAR);
