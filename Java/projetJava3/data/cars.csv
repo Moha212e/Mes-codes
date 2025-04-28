@@ -1,0 +1,51 @@
+idCar,brand,model,year,priceday,mileage,fuelType,transmission,seats,available,image
+1-ABC-001,Peugeot,2008,2023,85.0,15000,Diesel,Manuelle,5,true,images/2008.jpg
+1-ABC-002,Peugeot,308,2022,75.0,18500,Diesel,Manuelle,5,true,images/308.jpg
+1-ABC-003,Audi,A3,2023,120.0,8500,Essence,Automatique,5,true,images/a3.jpg
+1-ABC-004,Opel,Astra,2022,70.0,22000,Essence,Manuelle,5,false,images/astra.jpg
+1-ABC-005,Citroën,C3,2023,65.0,12000,Essence,Manuelle,5,true,images/c3.jpg
+1-ABC-006,Citroën,C4,2021,75.0,25000,Diesel,Automatique,5,true,images/c4.jpg
+1-ABC-007,Mercedes,Classe A,2022,130.0,15000,Essence,Automatique,5,true,images/classeA.jpg
+1-ABC-008,Renault,Clio,2023,60.0,10000,Essence,Manuelle,5,true,images/clio.jpg
+1-ABC-009,Mini,Cooper,2022,110.0,18000,Essence,Manuelle,4,true,images/cooper.jpg
+1-ABC-010,Toyota,Corolla,2023,90.0,12000,Hybride,Automatique,5,true,images/corolla.jpg
+1-ABC-011,Opel,Corsa,2022,65.0,15000,Essence,Manuelle,5,true,images/corsa.jpg
+1-ABC-012,Lexus,CT,2021,120.0,22000,Hybride,Automatique,5,false,images/ct.jpg
+1-ABC-013,Dacia,Duster,2023,70.0,8000,Diesel,Manuelle,5,true,images/duster.jpg
+1-ABC-014,Range Rover,Evoque,2022,180.0,15000,Diesel,Automatique,5,true,images/evoque.jpg
+1-ABC-015,Skoda,Fabia,2023,65.0,10000,Essence,Manuelle,5,true,images/fabia.jpg
+1-ABC-016,Fiat,500,2022,70.0,12000,Essence,Manuelle,4,true,images/fiat500.jpg
+1-ABC-017,Ford,Fiesta,2023,65.0,9500,Essence,Manuelle,5,true,images/fiesta.jpg
+1-ABC-018,Ford,Focus,2022,80.0,15000,Diesel,Manuelle,5,false,images/focus.jpg
+1-ABC-019,Smart,Fortwo,2023,55.0,5000,Essence,Automatique,2,true,images/fortwo.jpg
+1-ABC-020,Alfa Romeo,Giulietta,2021,95.0,28000,Diesel,Manuelle,5,true,images/giulietta.jpg
+1-ABC-021,Mercedes,GLA,2022,150.0,18000,Diesel,Automatique,5,true,images/gla.jpg
+1-ABC-022,Volkswagen,Golf,2023,90.0,12000,Essence,Manuelle,5,true,images/golf.jpg
+1-ABC-023,Hyundai,i20,2022,65.0,15000,Essence,Manuelle,5,true,images/i20.jpg
+1-ABC-024,Seat,Ibiza,2023,70.0,10000,Essence,Manuelle,5,true,images/ibiza.jpg
+1-ABC-025,Subaru,Impreza,2022,95.0,18000,Essence,Manuelle,5,true,images/impreza.jpg
+1-ABC-026,Honda,Jazz,2023,75.0,8000,Essence,Automatique,5,false,images/jazz.jpg
+1-ABC-027,Seat,Leon,2022,85.0,15000,Diesel,Manuelle,5,true,images/leon.jpg
+1-ABC-028,Porsche,Macan,2023,220.0,10000,Essence,Automatique,5,true,images/macan.jpg
+1-ABC-029,Mazda,Mazda2,2022,70.0,12000,Essence,Manuelle,5,true,images/mazda2.jpg
+1-ABC-030,Renault,Megane,2023,85.0,10000,Diesel,Manuelle,5,true,images/megane.jpg
+1-ABC-031,Nissan,Micra,2022,60.0,15000,Essence,Manuelle,5,true,images/micra.jpg
+1-ABC-032,Tesla,Model 3,2023,150.0,8000,Électrique,Automatique,5,false,images/model3.jpg
+1-ABC-033,Skoda,Octavia,2022,85.0,18000,Diesel,Manuelle,5,true,images/octavia.jpg
+1-ABC-034,Volkswagen,Polo,2023,70.0,10000,Essence,Manuelle,5,true,images/polo.jpg
+1-ABC-035,Audi,Q3,2022,150.0,15000,Diesel,Automatique,5,true,images/q3.jpg
+1-ABC-036,Nissan,Qashqai,2023,110.0,12000,Diesel,Manuelle,5,true,images/qashqai.jpg
+1-ABC-037,Jeep,Renegade,2022,100.0,18000,Essence,Manuelle,5,true,images/renegade.jpg
+1-ABC-038,Kia,Rio,2023,65.0,10000,Essence,Manuelle,5,true,images/rio.jpg
+1-ABC-039,Dacia,Sandero,2022,55.0,15000,Essence,Manuelle,5,true,images/sandero.jpg
+1-ABC-040,BMW,Série 1,2023,120.0,12000,Diesel,Automatique,5,false,images/serie1.jpg
+1-ABC-041,Mitsubishi,Space Star,2022,50.0,8000,Essence,Manuelle,5,true,images/spacestar.jpg
+1-ABC-042,Chevrolet,Spark,2023,55.0,5000,Essence,Manuelle,4,true,images/spark.jpg
+1-ABC-043,Kia,Sportage,2022,110.0,18000,Diesel,Automatique,5,true,images/sportage.jpg
+1-ABC-044,Suzuki,Swift,2023,65.0,10000,Essence,Manuelle,5,true,images/swift.jpg
+1-ABC-045,Fiat,Tipo,2022,75.0,15000,Diesel,Manuelle,5,true,images/tipo.jpg
+1-ABC-046,Hyundai,Tucson,2023,120.0,12000,Diesel,Automatique,5,true,images/tucson.jpg
+1-ABC-047,Volvo,V40,2022,110.0,18000,Diesel,Automatique,5,false,images/v40.jpg
+1-ABC-048,BMW,X1,2023,160.0,10000,Diesel,Automatique,5,true,images/x1.jpg
+1-ABC-049,Jaguar,XE,2022,170.0,15000,Diesel,Automatique,5,true,images/xe.jpg
+1-ABC-050,Toyota,Yaris,2023,70.0,8000,Hybride,Automatique,5,true,images/yaris.jpg
