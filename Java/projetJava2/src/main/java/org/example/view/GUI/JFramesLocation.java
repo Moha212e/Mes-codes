@@ -5,28 +5,43 @@ import com.formdev.flatlaf.FlatIconColors;
 import com.formdev.flatlaf.FlatLightLaf;
 import org.example.controller.Controller;
 import org.example.controller.ControllerActions;
-import org.example.model.entity.Contrat;
-import org.example.model.entity.Car;
-import org.example.model.entity.Client;
-import org.example.model.entity.Reservation;
+import org.example.model.entity.*;
+import org.example.model.DataAccessLayer;
 import org.example.utils.DateFormatter;
+import org.example.model.dao.DAOLocation;
+import org.example.view.GUI.ExportImportDialog;
 import org.example.utils.WrapLayout;
 import org.example.view.ViewLocation;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
 
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public class JFramesLocation extends JFrame implements ViewLocation {
+    // Palette de couleurs centralisée
+    private static final Color PRIMARY_COLOR = new Color(52, 152, 219); // Bleu principal
+    private static final Color PRIMARY_HOVER = new Color(41, 128, 185); // Bleu hover
+    private static final Color ADD_COLOR = new Color(46, 204, 113); // Vert pour ajouter
+    private static final Color ADD_HOVER = new Color(39, 174, 96); // Vert hover
+    private static final Color EDIT_COLOR = new Color(241, 196, 15); // Orange pour modifier
+    private static final Color EDIT_HOVER = new Color(243, 156, 18); // Orange hover
+    private static final Color DELETE_COLOR = new Color(231, 76, 60); // Rouge pour supprimer
+    private static final Color DELETE_HOVER = new Color(192, 57, 43); // Rouge hover
+    private static final Color EXPORT_COLOR = new Color(155, 89, 182); // Violet pour exporter
+    private static final Color EXPORT_HOVER = new Color(142, 68, 173); // Violet hover
+    private static final Color TEXT_COLOR = Color.WHITE; // Texte blanc
+    private static final Color PANEL_BG = new Color(245, 247, 250); // Fond des panels
+
     private JTabbedPane tabbedPane;
     private JPanel panel1, panel2, panel3, panel4, panel5;
     private JTable table1, table2, table3, table4;
@@ -34,6 +49,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     private JButton buttonAddClient, buttonModifyClient, buttonDeleteClient;
     private JButton buttonAddLocation, buttonModifyLocation, buttonDeleteLocation;
     private JButton buttonAddContrat, buttonModifyContrat, buttonDeleteContrat;
+    private JButton buttonExportContratPDF;
     private JLabel labelImage;
     private int tailleBorder = 30;
     private int posBouton = 0;
@@ -72,15 +88,28 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         setLayout(new BorderLayout());
 
         // --- BARRE SUPERIEURE MODERNE ---
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(80, 90, 170));
+        JPanel topPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                Color start = new Color(44, 62, 80); // bleu foncé
+                Color end = new Color(52, 152, 219); // bleu clair
+                int w = getWidth();
+                int h = getHeight();
+                GradientPaint gp = new GradientPaint(0, 0, start, w, 0, end);
+                g2d.setPaint(gp);
+                g2d.fillRect(0, 0, w, h);
+            }
+        };
+        topPanel.setOpaque(false);
         JLabel titleLabel = new JLabel("LocaDrive", SwingConstants.LEFT);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(Color.WHITE);
-        topPanel.add(titleLabel, BorderLayout.WEST);
+        topPanel.add(titleLabel, BorderLayout.CENTER);
 
         // Bouton de session avec style moderne
-        sessionButton = createModernButton("Se connecter", new Color(80, 90, 170), Color.WHITE, new Color(120, 130, 200), "login");
+        sessionButton = createModernButton("Se connecter", PRIMARY_COLOR, TEXT_COLOR, PRIMARY_HOVER, "login");
         JPanel sessionPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         sessionPanel.setOpaque(false);
         sessionPanel.add(sessionButton);
@@ -96,9 +125,8 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         searchField.setToolTipText("Rechercher dans tous les onglets");
         
         // Bouton de recherche avec icône
-        searchButton = createModernButton("Rechercher", new Color(80, 90, 170), Color.WHITE, new Color(120, 130, 200), "search");
+        searchButton = createModernButton("Rechercher", PRIMARY_COLOR, TEXT_COLOR, PRIMARY_HOVER, "search");
         searchButton.setActionCommand(ControllerActions.SEARCH);
-        searchButton.addActionListener(controller);
         
         // Ajout d'un listener pour la touche Entrée
         searchField.addActionListener(e -> {
@@ -129,22 +157,18 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JMenuItem importCars = new JMenuItem("Voitures");
         importCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importCars.setActionCommand(ControllerActions.IMPORT_CARS);
-        importCars.addActionListener(controller);
 
         JMenuItem importClients = new JMenuItem("Clients");
         importClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importClients.setActionCommand(ControllerActions.IMPORT_CLIENTS);
-        importClients.addActionListener(controller);
 
         JMenuItem importContracts = new JMenuItem("Contrats");
         importContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importContracts.setActionCommand(ControllerActions.IMPORT_CONTRACTS);
-        importContracts.addActionListener(controller);
 
         JMenuItem importReservations = new JMenuItem("Réservations");
         importReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         importReservations.setActionCommand(ControllerActions.IMPORT_RESERVATIONS);
-        importReservations.addActionListener(controller);
 
         importMenu.add(importCars);
         importMenu.add(importClients);
@@ -158,22 +182,18 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         JMenuItem exportCars = new JMenuItem("Voitures");
         exportCars.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportCars.setActionCommand(ControllerActions.EXPORT_CARS);
-        exportCars.addActionListener(controller);
 
         JMenuItem exportClients = new JMenuItem("Clients");
         exportClients.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportClients.setActionCommand(ControllerActions.EXPORT_CLIENTS);
-        exportClients.addActionListener(controller);
 
         JMenuItem exportContracts = new JMenuItem("Contrats");
         exportContracts.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportContracts.setActionCommand(ControllerActions.EXPORT_CONTRACTS);
-        exportContracts.addActionListener(controller);
 
         JMenuItem exportReservations = new JMenuItem("Réservations");
         exportReservations.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         exportReservations.setActionCommand(ControllerActions.EXPORT_RESERVATIONS);
-        exportReservations.addActionListener(controller);
 
         exportMenu.add(exportCars);
         exportMenu.add(exportClients);
@@ -189,8 +209,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         exitItem.setActionCommand("EXIT");
         exitItem.addActionListener(e -> System.exit(0));
         fileMenu.add(exitItem);
-
-
 
         // Menu Thèmes
         JMenu themeMenu = new JMenu("Thèmes");
@@ -238,9 +256,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
 
         settingsMenu.add(dateFormatMenu);
 
+        // Menu Export/Import Avancé
+        JMenu advancedMenu = new JMenu("Export/Import Avancé");
+        advancedMenu.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        JMenuItem exportImportItem = new JMenuItem("Gestionnaire Export/Import");
+        exportImportItem.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        exportImportItem.addActionListener(e -> showExportImportDialog());
+
+        advancedMenu.add(exportImportItem);
+
         menuBar.add(fileMenu);
         menuBar.add(themeMenu);
         menuBar.add(settingsMenu);
+        menuBar.add(advancedMenu);
 
         setJMenuBar(menuBar);
 
@@ -248,19 +277,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         tabbedPane = new JTabbedPane();
 
         // Onglet 1: Lister véhicules
-        panel1 = createModernPanel();
+        panel1 = createModernPanel(Color.WHITE, true);
         String[] carColumns = {"ID Car", "Marque", "Modèle", "Année", "Prix/jour", "Kilometrages", "Carburant", "Transmission", "Places", "Disponibilité"};
         Object[][] carData = {};  // Les données seront ajoutées dynamiquement
         table1 = new JTable(carData, carColumns);
         stylizeTable(table1);
         JScrollPane scrollPane1 = new JScrollPane(table1);
         JPanel buttonPanel1 = new JPanel(new FlowLayout(posBouton));
-        buttonPanel1.setOpaque(false);
-        buttonAddCar = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonPanel1.setOpaque(true);
+        buttonPanel1.setBackground(PANEL_BG);
+        buttonAddCar = createModernButton("Ajouter", ADD_COLOR, TEXT_COLOR, ADD_HOVER, "add");
         buttonAddCar.setActionCommand(ControllerActions.ADD_CAR);
-        buttonModifyCar = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyCar = createModernButton("Modifier", EDIT_COLOR, TEXT_COLOR, EDIT_HOVER, "edit");
         buttonModifyCar.setActionCommand(ControllerActions.MODIFY_CAR);
-        buttonDeleteCar = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteCar = createModernButton("Supprimer", DELETE_COLOR, TEXT_COLOR, DELETE_HOVER, "delete");
         buttonDeleteCar.setActionCommand(ControllerActions.DELETE_CAR);
         buttonPanel1.add(buttonAddCar);
         buttonPanel1.add(buttonModifyCar);
@@ -269,19 +299,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         panel1.add(scrollPane1, BorderLayout.CENTER);
 
         // Onglet 2: Lister clients
-        panel2 = createModernPanel();
+        panel2 = createModernPanel(Color.WHITE, true);
         String[] clientColumns = {"ID Client", "Name", "Surname", "Email", "Password", "Birthdate", "Phone"};
         Object[][] clientData = {};  // Les données seront ajoutées dynamiquement
         table2 = new JTable(clientData, clientColumns);
         stylizeTable(table2);
         JScrollPane scrollPane2 = new JScrollPane(table2);
         JPanel buttonPanel2 = new JPanel(new FlowLayout(posBouton));
-        buttonPanel2.setOpaque(false);
-        buttonAddClient = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonPanel2.setOpaque(true);
+        buttonPanel2.setBackground(PANEL_BG);
+        buttonAddClient = createModernButton("Ajouter", ADD_COLOR, TEXT_COLOR, ADD_HOVER, "add");
         buttonAddClient.setActionCommand(ControllerActions.ADD_CLIENT);
-        buttonModifyClient = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyClient = createModernButton("Modifier", EDIT_COLOR, TEXT_COLOR, EDIT_HOVER, "edit");
         buttonModifyClient.setActionCommand(ControllerActions.MODIFY_CLIENT);
-        buttonDeleteClient = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteClient = createModernButton("Supprimer", DELETE_COLOR, TEXT_COLOR, DELETE_HOVER, "delete");
         buttonDeleteClient.setActionCommand(ControllerActions.DELETE_CLIENT);
         buttonPanel2.add(buttonAddClient);
         buttonPanel2.add(buttonModifyClient);
@@ -290,19 +321,20 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         panel2.add(scrollPane2, BorderLayout.CENTER);
 
         // Onglet 3: Lister réservations
-        panel3 = createModernPanel();
+        panel3 = createModernPanel(Color.WHITE, true);
         String[] locationColumns = {"ID Reservation", "Immatriculation", "Nom Complet", "Date Début", "Date Fin", "Responsable", "Prix Total", "Notes"};
         Object[][] locationData = {};  // Les données seront ajoutées dynamiquement
         table3 = new JTable(locationData, locationColumns);
         stylizeTable(table3);
         JScrollPane scrollPane3 = new JScrollPane(table3);
         JPanel buttonPanel3 = new JPanel(new FlowLayout(posBouton));
-        buttonPanel3.setOpaque(false);
-        buttonAddLocation = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonPanel3.setOpaque(true);
+        buttonPanel3.setBackground(PANEL_BG);
+        buttonAddLocation = createModernButton("Ajouter", ADD_COLOR, TEXT_COLOR, ADD_HOVER, "add");
         buttonAddLocation.setActionCommand(ControllerActions.ADD_LOCATION);
-        buttonModifyLocation = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyLocation = createModernButton("Modifier", EDIT_COLOR, TEXT_COLOR, EDIT_HOVER, "edit");
         buttonModifyLocation.setActionCommand(ControllerActions.MODIFY_LOCATION);
-        buttonDeleteLocation = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteLocation = createModernButton("Supprimer", DELETE_COLOR, TEXT_COLOR, DELETE_HOVER, "delete");
         buttonDeleteLocation.setActionCommand(ControllerActions.DELETE_LOCATION);
         buttonPanel3.add(buttonAddLocation);
         buttonPanel3.add(buttonModifyLocation);
@@ -316,25 +348,51 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         panel4.setBackground(new Color(245, 247, 250));
 
         // Onglet 5: Lister contrats
-        panel5 = createModernPanel();
+        panel5 = createModernPanel(Color.WHITE, true);
         String[] contratColumns = {"ID Contrat", "Véhicule", "Client", "Caution", "Type Assurance", "Options", "Signé", "Statut"};
         Object[][] contratData = {}; // À remplir dynamiquement
         table4 = new JTable(contratData, contratColumns);
         stylizeTable(table4);
         JScrollPane scrollPane4 = new JScrollPane(table4);
         JPanel buttonPanel4 = new JPanel(new FlowLayout(posBouton));
-        buttonPanel4.setOpaque(false);
-        buttonAddContrat = createModernButton("Ajouter", new Color(46, 204, 113), Color.WHITE, new Color(39, 174, 96), "add");
+        buttonPanel4.setOpaque(true);
+        buttonPanel4.setBackground(PANEL_BG);
+        buttonAddContrat = createModernButton("Ajouter", ADD_COLOR, TEXT_COLOR, ADD_HOVER, "add");
         buttonAddContrat.setActionCommand(ControllerActions.ADD_CONTRAT);
-        buttonModifyContrat = createModernButton("Modifier", new Color(241, 196, 15), Color.WHITE, new Color(243, 156, 18), "edit");
+        buttonModifyContrat = createModernButton("Modifier", EDIT_COLOR, TEXT_COLOR, EDIT_HOVER, "edit");
         buttonModifyContrat.setActionCommand(ControllerActions.MODIFY_CONTRAT);
-        buttonDeleteContrat = createModernButton("Supprimer", new Color(231, 76, 60), Color.WHITE, new Color(192, 57, 43), "delete");
+        buttonDeleteContrat = createModernButton("Supprimer", DELETE_COLOR, TEXT_COLOR, DELETE_HOVER, "delete");
         buttonDeleteContrat.setActionCommand(ControllerActions.DELETE_CONTRAT);
+        buttonExportContratPDF = createModernButton("Exporter PDF", EXPORT_COLOR, TEXT_COLOR, EXPORT_HOVER, "export");
         buttonPanel4.add(buttonAddContrat);
         buttonPanel4.add(buttonModifyContrat);
         buttonPanel4.add(buttonDeleteContrat);
+        buttonPanel4.add(buttonExportContratPDF);
         panel5.add(buttonPanel4, BorderLayout.NORTH);
         panel5.add(scrollPane4, BorderLayout.CENTER);
+        
+        // Action du bouton Exporter PDF
+        buttonExportContratPDF.addActionListener(e -> {
+            Contrat selectedContrat = getSelectedContrat();
+            if (selectedContrat == null) {
+                JOptionPane.showMessageDialog(this, "Veuillez sélectionner un contrat à exporter.", "Aucun contrat sélectionné", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Enregistrer le contrat au format PDF");
+            fileChooser.setSelectedFile(new java.io.File("contrat_" + selectedContrat.getIdContrat() + ".pdf"));
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                java.io.File fileToSave = fileChooser.getSelectedFile();
+                try {
+                    org.example.utils.PDFExporter.exportContratToPDF(selectedContrat, fileToSave.getAbsolutePath());
+                    JOptionPane.showMessageDialog(this, "Contrat exporté avec succès !", "Export PDF", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Erreur lors de l'export PDF : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         // Ajout des onglets
         tabbedPane.addTab("Lister Véhicules", panel1);
@@ -375,16 +433,15 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     @Override
     public void setController(Controller controller) {
         this.controller = controller;
-
         // Initialiser les formulaires et dialogues
         sessionDialog = new ImprovedSessionDialog(this, controller);
         addCarForm = new AddCarForm(this, controller);
         addClientForm = new AddClientForm(this, controller);
         addLocationForm = new AddLocationForm(this, controller);
-
-        // Configurer les écouteurs d'événements
+        
+        // Centraliser l'ajout des ActionListeners
         setupEventListeners();
-
+        
         // Associer le controller aux menus d'import/export
         updateMenuListeners();
     }
@@ -412,6 +469,9 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         buttonAddContrat.addActionListener(controller);
         buttonModifyContrat.addActionListener(controller);
         buttonDeleteContrat.addActionListener(controller);
+        
+        // Configurer l'écouteur pour le bouton de recherche
+        searchButton.addActionListener(controller);
 
         // Configurer l'écouteur pour le bouton de session
         sessionButton.addActionListener(e -> {
@@ -427,6 +487,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
     public void showSessionDialogFromController() {
         sessionDialog.showDialog();
     }
+
     // Implémentation des méthodes pour mettre à jour les tables
     @Override
     public void updateCarTable(List<Car> cars) {
@@ -434,7 +495,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         Object[][] data = new Object[cars.size()][10];
         int i = 0;
         for (Car car : cars) {
-
             data[i][0] = car.getIdCar();
             data[i][1] = car.getBrand();
             data[i][2] = car.getModel();
@@ -446,7 +506,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
             data[i][8] = car.getSeats();
             data[i][9] = car.isAvailable() ? "Disponible" : "Non disponible";
             i++;
-
         }
 
         // Mettre à jour la table avec les nouvelles données
@@ -488,7 +547,6 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         int i = 0;
         for (Reservation reservation : reservations) {
             data[i][0] = reservation.getIdReservation();
-
 
             // Immatriculation de la voiture (nouvel attribut)
             data[i][1] = reservation.getCarRegistration() != null ? reservation.getCarRegistration() : "N/A";
@@ -842,45 +900,68 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         button.setForeground(fg);
         button.setFont(new Font("Segoe UI", Font.BOLD, 15));
         button.setBorder(BorderFactory.createEmptyBorder(10, 24, 10, 24));
-        button.setUI(new BasicButtonUI());
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
-        button.setBorder(BorderFactory.createLineBorder(bg.darker(), 2, true));
-
-        // Ajouter une icône si spécifiée
-        if (iconName != null && !iconName.isEmpty()) {
-            try {
-                String iconPath = "/icons/" + iconName + ".png";
-                ImageIcon originalIcon = new ImageIcon(getClass().getResource(iconPath));
-
-                // Redimensionner l'icône pour qu'elle s'adapte au bouton
-                Image originalImage = originalIcon.getImage();
-                Image resizedImage = originalImage.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                button.setIcon(new ImageIcon(resizedImage));
-                button.setIconTextGap(10);
-            } catch (Exception e) {
-                System.out.println("Erreur lors du chargement de l'icône " + iconName + ": " + e.getMessage());
-            }
-        }
-
+        // Animation douce de transition de couleur au hover
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            private javax.swing.Timer timer;
+            private float progress = 0f;
+            private boolean entering = false;
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(hover);
+                entering = true;
+                if (timer != null && timer.isRunning()) timer.stop();
+                timer = new javax.swing.Timer(10, e -> {
+                    progress += 0.08f;
+                    if (progress >= 1f) progress = 1f;
+                    button.setBackground(interpolateColor(bg, hover, progress));
+                    if (progress >= 1f) timer.stop();
+                });
+                timer.start();
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(bg);
+                entering = false;
+                if (timer != null && timer.isRunning()) timer.stop();
+                timer = new javax.swing.Timer(10, e -> {
+                    progress -= 0.08f;
+                    if (progress <= 0f) progress = 0f;
+                    button.setBackground(interpolateColor(bg, hover, progress));
+                    if (progress <= 0f) timer.stop();
+                });
+                timer.start();
             }
         });
+        // Ajout d'une icône moderne si disponible (optionnel)
+        // ...
         return button;
     }
 
+    // Interpolation de couleur pour animation
+    private Color interpolateColor(Color c1, Color c2, float t) {
+        int r = (int) (c1.getRed() + t * (c2.getRed() - c1.getRed()));
+        int g = (int) (c1.getGreen() + t * (c2.getGreen() - c1.getGreen()));
+        int b = (int) (c1.getBlue() + t * (c2.getBlue() - c1.getBlue()));
+        return new Color(r, g, b);
+    }
+
     // --- UTILITAIRE : Panel moderne ---
-    private JPanel createModernPanel() {
-        JPanel panel = new JPanel(new BorderLayout());
+    private JPanel createModernPanel(Color bg, boolean shadow) {
+        JPanel panel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (shadow) {
+                    Graphics2D g2 = (Graphics2D) g.create();
+                    g2.setColor(new Color(0,0,0,40));
+                    g2.fillRoundRect(8, 8, getWidth()-16, getHeight()-16, 20, 20);
+                    g2.dispose();
+                }
+            }
+        };
         panel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(tailleBorder, tailleBorder, tailleBorder, tailleBorder),
                 BorderFactory.createLineBorder(new Color(230, 232, 240), 2, true)));
-        panel.setBackground(new Color(245, 247, 250));
+        panel.setBackground(bg);
+        panel.setOpaque(false);
         return panel;
     }
 
@@ -889,7 +970,7 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         table.setRowHeight(28);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-        table.getTableHeader().setBackground(new Color(80, 90, 170));
+        table.getTableHeader().setBackground(new Color(52, 152, 219));
         table.getTableHeader().setForeground(Color.WHITE);
         table.setGridColor(new Color(230, 232, 240));
         table.setSelectionBackground(new Color(120, 130, 200));
@@ -897,102 +978,300 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         table.setShowHorizontalLines(true);
         table.setShowVerticalLines(false);
         table.setIntercellSpacing(new Dimension(0, 0));
+        // Lignes alternées
+        table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    c.setBackground(row % 2 == 0 ? Color.WHITE : new Color(244, 246, 248));
+                } else {
+                    c.setBackground(new Color(120, 130, 200));
+                }
+                // Badge de statut pour la colonne Statut (contrats)
+                if (table.getColumnName(column).equalsIgnoreCase("Statut") && value != null) {
+                    String statut = value.toString();
+                    JLabel label = new JLabel(statut, JLabel.CENTER);
+                    label.setOpaque(true);
+                    label.setForeground(Color.WHITE);
+                    switch (statut) {
+                        case "SIGNE":
+                        case "TERMINE":
+                            label.setBackground(new Color(39, 174, 96)); // vert
+                            break;
+                        case "EN_ATTENTE":
+                            label.setBackground(new Color(243, 156, 18)); // orange
+                            break;
+                        case "ANNULE":
+                        case "EXPIRE":
+                            label.setBackground(new Color(231, 76, 60)); // rouge
+                            break;
+                        default:
+                            label.setBackground(new Color(52, 152, 219)); // bleu
+                    }
+                    return label;
+                }
+                return c;
+            }
+        });
     }
 
     @Override
     public void updateCarImages(List<Car> cars) {
         panel4.removeAll();
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new WrapLayout(FlowLayout.CENTER, 30, 30));
-        contentPanel.setBackground(new Color(245, 247, 250));
+        // Panel principal centré
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(new Color(248, 250, 252));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+
+        // Titre/statistiques centré
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setOpaque(false);
+        titlePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel sectionTitle = new JLabel("Nos Véhicules Disponibles");
+        sectionTitle.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        sectionTitle.setForeground(new Color(30, 41, 59));
+        sectionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+        sectionTitle.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
+
+        long availableCars = cars.stream().filter(Car::isAvailable).count();
+        long totalCars = cars.size();
+        JLabel statsLabel = new JLabel(String.format("📊 %d véhicules disponibles sur %d au total", availableCars, totalCars));
+        statsLabel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        statsLabel.setForeground(new Color(71, 85, 105));
+        statsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        statsLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        titlePanel.add(sectionTitle);
+        titlePanel.add(statsLabel);
+        titlePanel.setMaximumSize(new Dimension(700, 60));
+        mainPanel.add(titlePanel);
+        mainPanel.add(Box.createVerticalStrut(25));
+
+        // Séparateur discret
+        JSeparator separator = new JSeparator();
+        separator.setForeground(new Color(226, 232, 240));
+        separator.setMaximumSize(new Dimension(700, 1));
+        mainPanel.add(separator);
+        mainPanel.add(Box.createVerticalStrut(25));
+
+        // Panel de la grille de cartes, centré et largeur max
+        JPanel gridWrapper = new JPanel(new BorderLayout());
+        gridWrapper.setOpaque(false);
+        gridWrapper.setMaximumSize(new Dimension(1600, Integer.MAX_VALUE));
+        gridWrapper.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        JPanel gridPanel = new JPanel(new WrapLayout(FlowLayout.LEFT, 32, 32));
+        gridPanel.setBackground(new Color(248, 250, 252));
+        gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         for (Car car : cars) {
-            JPanel carPanel = new JPanel(new BorderLayout());
-            carPanel.setBackground(Color.WHITE);
-            carPanel.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
-                    BorderFactory.createEmptyBorder(10, 10, 10, 10)
-            ));
-            carPanel.setPreferredSize(new Dimension(330, 280));
-
-            // Image
-            JLabel imageLabel = new JLabel();
-            imageLabel.setHorizontalAlignment(JLabel.CENTER);
-            imageLabel.setOpaque(true);
-            imageLabel.setBackground(new Color(248, 249, 250));
-            imageLabel.setPreferredSize(new Dimension(330, 200));
-
-            String imagePath = car.getImage();
-            if (imagePath != null && !imagePath.isEmpty()) {
-                try {
-                    ImageIcon originalIcon = new ImageIcon(imagePath);
-                    Image resizedImage = originalIcon.getImage().getScaledInstance(330, 200, Image.SCALE_SMOOTH);
-                    imageLabel.setIcon(new ImageIcon(resizedImage));
-                } catch (Exception e) {
-                    imageLabel.setText("Image non disponible");
-                }
-            } else {
-                imageLabel.setText("Pas d'image");
-            }
-
-            // Titre + sous-titre
-            JLabel title = new JLabel(car.getBrand() + " " + car.getModel() + " (" + car.getYear() + ")");
-            title.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            title.setHorizontalAlignment(JLabel.CENTER);
-
-            JLabel subtitle = new JLabel(car.getPriceday() + " €/jour · " + (car.isAvailable() ? "Disponible" : "Indisponible"));
-            if (car.isAvailable()) {
-                subtitle.setForeground(new Color(0, 153, 0)); // Vert
-            } else {
-                subtitle.setForeground(Color.RED);
-            }
-            subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-
-            subtitle.setHorizontalAlignment(JLabel.CENTER);
-
-            JPanel textPanel = new JPanel();
-            textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-            textPanel.setBackground(Color.WHITE);
-            textPanel.add(Box.createVerticalStrut(10));
-            textPanel.add(title);
-            textPanel.add(Box.createVerticalStrut(5));
-            textPanel.add(subtitle);
-
-            carPanel.add(imageLabel, BorderLayout.NORTH);
-            carPanel.add(textPanel, BorderLayout.CENTER);
-
-            // Effet hover
-            carPanel.addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent e) {
-                    carPanel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    carPanel.setBorder(BorderFactory.createLineBorder(new Color(160, 180, 255), 2));
-                }
-
-                public void mouseExited(MouseEvent e) {
-                    carPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    carPanel.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
-                            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-                    ));
-                }
-
-                public void mouseClicked(MouseEvent e) {
-                    showCarDetails(car);
-                }
-            });
-
-            contentPanel.add(carPanel);
+            JPanel carCard = createModernCarCard(car);
+            gridPanel.add(carCard);
         }
+        gridWrapper.add(gridPanel, BorderLayout.CENTER);
+        mainPanel.add(gridWrapper);
 
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        // ScrollPane sur le mainPanel
+        JScrollPane scrollPane = new JScrollPane(mainPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getVerticalScrollBar().setUnitIncrement(25);
+        scrollPane.setBackground(new Color(248, 250, 252));
 
         panel4.setLayout(new BorderLayout());
+        panel4.setBackground(new Color(248, 250, 252));
         panel4.add(scrollPane, BorderLayout.CENTER);
         panel4.revalidate();
         panel4.repaint();
+    }
+
+    // Amélioration de l'effet carte : coins arrondis + ombre
+    private JPanel createModernCarCard(Car car) {
+        JPanel card = new JPanel(new BorderLayout(0, 0)) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                // Ombre portée
+                g2.setColor(new Color(0,0,0,18));
+                g2.fillRoundRect(6, 8, getWidth()-12, getHeight()-12, 28, 28);
+                g2.dispose();
+            }
+        };
+        card.setOpaque(false);
+        JPanel content = new JPanel(new BorderLayout(0, 0));
+        content.setBackground(Color.WHITE);
+        content.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true),
+                BorderFactory.createEmptyBorder(0, 0, 0, 0)
+        ));
+        content.setPreferredSize(new Dimension(350, 420));
+        content.setOpaque(true);
+        
+        // Effet d'ombre
+        content.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(5, 5, 5, 5),
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true),
+                        BorderFactory.createEmptyBorder(0, 0, 0, 0)
+                )
+        ));
+
+        // Header avec image
+        JPanel imagePanel = new JPanel(new BorderLayout());
+        imagePanel.setBackground(new Color(241, 245, 249));
+        imagePanel.setPreferredSize(new Dimension(350, 220));
+
+        JLabel imageLabel = new JLabel();
+        imageLabel.setHorizontalAlignment(JLabel.CENTER);
+        imageLabel.setOpaque(true);
+        imageLabel.setBackground(new Color(241, 245, 249));
+
+        String imagePath = car.getImage();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            try {
+                ImageIcon originalIcon = new ImageIcon(imagePath);
+                Image resizedImage = originalIcon.getImage().getScaledInstance(350, 220, Image.SCALE_SMOOTH);
+                imageLabel.setIcon(new ImageIcon(resizedImage));
+            } catch (Exception e) {
+                // Image par défaut stylisée
+                imageLabel.setText("🚗");
+                imageLabel.setFont(new Font("Segoe UI", Font.PLAIN, 48));
+                imageLabel.setForeground(new Color(148, 163, 184));
+            }
+        } else {
+            imageLabel.setText("🚗");
+            imageLabel.setFont(new Font("Segoe UI", Font.PLAIN, 48));
+            imageLabel.setForeground(new Color(148, 163, 184));
+        }
+
+        // Badge de disponibilité
+        JPanel badgePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        badgePanel.setOpaque(false);
+        
+        JLabel statusBadge = new JLabel(car.isAvailable() ? "✓ Disponible" : "✗ Indisponible");
+        statusBadge.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        statusBadge.setForeground(Color.WHITE);
+        statusBadge.setBackground(car.isAvailable() ? new Color(34, 197, 94) : new Color(239, 68, 68));
+        statusBadge.setOpaque(true);
+        statusBadge.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        
+        badgePanel.add(statusBadge);
+        imagePanel.add(badgePanel, BorderLayout.NORTH);
+        imagePanel.add(imageLabel, BorderLayout.CENTER);
+
+        // Contenu principal
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        // Titre du véhicule
+        JLabel titleLabel = new JLabel(car.getBrand() + " " + car.getModel());
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        titleLabel.setForeground(new Color(15, 23, 42));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Année
+        JLabel yearLabel = new JLabel("Année " + car.getYear());
+        yearLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        yearLabel.setForeground(new Color(100, 116, 139));
+        yearLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Prix
+        JLabel priceLabel = new JLabel(car.getPriceday() + " €/jour");
+        priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        priceLabel.setForeground(new Color(59, 130, 246));
+        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Séparateur
+        JSeparator separator = new JSeparator();
+        separator.setForeground(new Color(226, 232, 240));
+        separator.setMaximumSize(new Dimension(300, 1));
+
+        // Informations techniques
+        JPanel specsPanel = new JPanel(new GridLayout(2, 2, 10, 8));
+        specsPanel.setBackground(Color.WHITE);
+        specsPanel.setMaximumSize(new Dimension(300, 80));
+
+        // Carburant
+        JLabel fuelLabel = createSpecLabel("⛽ " + car.getFuelType(), new Color(34, 197, 94));
+        // Transmission
+        JLabel transLabel = createSpecLabel("⚙️ " + car.getTransmission(), new Color(59, 130, 246));
+        // Places
+        JLabel seatsLabel = createSpecLabel("👥 " + car.getSeats() + " places", new Color(168, 85, 247));
+        // Kilométrage
+        JLabel mileageLabel = createSpecLabel("🛣️ " + car.getMileage() + " km", new Color(245, 158, 11));
+
+        specsPanel.add(fuelLabel);
+        specsPanel.add(transLabel);
+        specsPanel.add(seatsLabel);
+        specsPanel.add(mileageLabel);
+
+        // Assemblage du contenu
+        contentPanel.add(titleLabel);
+        contentPanel.add(Box.createVerticalStrut(5));
+        contentPanel.add(yearLabel);
+        contentPanel.add(Box.createVerticalStrut(8));
+        contentPanel.add(priceLabel);
+        contentPanel.add(Box.createVerticalStrut(12));
+        contentPanel.add(separator);
+        contentPanel.add(Box.createVerticalStrut(12));
+        contentPanel.add(specsPanel);
+
+        content.add(imagePanel, BorderLayout.NORTH);
+        content.add(contentPanel, BorderLayout.CENTER);
+
+        // Effet hover avec animation
+        content.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                content.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                content.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createEmptyBorder(3, 3, 7, 3),
+                        BorderFactory.createCompoundBorder(
+                                BorderFactory.createLineBorder(new Color(59, 130, 246), 2, true),
+                                BorderFactory.createEmptyBorder(0, 0, 0, 0)
+                        )
+                ));
+                content.setBackground(new Color(248, 250, 252));
+            }
+
+            public void mouseExited(MouseEvent e) {
+                content.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                content.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createEmptyBorder(0, 0, 0, 0),
+                        BorderFactory.createCompoundBorder(
+                                BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true),
+                                BorderFactory.createEmptyBorder(0, 0, 0, 0)
+                        )
+                ));
+                content.setBackground(Color.WHITE);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                showCarDetails(car);
+            }
+        });
+
+        card.add(content, BorderLayout.CENTER);
+        return card;
+    }
+
+    /**
+     * Crée un label stylisé pour les spécifications
+     */
+    private JLabel createSpecLabel(String text, Color color) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        label.setForeground(color);
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label.setBorder(BorderFactory.createEmptyBorder(4, 6, 4, 6));
+        return label;
     }
 
     /**
@@ -1004,115 +1283,275 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         if (car == null) return;
 
         JDialog detailsDialog = new JDialog(this, "Détails du véhicule", true);
-        detailsDialog.setSize(850, 550);
+        detailsDialog.setSize(900, 600);
         detailsDialog.setLocationRelativeTo(this);
         detailsDialog.setLayout(new BorderLayout());
 
-        // Bandeau supérieur
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        headerPanel.setBackground(new Color(65, 105, 225));
-        headerPanel.setPreferredSize(new Dimension(800, 60));
+        // Header avec gradient
+        JPanel headerPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                Color start = new Color(59, 130, 246); // Bleu
+                Color end = new Color(147, 51, 234); // Violet
+                int w = getWidth();
+                int h = getHeight();
+                GradientPaint gp = new GradientPaint(0, 0, start, w, 0, end);
+                g2d.setPaint(gp);
+                g2d.fillRect(0, 0, w, h);
+            }
+        };
+        headerPanel.setPreferredSize(new Dimension(900, 80));
+        headerPanel.setOpaque(false);
 
+        // Titre du header
         JLabel headerTitle = new JLabel(car.getBrand() + " " + car.getModel());
         headerTitle.setForeground(Color.WHITE);
-        headerTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        headerPanel.add(headerTitle);
+        headerTitle.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        headerTitle.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
+
+        // Badge de statut dans le header
+        JLabel statusBadge = new JLabel(car.isAvailable() ? "✓ Disponible" : "✗ Indisponible");
+        statusBadge.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        statusBadge.setForeground(Color.WHITE);
+        statusBadge.setBackground(car.isAvailable() ? new Color(34, 197, 94) : new Color(239, 68, 68));
+        statusBadge.setOpaque(true);
+        statusBadge.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+
+        JPanel headerContent = new JPanel(new BorderLayout());
+        headerContent.setOpaque(false);
+        headerContent.add(headerTitle, BorderLayout.WEST);
+        headerContent.add(statusBadge, BorderLayout.EAST);
+        headerPanel.add(headerContent, BorderLayout.CENTER);
+
         detailsDialog.add(headerPanel, BorderLayout.NORTH);
 
         // Panel principal
-        JPanel mainPanel = new JPanel(new BorderLayout(20, 20));
-        mainPanel.setBackground(new Color(245, 247, 250));
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JPanel mainPanel = new JPanel(new BorderLayout(25, 25));
+        mainPanel.setBackground(new Color(248, 250, 252));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        // Panel gauche : image
-        JPanel leftPanel = new JPanel(new BorderLayout());
+        // Panel gauche : image et prix
+        JPanel leftPanel = new JPanel(new BorderLayout(15, 15));
         leftPanel.setBackground(Color.WHITE);
-        leftPanel.setPreferredSize(new Dimension(350, 300));
+        leftPanel.setPreferredSize(new Dimension(400, 450));
         leftPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(200, 200, 200), 1, true),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true),
+                BorderFactory.createEmptyBorder(20, 20, 20, 20)
         ));
+
+        // Image du véhicule
+        JPanel imageContainer = new JPanel(new BorderLayout());
+        imageContainer.setBackground(new Color(241, 245, 249));
+        imageContainer.setBorder(BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true));
 
         JLabel imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(JLabel.CENTER);
         imageLabel.setOpaque(true);
-        imageLabel.setBackground(new Color(248, 249, 250));
-        imageLabel.setPreferredSize(new Dimension(330, 250));
+        imageLabel.setBackground(new Color(241, 245, 249));
+        imageLabel.setPreferredSize(new Dimension(360, 280));
 
         String imagePath = car.getImage();
         if (imagePath != null && !imagePath.isEmpty()) {
             try {
                 ImageIcon originalIcon = new ImageIcon(imagePath);
-                Image resizedImage = originalIcon.getImage().getScaledInstance(330, 250, Image.SCALE_SMOOTH);
+                Image resizedImage = originalIcon.getImage().getScaledInstance(360, 280, Image.SCALE_SMOOTH);
                 imageLabel.setIcon(new ImageIcon(resizedImage));
             } catch (Exception e) {
-                imageLabel.setText("Image non disponible");
+                imageLabel.setText("🚗");
+                imageLabel.setFont(new Font("Segoe UI", Font.PLAIN, 64));
+                imageLabel.setForeground(new Color(148, 163, 184));
             }
         } else {
-            imageLabel.setText("Pas d'image");
+            imageLabel.setText("🚗");
+            imageLabel.setFont(new Font("Segoe UI", Font.PLAIN, 64));
+            imageLabel.setForeground(new Color(148, 163, 184));
         }
-        leftPanel.add(imageLabel, BorderLayout.CENTER);
+        imageContainer.add(imageLabel, BorderLayout.CENTER);
 
-        // Panel droit : infos
+        // Panel du prix
+        JPanel pricePanel = new JPanel(new BorderLayout());
+        pricePanel.setBackground(new Color(59, 130, 246));
+        pricePanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+
+        JLabel priceLabel = new JLabel(car.getPriceday() + " €/jour");
+        priceLabel.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        priceLabel.setForeground(Color.WHITE);
+        priceLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel priceSubtitle = new JLabel("Prix de location");
+        priceSubtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        priceSubtitle.setForeground(new Color(191, 219, 254));
+        priceSubtitle.setHorizontalAlignment(JLabel.CENTER);
+
+        JPanel priceContent = new JPanel(new BorderLayout(5, 0));
+        priceContent.setOpaque(false);
+        priceContent.add(priceLabel, BorderLayout.CENTER);
+        priceContent.add(priceSubtitle, BorderLayout.SOUTH);
+        pricePanel.add(priceContent, BorderLayout.CENTER);
+
+        leftPanel.add(imageContainer, BorderLayout.CENTER);
+        leftPanel.add(pricePanel, BorderLayout.SOUTH);
+
+        // Panel droit : informations détaillées
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(230, 232, 240), 1, true),
-                BorderFactory.createEmptyBorder(20, 20, 20, 20)
+                BorderFactory.createLineBorder(new Color(226, 232, 240), 1, true),
+                BorderFactory.createEmptyBorder(25, 25, 25, 25)
         ));
 
-        String[][] data = {
-                {"Immatriculation", car.getIdCar()},
-                {"Année", String.valueOf(car.getYear())},
-                {"Prix par jour", car.getPriceday() + " €"},
-                {"Kilométrage", car.getMileage() + " km"},
-                {"Carburant", car.getFuelType()},
-                {"Transmission", car.getTransmission()},
-                {"Nombre de places", String.valueOf(car.getSeats())},
-                {"Disponibilité", car.isAvailable() ? "Disponible" : "Indisponible"}
-        };
+        // Titre de la section
+        JLabel infoTitle = new JLabel("Informations du véhicule");
+        infoTitle.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        infoTitle.setForeground(new Color(15, 23, 42));
+        infoTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel infoPanel = new JPanel(new GridLayout(data.length, 2, 10, 15));
-        infoPanel.setBackground(Color.WHITE);
+        // Grille d'informations
+        JPanel infoGrid = new JPanel(new GridLayout(0, 2, 20, 15));
+        infoGrid.setBackground(Color.WHITE);
+        infoGrid.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
-        for (String[] row : data) {
-            JLabel keyLabel = new JLabel(row[0]);
-            keyLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            keyLabel.setForeground(new Color(80, 80, 80));
+        // Informations principales
+        infoGrid.add(createInfoItem("🚗 Immatriculation", car.getIdCar(), new Color(59, 130, 246)));
+        infoGrid.add(createInfoItem("📅 Année", String.valueOf(car.getYear()), new Color(34, 197, 94)));
+        infoGrid.add(createInfoItem("⛽ Carburant", car.getFuelType(), new Color(245, 158, 11)));
+        infoGrid.add(createInfoItem("⚙️ Transmission", car.getTransmission(), new Color(168, 85, 247)));
+        infoGrid.add(createInfoItem("👥 Places", String.valueOf(car.getSeats()), new Color(236, 72, 153)));
+        infoGrid.add(createInfoItem("🛣️ Kilométrage", car.getMileage() + " km", new Color(16, 185, 129)));
 
-            JLabel valueLabel = new JLabel(row[1]);
-            valueLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            valueLabel.setForeground(new Color(50, 50, 50));
+        rightPanel.add(infoTitle);
+        rightPanel.add(Box.createVerticalStrut(10));
+        rightPanel.add(infoGrid);
 
-            infoPanel.add(keyLabel);
-            infoPanel.add(valueLabel);
-        }
+        // Section des caractéristiques
+        JLabel featuresTitle = new JLabel("Caractéristiques");
+        featuresTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        featuresTitle.setForeground(new Color(15, 23, 42));
+        featuresTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        rightPanel.add(infoPanel);
+        JPanel featuresPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        featuresPanel.setBackground(Color.WHITE);
+        featuresPanel.setBorder(BorderFactory.createEmptyBorder(15, 0, 15, 0));
+
+        // Badges des caractéristiques
+        featuresPanel.add(createFeatureBadge("✓ Disponible", new Color(34, 197, 94)));
+        featuresPanel.add(createFeatureBadge("🔧 Entretien OK", new Color(16, 185, 129)));
+        featuresPanel.add(createFeatureBadge("📋 Assurance", new Color(59, 130, 246)));
+
+        rightPanel.add(Box.createVerticalStrut(20));
+        rightPanel.add(featuresTitle);
+        rightPanel.add(Box.createVerticalStrut(10));
+        rightPanel.add(featuresPanel);
+
         mainPanel.add(leftPanel, BorderLayout.WEST);
         mainPanel.add(rightPanel, BorderLayout.CENTER);
 
-        // Panel boutons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.setBackground(new Color(245, 247, 250));
+        // Panel des boutons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        buttonPanel.setBackground(new Color(248, 250, 252));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
-        JButton closeButton = new JButton("Fermer");
-        closeButton.setFocusPainted(false);
-        closeButton.setBackground(new Color(220, 53, 69));
-        closeButton.setForeground(Color.WHITE);
-        closeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        closeButton.setPreferredSize(new Dimension(100, 35));
-        closeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // Bouton Réserver (si disponible)
+        if (car.isAvailable()) {
+            JButton reserveButton = createModernButton("Réserver ce véhicule", ADD_COLOR, TEXT_COLOR, ADD_HOVER, "reserve");
+            reserveButton.setPreferredSize(new Dimension(180, 40));
+            reserveButton.addActionListener(e -> {
+                detailsDialog.dispose();
+                
+                // Vérifier si l'utilisateur est connecté
+                if (controller != null && controller.isUserLoggedIn()) {
+                    // Ouvrir le formulaire de réservation avec la voiture pré-sélectionnée
+                    AddLocationForm reservationForm = new AddLocationForm(this, controller, car);
+                    reservationForm.showForm();
+                    reservationForm.setVisible(true);
+                    
+                    // Récupérer la réservation créée
+                    Reservation newReservation = reservationForm.getReservation();
+                    
+                    if (newReservation != null) {
+                        // Demander si l'utilisateur veut créer un contrat immédiatement
+                        int choice = JOptionPane.showConfirmDialog(this,
+                            "Réservation créée avec succès !\n" +
+                            "Voulez-vous créer un contrat de location maintenant ?",
+                            "Créer un contrat",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE);
+                        
+                        if (choice == JOptionPane.YES_OPTION) {
+                            // Basculer vers l'onglet des contrats
+                            tabbedPane.setSelectedIndex(4); // Index de l'onglet Contrats
+                            
+                            // Ouvrir le formulaire de contrat
+                            Contrat newContrat = promptAddContrat();
+                            if (newContrat != null) {
+                                JOptionPane.showMessageDialog(this,
+                                    "Contrat créé avec succès !\n" +
+                                    "ID Contrat: " + newContrat.getIdContrat(),
+                                    "Contrat confirmé",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        }
+                    }
+                } else {
+                    // Si l'utilisateur n'est pas connecté, afficher un message
+                    JOptionPane.showMessageDialog(this,
+                        "Vous devez être connecté pour effectuer une réservation.\n" +
+                        "Veuillez vous connecter d'abord.",
+                        "Connexion requise",
+                        JOptionPane.WARNING_MESSAGE);
+                }
+            });
+            buttonPanel.add(reserveButton);
+        }
 
+        // Bouton Fermer
+        JButton closeButton = createModernButton("Fermer", new Color(100, 116, 139), TEXT_COLOR, new Color(71, 85, 105), "close");
+        closeButton.setPreferredSize(new Dimension(120, 40));
         closeButton.addActionListener(e -> detailsDialog.dispose());
         buttonPanel.add(closeButton);
 
         detailsDialog.add(mainPanel, BorderLayout.CENTER);
         detailsDialog.add(buttonPanel, BorderLayout.SOUTH);
+
         detailsDialog.setVisible(true);
     }
 
+    /**
+     * Crée un élément d'information stylisé
+     */
+    private JPanel createInfoItem(String label, String value, Color color) {
+        JPanel panel = new JPanel(new BorderLayout(5, 0));
+        panel.setBackground(Color.WHITE);
+
+        JLabel labelComponent = new JLabel(label);
+        labelComponent.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        labelComponent.setForeground(new Color(71, 85, 105));
+
+        JLabel valueComponent = new JLabel(value);
+        valueComponent.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        valueComponent.setForeground(color);
+
+        panel.add(labelComponent, BorderLayout.NORTH);
+        panel.add(valueComponent, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    /**
+     * Crée un badge de caractéristique
+     */
+    private JLabel createFeatureBadge(String text, Color color) {
+        JLabel badge = new JLabel(text);
+        badge.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        badge.setForeground(Color.WHITE);
+        badge.setBackground(color);
+        badge.setOpaque(true);
+        badge.setBorder(BorderFactory.createEmptyBorder(6, 12, 6, 12));
+        return badge;
+    }
 
     /**
      * Récupère le client sélectionné dans la table des clients
@@ -1486,12 +1925,12 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         
         for (Car car : cars) {
             model.addRow(new Object[]{
-                car.getId(),
+                car.getIdCar(),
                 car.getBrand(),
                 car.getModel(),
-                car.(),
+                car.getTransmission(),
                 car.getYear(),
-                car.getPrice(),
+                car.getPriceday(),
                 car.isAvailable() ? "Disponible" : "Indisponible"
             });
         }
@@ -1508,11 +1947,11 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         
         for (Client client : clients) {
             model.addRow(new Object[]{
-                client.getId(),
-                client.getFirstName(),
-                client.getLastName(),
+                client.getIdClient(),
+                client.getName(),
+                client.getSurname(),
                 client.getEmail(),
-                client.getPhone(),
+                client.getPhoneNumber(),
                 client.getAddress()
             });
         }
@@ -1529,12 +1968,12 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         
         for (Reservation reservation : reservations) {
             model.addRow(new Object[]{
-                reservation.getId(),
+                reservation.getIdReservation(),
                 DateFormatter.format(reservation.getStartDate()),
                 DateFormatter.format(reservation.getEndDate()),
                 reservation.getClientId(),
                 reservation.getCarId(),
-                reservation.getStatus()
+                reservation.getResponsable()
             });
         }
     }
@@ -1550,11 +1989,24 @@ public class JFramesLocation extends JFrame implements ViewLocation {
         
         for (Contrat contrat : contrats) {
             model.addRow(new Object[]{
-                contrat.getId(),
+                contrat.getIdContrat(),
                 contrat.getReservationId(),
-                DateFormatter.format(contrat.getSignatureDate()),
-                contrat.getTotalPrice()
+                contrat.getStatutContrat(),
+                contrat.getPrixTotal()
             });
+        }
+    }
+
+    /**
+     * Affiche le dialogue d'export/import avancé
+     */
+    public void showExportImportDialog() {
+        if (controller != null) {
+            DataAccessLayer model = controller.getModel();
+            if (model instanceof DAOLocation) {
+                ExportImportDialog dialog = new ExportImportDialog(this, (DAOLocation) model);
+                dialog.setVisible(true);
+            }
         }
     }
 }

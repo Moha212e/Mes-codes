@@ -35,6 +35,7 @@ public class AddLocationForm {
     private Reservation result;
     private List<Car> availableCars;
     private List<Client> availableClients;
+    private Car preSelectedCar; // Voiture pré-sélectionnée
 
     public AddLocationForm(JFrame parent, Controller controller) {
         this.parent = parent;
@@ -49,6 +50,14 @@ public class AddLocationForm {
                 this.availableClients = jFramesLocation.getClientList();
             }
         }
+    }
+
+    /**
+     * Constructeur avec voiture pré-sélectionnée pour la réservation
+     */
+    public AddLocationForm(JFrame parent, Controller controller, Car preSelectedCar) {
+        this(parent, controller);
+        this.preSelectedCar = preSelectedCar;
     }
 
     public void showForm() {
@@ -67,14 +76,44 @@ public class AddLocationForm {
         if (availableCars != null) {
             // Afficher un message de débogage
             System.out.println("Nombre de voitures disponibles: " + availableCars.size());
+            int availableCount = 0;
             for (Car car : availableCars) {
                 // Afficher les informations de chaque voiture
                 System.out.println("Voiture: " + car.getIdCar() + " - " + car.getBrand() + " " + car.getModel() + " - Disponible: " + car.isAvailable());
-                // Ajouter toutes les voitures sans filtre pour le débogage
-                carComboBox.addItem(new CarItem(car));
+                // Ajouter seulement les voitures disponibles
+                if (car.isAvailable()) {
+                    carComboBox.addItem(new CarItem(car));
+                    availableCount++;
+                }
+            }
+            
+            // Vérifier s'il y a des voitures disponibles
+            if (availableCount == 0) {
+                JOptionPane.showMessageDialog(parent, 
+                    "Aucune voiture disponible pour la réservation.\n" +
+                    "Toutes les voitures sont actuellement louées.", 
+                    "Aucune voiture disponible", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
             }
         } else {
             System.out.println("Aucune voiture n'a été récupérée");
+            JOptionPane.showMessageDialog(parent, 
+                "Impossible de récupérer la liste des voitures.", 
+                "Erreur", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Pré-sélectionner la voiture si elle est fournie
+        if (preSelectedCar != null) {
+            for (int i = 0; i < carComboBox.getItemCount(); i++) {
+                CarItem item = carComboBox.getItemAt(i);
+                if (item.getCar().getIdCar().equals(preSelectedCar.getIdCar())) {
+                    carComboBox.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
         
         // Ajouter un écouteur pour mettre à jour le prix quand la voiture change
@@ -98,6 +137,22 @@ public class AddLocationForm {
             for (Client client : availableClients) {
                 clientComboBox.addItem(new ClientItem(client));
             }
+            
+            // Vérifier s'il y a des clients disponibles
+            if (clientComboBox.getItemCount() == 0) {
+                JOptionPane.showMessageDialog(parent, 
+                    "Aucun client disponible pour la réservation.\n" +
+                    "Veuillez d'abord ajouter des clients.", 
+                    "Aucun client disponible", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(parent, 
+                "Impossible de récupérer la liste des clients.", 
+                "Erreur", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         panel.add(clientLabel);
@@ -241,8 +296,35 @@ public class AddLocationForm {
     private void validateAndSave() {
         result = createReservationFromForm();
         if (result != null) {
-            // Si la réservation a été créée avec succès, on ferme le formulaire
-            dialog.dispose();
+            try {
+                // Sauvegarder la réservation via le controller
+                if (controller != null) {
+                    controller.addReservation(result);
+                    
+                    // Mettre à jour le statut de la voiture (disponible -> indisponible)
+                    Car selectedCar = ((CarItem)carComboBox.getSelectedItem()).getCar();
+                    selectedCar.setAvailable(false);
+                    controller.updateCar(selectedCar);
+                    
+                    // Mettre à jour toutes les tables
+                    controller.updateAllTables();
+                    
+                    JOptionPane.showMessageDialog(parent, 
+                        "Réservation créée avec succès !\n" +
+                        "Véhicule: " + selectedCar.getBrand() + " " + selectedCar.getModel() + "\n" +
+                        "Prix total: " + result.getPrice() + " €", 
+                        "Réservation confirmée", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                }
+                
+                // Si la réservation a été créée avec succès, on ferme le formulaire
+                dialog.dispose();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(parent, 
+                    "Erreur lors de la sauvegarde de la réservation: " + e.getMessage(), 
+                    "Erreur", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

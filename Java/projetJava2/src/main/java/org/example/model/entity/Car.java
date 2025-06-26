@@ -194,7 +194,7 @@ public class Car implements Serializable {
 
     @Override
     public String toString() {
-        return STR."Car{idCar='\{idCar}', brand='\{brand}', model='\{model}', year=\{year}, priceday=\{priceday}, mileage=\{mileage}, fuelType='\{fuelType}', transmission='\{transmission}', seats=\{seats}, available=\{available}, image='\{image}'}";
+        return "Car{idCar='" + idCar + "', brand='" + brand + "', model='" + model + "', year=" + year + ", priceday=" + priceday + ", mileage=" + mileage + ", fuelType='" + fuelType + "', transmission='" + transmission + "', seats=" + seats + ", available=" + available + ", image='" + image + "'}";
     }
     @Override
     public boolean equals(Object o) {

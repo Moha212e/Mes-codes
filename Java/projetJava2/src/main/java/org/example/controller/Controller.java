@@ -33,7 +33,7 @@ public final class Controller implements ActionListener {
         this.model = model;
         this.view = view;
         this.view.setController(this); // tout ce que la vue doit faire avec le controller par moi (this)
-        String propertiesFilePath = "C:/Users/pasch/Documents/Mes-codes/Java/projetJava/LocaDrive/data/users.properties";
+        String propertiesFilePath = "data/users.properties";
         this.loginManager = new PropertiesLogin(propertiesFilePath); // Utiliser PropertiesLogin comme gestionnaire de connexion
 
         // L'interface est verrouillée au démarrage
@@ -714,6 +714,29 @@ public final class Controller implements ActionListener {
     }
 
     /**
+     * Vérifie si l'utilisateur est connecté
+     * @return true si l'utilisateur est connecté, false sinon
+     */
+    public boolean isUserLoggedIn() {
+        return isLoggedIn;
+    }
+
+    /**
+     * Ajoute une réservation via le controller
+     * @param reservation La réservation à ajouter
+     */
+    public void addReservation(Reservation reservation) {
+        if (!isLoggedIn) {
+            view.showMessage("Veuillez vous connecter pour ajouter une réservation");
+            return;
+        }
+        if (reservation != null) {
+            model.addReservation(reservation);
+            updateAllTables();
+        }
+    }
+
+    /**
      * Gère la recherche dans les tableaux
      */
     private void handleSearch() {
@@ -764,9 +787,9 @@ public final class Controller implements ActionListener {
             // Vérifier si la voiture correspond à la recherche
             if (car.getBrand().toLowerCase().contains(query) ||
                 car.getModel().toLowerCase().contains(query) ||
-                car.getRegistration().toLowerCase().contains(query) ||
+                car.getIdCar().toLowerCase().contains(query) ||
                 String.valueOf(car.getYear()).contains(query) ||
-                String.valueOf(car.getPrice()).contains(query)) {
+                String.valueOf(car.getPriceday()).contains(query)) {
                 filteredCars.add(car);
             }
         }
@@ -785,10 +808,10 @@ public final class Controller implements ActionListener {
         
         for (Client client : allClients) {
             // Vérifier si le client correspond à la recherche
-            if (client.getFirstName().toLowerCase().contains(query) ||
-                client.getLastName().toLowerCase().contains(query) ||
+            if (client.getName().toLowerCase().contains(query) ||
+                client.getSurname().toLowerCase().contains(query) ||
                 client.getEmail().toLowerCase().contains(query) ||
-                client.getPhone().toLowerCase().contains(query) ||
+                client.getPhoneNumber().toLowerCase().contains(query) ||
                 client.getAddress().toLowerCase().contains(query)) {
                 filteredClients.add(client);
             }
@@ -808,7 +831,7 @@ public final class Controller implements ActionListener {
         
         for (Reservation reservation : allReservations) {
             // Vérifier si la réservation correspond à la recherche
-            if (String.valueOf(reservation.getId()).contains(query) ||
+            if (String.valueOf(reservation.getIdReservation()).contains(query) ||
                 DateFormatter.format(reservation.getStartDate()).toLowerCase().contains(query) ||
                 DateFormatter.format(reservation.getEndDate()).toLowerCase().contains(query) ||
                 String.valueOf(reservation.getClientId()).contains(query) ||
@@ -831,15 +854,22 @@ public final class Controller implements ActionListener {
         
         for (Contrat contrat : allContrats) {
             // Vérifier si le contrat correspond à la recherche
-            if (String.valueOf(contrat.getId()).contains(query) ||
+            if (String.valueOf(contrat.getIdContrat()).contains(query) ||
                 String.valueOf(contrat.getReservationId()).contains(query) ||
-                DateFormatter.format(contrat.getSignatureDate()).toLowerCase().contains(query) ||
-                String.valueOf(contrat.()).contains(query)) {
+                String.valueOf(contrat.getStatutContrat()).contains(query)) {
                 filteredContrats.add(contrat);
             }
         }
         
         // Mettre à jour le tableau des contrats dans la vue
         view.displayContrats(filteredContrats);
+    }
+
+    /**
+     * Retourne le modèle de données
+     * @return Le modèle de données
+     */
+    public DataAccessLayer getModel() {
+        return model;
     }
 }

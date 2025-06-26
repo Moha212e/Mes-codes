@@ -146,6 +146,6 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return STR."Client{idClient=\{idClient}, name='\{name}', surname='\{surname}', email='\{email}', birthDate=\{birthDate}, phoneNumber='\{phoneNumber}', address='\{address}'}";
+        return "Client{idClient=" + idClient + ", name='" + name + "', surname='" + surname + "', email='" + email + "', birthDate=" + birthDate + ", phoneNumber='" + phoneNumber + "', address='" + address + "'}";
     }
 }

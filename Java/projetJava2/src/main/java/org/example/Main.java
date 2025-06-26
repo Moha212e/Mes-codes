@@ -20,7 +20,7 @@ public class Main {
 
 
         } catch (Exception ex) {
-            System.err.println(STR."Erreur lors de l'initialisation de FlatLaf: \{ex}");
+            System.err.println("Erreur lors de l'initialisation de FlatLaf: " + ex);
         }
         
         // Créer le modèle (DAOLocation implémente DataAccessLayer)
