@@ -580,17 +580,15 @@ void handlerSIGUSR2(int sig)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void copieChaine(const char* aCopier, char* endroitCopie)
 {
-        if (strlen(aCopier) <= sizeof(endroitCopie) - 1) 
-        { 
-            strcpy(endroitCopie, aCopier);
-        } 
-
-        else 
-        {
-            fprintf(stderr, "Erreur :dépasse la taille maximale (caractères autorisés).\n");
-            w->dialogueErreur("ERREUR", "TROP LONG");
-            exit(1);
-        }
+    // On copie au maximum 19 caractères et on termine par \0
+    strncpy(endroitCopie, aCopier, 19);
+    endroitCopie[19] = '\0';
+    if (strlen(aCopier) > 19) 
+    {
+        fprintf(stderr, "Erreur : chaîne trop longue (max 19 caractères).\n");
+        w->dialogueErreur("ERREUR", "Nom ou mot de passe trop long (max 19 caractères)");
+        exit(1);
+    }
 }
 
 MESSAGE constructeurRequete(int nbElem, long type, int expediteur, int typeRequete, int data1, const char* data2, const char* data3, const char* data4, float data5)

@@ -52,20 +52,23 @@ int main()
   sigemptyset(&B.sa_mask);
   sigaction(SIGCHLD,&B,NULL);
   // Creation des ressources
-  fprintf(stderr, "(SERVEUR) création de la mémoire partagée\n");
+  fprintf(stderr,"(SERVEUR) création de la mémoire partagée avec CLE=%d, taille=52, flags=IPC_CREAT|IPC_EXCL|0777\n", CLE);
   if ((idShm = shmget(CLE, 52, IPC_CREAT | IPC_EXCL | 0777)) ==-1)
   {
-  perror("(SERVEUR)Erreur de création de la mémoire partagée\n");
-  exit(1);
+    fprintf(stderr, "(SERVEUR)Erreur de création de la mémoire partagée : errno=%d (%s)\n", errno, strerror(errno));
+    perror("(SERVEUR)Erreur de création de la mémoire partagée\n");
+    exit(1);
   }
- 
+  fprintf(stderr, "(SERVEUR) idShm obtenu : %d\n", idShm);
   // Creation de la file de message
-  fprintf(stderr,"(SERVEUR %d) Creation de la file de messages\n",getpid());
+  fprintf(stderr,"(SERVEUR %d) Creation de la file de messages avec CLE=%d\n",getpid(),CLE);
   if ((idQ = msgget(CLE,IPC_CREAT | IPC_EXCL | 0600)) == -1)  // CLE definie dans protocole.h
   {
+    fprintf(stderr, "(SERVEUR) Erreur de msgget : errno=%d (%s)\n", errno, strerror(errno));
     perror("(SERVEUR) Erreur de msgget");
     exit(1);
   }
+  fprintf(stderr, "(SERVEUR) idQ obtenu : %d\n", idQ);
 
   // TO BE CONTINUED
 
@@ -107,9 +110,12 @@ int main()
 
   while(1)
   {
-    fprintf(stderr,"(SERVEUR %d) Attente d'une requete...\n",getpid());
-    if (msgrcv(idQ,&m,sizeof(MESSAGE)-sizeof(long),1,0) == -1)
+    fprintf(stderr,"(SERVEUR %d) Attente d'une requete... (idQ=%d)\n",getpid(), idQ);
+    ssize_t msgrcv_ret = msgrcv(idQ,&m,sizeof(MESSAGE)-sizeof(long),1,0);
+    fprintf(stderr, "(SERVEUR) msgrcv retourne %ld\n", (long)msgrcv_ret);
+    if (msgrcv_ret == -1)
     {
+      fprintf(stderr, "(SERVEUR) Erreur de msgrcv : errno=%d (%s)\n", errno, strerror(errno));
       if (errno == EINTR){
             continue;  // Réessaye si l'appel a été interrompu
       }
@@ -208,19 +214,22 @@ int main()
 
 void handlerSIGINT(int sig)
 {
-  fprintf(stderr,"\nSuppression de la file de message (%d)\n", idQ);
+  fprintf(stderr,"\n(SERVEUR) handlerSIGINT reçu (sig=%d)\n", sig);
+  fprintf(stderr,"Suppression de la file de message (%d)\n", idQ);
 
   kill(tab->pidPublicite, SIGINT);
   if (msgctl(idQ,IPC_RMID,NULL) ==-1)
   {
+   fprintf(stderr, "(SERVEUR)Erreur de msgctl(2), File de message non supprimé : errno=%d (%s)\n", errno, strerror(errno));
    perror("(SERVEUR)Erreur de msgctl(2), File de message non supprimé\n");
    exit(1);
   }
   
-  fprintf(stderr, "Supression de la mémoire partagée\n");
+  fprintf(stderr, "Supression de la mémoire partagée (idShm=%d)\n", idShm);
 
   if (shmctl(idShm, IPC_RMID, NULL) == -1)
   {
+    fprintf(stderr, "(SERVEUR)Erreur de suppresion de la mémoire partagée : errno=%d (%s)\n", errno, strerror(errno));
     perror("(SERVEUR)Erreur de suppresion de la mémoire partagée\n");
     exit(1);
   }
@@ -228,12 +237,14 @@ void handlerSIGINT(int sig)
   // Fermeture du pipe
   if (close(fdPipe[0]) ==-1)
   {
+    fprintf(stderr, "Erreur fermeture sortie du pipe : errno=%d (%s)\n", errno, strerror(errno));
     perror("Erreur fermeture sortie du pipe");
     exit(1);
   } 
 
   if (close(fdPipe[1]) ==-1)
   {
+    fprintf(stderr, "Erreur fermeture entree du pipe : errno=%d (%s)\n", errno, strerror(errno));
     perror("Erreur fermeture entree du pipe");
     exit(1);
   }
@@ -246,7 +257,7 @@ void handlerSIGCHLD(int sig)
   id = wait(&status);
   printf("\n(PERE) Suppression du fils %d de la table des processus\n",id);
   if (WIFEXITED(status))
-  printf("(PERE) Le fils %d s’est termine par un exit(%d)\n",id,WEXITSTATUS(status));
+  printf("(PERE) Le fils %d s'est termine par un exit(%d)\n",id,WEXITSTATUS(status));
   for(int i = 0; i < 6; i++)
   {
     if(tab->connexions[i].pidCaddie == id)
@@ -414,23 +425,28 @@ void reponseLOGIN(MESSAGE* pReponse, int typeClient, int typeRequete, const char
 void login(MESSAGE *pM, MESSAGE *pReponse)
 {
   if(pM->data1 == 1){
-    if(estPresent(pM->data2))
+    int present = estPresent(pM->data2);
+    if(present > 0)
     {
       reponseLOGIN(pReponse, 0, LOGIN, "---Client deja existant !---");
       utilisationTableConnexions(pM, pReponse);
     }
-    else
+    else if(present == 0)
     { 
       ajouteClient(pM->data2, pM->data3);
       reponseLOGIN(pReponse, 1, LOGIN, "---Nouvel client cree: bienvenue !---");
       utilisationTableConnexions(pM, pReponse);
-
+    }
+    else // present == -1 (erreur d'ouverture)
+    {
+      reponseLOGIN(pReponse, 0, LOGIN, "---Erreur d'accès au fichier client---");
+      utilisationTableConnexions(pM, pReponse);
     }
   }
   else
   {
     int position = estPresent(pM->data2);
-    if(position)
+    if(position > 0)
     {
       if(verifieMotDePasse(position, pM->data3))
       {
@@ -446,11 +462,16 @@ void login(MESSAGE *pM, MESSAGE *pReponse)
       }
         
     }
-    else
+    else if(position == 0)
     {
       reponseLOGIN(pReponse, 0, LOGIN, "---Utilisateur inconnu---");
       utilisationTableConnexions(pM, pReponse);
 
+    }
+    else // position == -1
+    {
+      reponseLOGIN(pReponse, 0, LOGIN, "---Erreur d'accès au fichier client---");
+      utilisationTableConnexions(pM, pReponse);
     }
       
   }
@@ -461,12 +482,14 @@ void login(MESSAGE *pM, MESSAGE *pReponse)
 //fonction qui gere l'envoi de toute les requetes
 void envoiRequete(MESSAGE* pReponse)
 {
-  
+  fprintf(stderr, "(SERVEUR) envoiRequete : requete=%d, type=%d, expediteur=%d\n", pReponse->requete, pReponse->type, pReponse->expediteur);
   if (msgsnd(idQ, pReponse, sizeof(MESSAGE) - sizeof(long), 0) == -1) 
   {
+    fprintf(stderr, "(SERVEUR)Erreur envoi reponse : errno=%d (%s)\n", errno, strerror(errno));
     perror("(SERVEUR)Erreur envoi reponse\n");
     exit(1);
   }
+  fprintf(stderr, "(SERVEUR) envoiRequete : message envoyé avec succès.\n");
 }
 
 //fonction qui gere l'envoi d'un signal a un processus

@@ -10,8 +10,10 @@ int estPresent(const char* nom)
 {
   int fd = open(FICHIER_CLIENT, O_RDONLY);
   if(fd == -1){
-    printf("le fichier n'existe pas a l'ouverture\n");
-    return -1; //le fichier n'existe pas a l'ouverture
+    // Si le fichier n'existe pas, on le crée vide
+    fd = open(FICHIER_CLIENT, O_WRONLY | O_CREAT, 0644);
+    if (fd != -1) close(fd);
+    return 0; // Considérer que l'utilisateur n'existe pas
   }
 
   CLIENT user;
@@ -22,14 +24,12 @@ int estPresent(const char* nom)
         close(fd);
         printf("Utilisateur trouvé, retourne la position (1, 2, 3, ...).\n");
         return position; // Utilisateur trouvé, retourne la position (1, 2, 3, ...).
-
     }
     position++;
   }
 
   close(fd);
   return 0; // Utilisateur non trouvé.
-  
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
